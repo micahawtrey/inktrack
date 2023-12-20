@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Consent Form</title>
+<script type="module" src="{% static 'js/documents.js' %}"></script>
+{% endblock head %}
+
+{% block main %}
+<main>
+    <div>
+        <form method="POST" name="inputForm" enctype='multipart/form-data'>
+            <div id="camera" class="camera">
+                <video id="video">Video stream not available.</video>
+                <button id="startbutton" type="button">Take photo</button>
+                <input id="webimg" value="" name="src" type="text" style="display: none;">
+                <canvas id="canvas">
+                </canvas>
+            </div>
+            <br>
+            <div>
+                <img id="photo" alt="your image">
+            </div>
+        </form>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_div }}
+            <button>Create</button>
+        </form>
+    </div>
+</main>
+{% endblock main %}
