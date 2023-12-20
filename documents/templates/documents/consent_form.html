@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head %}
 <title>Consent Form</title>
@@ -8,19 +9,33 @@
 {% block main %}
 <main>
     <div>
-        <form method="POST" name="inputForm" enctype='multipart/form-data'>
-            <div id="camera" class="camera">
-                <video id="video">Video stream not available.</video>
-                <button id="startbutton" type="button">Take photo</button>
+            <div>
+                <button id="frontId" type="button">Front of ID</button>
+            </div>
+            <div id="frontcamera" class="camera" style="display: none">
+                <video id="frontvideo">Video stream not available.</video>
+                <button id="frontbutton" type="button">Take photo</button>
                 <input id="webimg" value="" name="src" type="text" style="display: none;">
-                <canvas id="canvas">
+                <canvas id="canvas" hidden>
                 </canvas>
             </div>
             <br>
             <div>
-                <img id="photo" alt="your image">
+                <img id="frontphoto" alt="your image" style="display: none">
             </div>
-        </form>
+            <div>
+                <button id="backId" type="button">Back of ID</button>
+            </div>
+            <div id="backcamera" class="camera" style="display: none">
+                <video id="backvideo">Video stream not available.</video>
+                <button id="backbutton" type="button">Take photo</button>
+                <input id="webimg" value="" name="src" type="text" style="display: none;">
+                </canvas>
+            </div>
+            <br>
+            <div>
+                <img id="backphoto" alt="your image" style="display: none">
+            </div>
         <br>
         <form method="post">
             {% csrf_token %}
