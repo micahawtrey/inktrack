@@ -1,18 +1,21 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load widget_tweaks %}
 
 {% block head %}
 <title>Consent Form</title>
 <script type="module" src="{% static 'js/documents.js' %}"></script>
 <script src="{% static 'js/jQuery.js' %}"></script>
 <script src="{% static 'js/jSignature.min.js' %}"></script>
-
+<link rel="stylesheet" href="{% static "css/documents.css" %}">
+{{form.media}}
 {% endblock head %}
 
 {% block main %}
 <main>
-    <div>
+    <div class="form-div">
+        <form method="post">
+            {% csrf_token %}
             <div>
                 <button id="frontId" type="button">Front of ID</button>
             </div>
@@ -25,7 +28,7 @@
             </div>
             <br>
             <div>
-                <input id="frontphoto" alt="your image" style="display: none">
+                <input id="frontphoto" alt="your image" style="display: none" type='image'>
             </div>
             <div>
                 <button id="backId" type="button">Back of ID</button>
@@ -38,28 +41,198 @@
             </div>
             <br>
             <div>
-                <input id="backphoto" alt="your image" style="display: none">
+                <input id="backphoto" alt="your image" style="display: none" type='image'>
+            </div>
+            <div class="form-group">
+                {% render_field form.front_id class="id_file" id="frontfile" %}
+            </div>
+            <div class="form-group">
+                {% render_field form.back_id class="id_file" id="backfile" %}
+            </div>
+            <div class="form-group">
+                {% render_field form.first_name class="form-control" placeholder="First Name" type="text" %}
+            </div>
+            <div class="form-group">
+                {% render_field form.last_name type="text" class="form-control" placeholder="Last Name" %}
+            </div>
+            <div class="form-group">
+                <div>Preferred pronouns:</div>
+                <div>
+                {% render_field form.preferred_pronouns class="radio-buttons" %}
+                </div>
+            </div>
+            <div class="form-group">
+                {% render_field form.age class="form-control" placeholder="Age" %}
+            </div>
+            <div class="form-group">
+                {% render_field form.birth_date class="form-control" %}
+            </div>
+            <div class="form-group">
+                {% render_field form.phone_number class="form-control" placeholder="(000)-000-0000" %}
+            </div>
+            <div class="form-group">
+                {% render_field form.email class="form-control" placeholder="example@email.com" %}
+            </div>
+            <h3>Address</h3>
+            <div class="form-group">
+                {% render_field form.address_line_1 class="form-control" %}
+            </div>
+            <div class="form-group">
+                {% render_field form.address_line_2 class="form-control" %}
+            </div>
+            <div class="form-group">
+                {% render_field form.city class="form-control" %}
+            </div>
+            <div class="form-group">
+                {% render_field form.state_province class="form-control" %}
+            </div>
+            <div class="form-group">
+                {% render_field form.postal_zip_code class="form-control" %}
+            </div>
+            <div class="form-group">
+                <p>Brief Description of the tattoo:</p>
+                {% render_field form.tattoo_description class="form-control" %}
+            </div>
+            <div class="form-group">
+                <p>Placement of tattoo:</p>
+                {% render_field form.tattoo_placement class="form-control" %}
+            </div>
+            <div class="form-group">
+                <p>How did you hear about us?:</p>
+                {% render_field form.connection class="form-control" %}
+            </div>
+            <h2>Pre-Prodecure Questionnaire</h2>
+            <div class="form-group">
+                <p>Are you under the influence of drugs or alcohol?</p>
+                {% render_field form.under_influence class="radio-buttons" %}
+            </div>
+            <div class="form-group">
+                <p>FEMALE ONLY: Are you pregnant or nursing?</p>
+                {% render_field form.pregnant_or_nursing class="radio-buttons" %}
+            </div>
+            <div class="form-group">
+                <p>Do you have a communicable disease?</p>
+                {% render_field form.communicable_disease class="radio-buttons" %}
+            </div>
+            <div class="form-group">
+                <p>Do you have any skin conditions?</p>
+                {% render_field form.skin_conditions class="radio-buttons" %}
+            </div>
+            <div class="form-group">
+                <p>Please tell about your medical history (e.g. Are you on blood thinners?, Diabetes, Cardiovascular Disease, Epilepsy, Blood-related disease, Hemophilia ,immune compromised, etc.)</p>
+                {% render_field form.medical_history class="form-control" %}
             </div>
 
-            <div id="signature"></div>
-            <script>
-                $(document).ready(function() {
-                    $("#signature").jSignature()
-                })
-            </script>
 
-        <br>
-        <form method="post">
-            {{ form.media }}
-            {% csrf_token %}
-            {{ form.as_div }}
-            <button>Create</button>
+            <h2>Acknowledgment and Waiver</h2>
+            <h3>Please check the box and initial under each statement.</h3>
+            <span class="form-group">
+                <div class="form-waiver">
+                    {% render_field form.permanent class="form-checkbox" id="input_permanent" %}
+                    <p>I understand that this procedure is a permanent change to my skin and body.</p>
+                </div>
+            </span>
+            <div class="form-group">
+                {% render_field form.permanent_init %}
+            </div>
+
+            <span class="form-group">
+                <div class="form-waiver">
+                    {% render_field form.social_media_perm class="form-checkbox" id="input_social_media_perm" %}
+                    <p>I allow my tattoo to be photographed and be used for Mad Ink by Stripes portfolio. Pictures may be posted on Facebook, instagram, and studio website.</p>
+                </div>
+            </span>
+            <div class="form-group">
+                {{ form.social_media_perm_init }}
+            </div>
+
+            <span class="form-group">
+                <div class="form-waiver">
+                    {% render_field form.refund class="form-checkbox" id="input_refund" %}
+                    <p>I acknowledge that Mad Ink by Stripes does not offer refunds or free touch ups after 3 months. Hands, fingers, feet, and micro tattoos do not get free touch ups at any time.</p>
+                </div>
+            </span>
+            <div class="form-group">
+                {{ form.refund_init }}
+            </div>
+
+            <span class="form-group">
+                <div class="form-waiver">
+                    {% render_field form.allergen_disclosure class="form-checkbox" id="input_allergen_disclosure" %}
+                    <p>I agree that the studio does not have a way of identifying if I am allergic to the elements or ingredients that will be used for my tattoo. If I am allergic to anything I will let my artist know. That includes pigment, dyes, soaps, disinfectant ,latex, metal, and food allergies.</p>
+                </div>
+            </span>
+            <div class="form-group">Initial:</div>
+            <div class="form-group">
+                <div>{{ form.allergen_disclosure_init }}</div>
+            </div>
+
+            <span class="form-group">
+                <div class="form-waiver">
+                    {% render_field form.aftercare class="form-checkbox" id="input_aftercare" %}
+                    <p>I understand that I need to take care of the tattoo by following the written and verbal aftercare provided.</p>
+                </div>
+            </span>
+            <div class="form-group">
+                {{ form.aftercare_init }}
+            </div>
+
+            <span class="form-group">
+                <div class="form-waiver">
+                    {% render_field form.infection class="form-checkbox" id="input_infection" %}
+                    <p>I understand that I might get an infection if I don't follow the instructions given to me in regards of taking care of my tattoo. If I have had issues healing before, I will tell my artist before the session.</p>
+                </div>
+            </span>
+            <div class="form-group">
+                {{ form.infection_init }}
+            </div>
+
+            <span class="form-group">
+                <div class="form-waiver">
+                    {% render_field form.compensation class="form-checkbox" id="input_compensation" %}
+                    <p>I agree to compensate Mad Ink by Stripes for the services provided today by paying the agreed upon price for the session.</p>
+                </div>
+            </span>
+            <div class="form-group">
+                {{ form.compensation_init }}
+            </div>
+
+            <span class="form-group">
+                <div class="form-waiver">
+                    {% render_field form.allergen_risk class="form-checkbox" id="input_allergen_risk" %}
+                    <p>I acknowledge it is not reasonably possible for an employee of Mad Ink by Stripes to determine whether I have an allergic reaction to the pigments or processes used in my tattoo and I agreed to accept the risk that such a reaction is possible. I will search medical attention if needed.</p>
+                </div>
+            </span>
+            <div class="form-group">
+                {{ form.allergen_risk_init }}
+            </div>
+
+            <span class="form-group">
+                <div class="form-waiver">
+                    {% render_field form.accurate_info class="form-checkbox" id="input_accurate_info" %}
+                    <p>I confirm that the information I provided in this document is accurate and true.</p>
+                </div>
+            </span>
+            <div class="form-group">
+                {{ form.accurate_info_init }}
+            </div>
+
+            <span class="form-group">
+                <div class="form-waiver">
+                    {% render_field form.not_minor class="form-checkbox" id="input_not_minor" %}
+                    <p>I confirm that I am 18 years or older.</p>
+                </div>
+            </span>
+            <div class="form-group">
+                {{ form.not_minor_init }}
+            </div>
+
+            <h3>Signed Date</h3>
+            {% render_field form.signed_date class="form-group" %}
+            <h3>Client Signature</h3>
+            {% render_field form.signature %}
+            <button>Submit</button>
         </form>
-        {% comment %} <form method="post">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <button>Create</button>
-        </form> {% endcomment %}
     </div>
 </main>
 {% endblock main %}

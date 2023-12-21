@@ -1,0 +1,51 @@
+main {
+    display: flex;
+    justify-content: center;
+    font-size: larger;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.form-div {
+    display: flex;
+    max-width: 752px;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    padding: 38px;
+    background-color: #dddcdcc5;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.form-group {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding: 12px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    border-radius: 3px;
+    position: relative;
+    width: 100%;
+    text-align: left;
+    position: relative;
+}
+
+.form-control {
+    width: 100%;
+    height: 30px;
+
+}
+
+.jsignature {
+    background-color: aliceblue;
+    border: 1px black;
+    border-radius: 3%;
+
+}

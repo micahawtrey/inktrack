@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "sslserver",
     'jsignature',
+    'widget_tweaks',
     'documents.apps.DocumentsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
