@@ -36,7 +36,6 @@
       frontIdbutton = document.getElementById('frontId');
       backcamera = document.getElementById('backcamera');
       backIdbutton = document.getElementById('backId');
-      backIdretake = document.getElementById('backIdretake');
       backphoto = document.getElementById('backphoto');
       backbutton = document.getElementById('backbutton');
 
