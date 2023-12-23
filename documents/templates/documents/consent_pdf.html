@@ -1,12 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
-{% load widget_tweaks %}
+
 
 {% block head %}
-<title>Consent Form</title>
-<script type="module" src="{% static 'js/documents.js' %}"></script>
-<script src="{% static 'js/jQuery.js' %}"></script>
-<script src="{% static 'js/jSignature.min.js' %}"></script>
+<title>Consent Form | PDF</title>
 <link rel="stylesheet" href="{% static "css/documents.css" %}">
 {{form.media}}
 {% endblock head %}
@@ -14,44 +11,15 @@
 {% block main %}
 <main>
     <div class="form-div">
-        <form method='POST' enctype="multipart/form-data">
-            {% csrf_token %}
             <div class="form-group">
-                <div>
-                    <button id="frontId" type="button">Front of ID</button>
-                </div>
-                <div id="frontcamera" class="camera" style="display: none">
-                    <video id="frontvideo">Video stream not available.</video>
-                    <button id="frontbutton" type="button">Take photo</button>
-                    <input id="webimg" value="" name="src" type="text" style="display: none;">
-                    <canvas id="canvas" hidden>
-                    </canvas>
-                </div>
-            </div>
-            <br>
-            <div class="form-group">
-                <div>
-                    <input id="frontphoto" alt="your image" style="display: none" type='image'>
-                </div>
-                <div>
-                    <button id="backId" type="button">Back of ID</button>
-                </div>
-                <div id="backcamera" class="camera" style="display: none">
-                    <video id="backvideo">Video stream not available.</video>
-                    <button id="backbutton" type="button">Take photo</button>
-                    <input id="webimg" value="" name="src" type="text" style="display: none;">
-                </div>
-            </div>
-            <br>
-            <div>
-                <input id="backphoto" alt="your image" style="display: none" type='image'>
+                {{ form.front_id }}
             </div>
 
-            <div class="form-group">
-                {% render_field form.front_id class="id_file" id="frontfile" %}
-            </div>
 
             <div class="form-group">
+                {{ form.first_name }} {{ form.last_name }}
+            </div>
+            {% comment %} <div class="form-group">
                 {% render_field form.back_id class="id_file" id="backfile" %}
             </div>
 
@@ -282,9 +250,8 @@
                     {% render_field form.signature %}
                 </div>
             </div>
-            <div class="submit-button"><button>Submit</button></div>
+            <div class="submit-button"><button>Submit</button></div> {% endcomment %}
 
-        </form>
     </div>
 </main>
 {% endblock main %}

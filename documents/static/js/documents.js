@@ -179,7 +179,7 @@
 
         var blob = dataURItoBlob(data)
 
-        var file = new File([blob], 'captured_image.png', {type: 'image/png' });
+        var file = new File([blob], `${photo}_image.png`, {type: 'image/png' });
         var dataTransfer = new DataTransfer();
         dataTransfer.items.add(file);
         fileInput.files = dataTransfer.files;
