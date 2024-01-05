@@ -32,11 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "sslserver",
-    'jsignature',
-    'widget_tweaks',
-    'localflavor',
-    'phonenumber_field',
     'documents.apps.DocumentsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "sslserver",
+    'jsignature',
+    'widget_tweaks',
+    'localflavor',
+    'phonenumber_field',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
