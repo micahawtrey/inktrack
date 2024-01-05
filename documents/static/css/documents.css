@@ -11,6 +11,13 @@ form {
     justify-content: flex-start;
 }
 
+.pdfform {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
 .form-div {
     display: flex;
     max-width: 752px;
@@ -44,14 +51,14 @@ form {
 }
 
 .signature-div {
-    margin-top: 12px;
+    /* margin-top: 12px; */
     margin-bottom: 12px;
     padding: 12px 10px;
     display: flex;
     flex-wrap: wrap;
     border-radius: 3px;
     position: relative;
-    width: 100%;
+    width: 350px;
     text-align: left;
     position: relative;
     background-color: white;
@@ -99,4 +106,12 @@ form {
     width: 48%;
     height: 30px;
 
+}
+
+.required {
+    color: red;
+}
+
+label {
+    margin-bottom: 2px;
 }

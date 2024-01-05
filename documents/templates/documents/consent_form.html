@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load widget_tweaks %}
+{% load jsignature_filters %}
 
 {% block head %}
 <title>Consent Form</title>
@@ -18,7 +19,7 @@
             {% csrf_token %}
             <div class="form-group">
                 <div>
-                    <button id="frontId" type="button">Front of ID</button>
+                    <button id="frontId" type="button">Front of ID</button><span class='required'>*</span>
                 </div>
                 <div id="frontcamera" class="camera" style="display: none">
                     <video id="frontvideo">Video stream not available.</video>
@@ -34,7 +35,7 @@
                     <input id="frontphoto" alt="your image" style="display: none" type='image'>
                 </div>
                 <div>
-                    <button id="backId" type="button">Back of ID</button>
+                    <button id="backId" type="button">Back of ID</button><span class='required'>*</span>
                 </div>
                 <div id="backcamera" class="camera" style="display: none">
                     <video id="backvideo">Video stream not available.</video>
@@ -48,49 +49,54 @@
             </div>
 
             <div class="form-group">
+                <span class='required'>*</span>
                 {% render_field form.front_id class="id_file" id="frontfile" %}
             </div>
 
             <div class="form-group">
+                <span class='required'>*</span>
                 {% render_field form.back_id class="id_file" id="backfile" %}
             </div>
 
             <div class="form-group">
-                <label>Name:</label>
-            </div>
+                <label for='id_first_name'>Name:<span class='required'>*</span></label>
+
             <div class="div-name">
-            {% render_field form.first_name class="name" placeholder="First Name" type="text" %}
-            {% render_field form.last_name type="text" class="name" placeholder="Last Name" %}
+                {% render_field form.first_name class="name" placeholder="First Name" type="text" %}
+                {% render_field form.last_name type="text" class="name" placeholder="Last Name" %}
+            </div>
             </div>
 
             <div class="form-group">
-                <label>Preferred pronouns:</label>
+                <label>Preferred pronouns:<span class='required'>*</span></label>
             </div>
             <div>
                 {% render_field form.preferred_pronouns class="radio-buttons" %}
             </div>
 
             <div class="form-group">
-                <p>Age:</p>
+                <label for='id_age'>Age:<span class='required'>*</span></label>
                 {% render_field form.age class="form-control" placeholder="Age" %}
             </div>
 
             <div class="form-group">
-                <p>Date of birth:</p>
+                <label for='id_birth_date'>Date of birth:<span class='required'>*</span></label>
                 {% render_field form.birth_date class="form-control" %}
             </div>
 
             <div class="form-group">
-                <p>Phone number:</p>
-                {% render_field form.phone_number class="form-control" placeholder="(000)-000-0000" %}
+                <p>Phone number:<span class='required'>*</span></p>
+
+                {% render_field form.phone_number id="phone_number" class="form-control" placeholder="(000)-000-0000" %}
             </div>
 
             <div class="form-group">
-                <p>Email address:</p>
+                <p>Email address:<span class='required'>*</span></p>
                 {% render_field form.email class="form-control" placeholder="example@email.com" %}
             </div>
 
-            <h3>Address</h3>
+            <h3>Address<span class='required'>*</span></h3>
+
             <div class="form-group">
                 <div class="form-group">
                     {% render_field form.address_line_1 class="form-control" placeholder="Address Line 1" %}
@@ -107,22 +113,22 @@
                 </div>
             </div>
             <div class="form-group">
-                <p>Brief Description of the tattoo:</p>
+                <p>Brief Description of the tattoo:<span class='required'>*</span></p>
                 {% render_field form.tattoo_description class="form-control" %}
             </div>
             <div class="form-group">
-                <p>Placement of tattoo:</p>
+                <p>Placement of tattoo:<span class='required'>*</span></p>
                 {% render_field form.tattoo_placement class="form-control" %}
             </div>
             <div class="form-group">
-                <p>How did you hear about us?:</p>
+                <p>How did you hear about us?:<span class='required'>*</span></p>
                 {% render_field form.connection class="form-control" %}
             </div>
 
             <h2>Pre-Prodecure Questionnaire</h2>
 
             <div class="form-group">
-                <label>Are you under the influence of drugs or alcohol?</label>
+                <label>Are you under the influence of drugs or alcohol?<span class='required'>*</span></label>
             </div>
             <div class="radio-buttons">
                 {% render_field form.under_influence class="radio-buttons" %}
@@ -137,14 +143,14 @@
 
 
             <div class="form-group">
-                <label>Do you have a communicable disease?</label>
+                <label>Do you have a communicable disease?<span class='required'>*</span></label>
             </div>
             <div class="radio-buttons">
                 {% render_field form.communicable_disease class="radio-buttons" %}
             </div>
 
             <div class="form-group">
-                <label>Do you have any skin conditions?</label>
+                <label>Do you have any skin conditions?<span class='required'>*</span></label>
             </div>
             <div class="radio-buttons">
                 {% render_field form.skin_conditions class="radio-buttons" %}
@@ -165,7 +171,7 @@
                     <label for="input_permanent">I understand that this procedure is a permanent change to my skin and body.</label>
                 </div>
             </span>
-            <div class="form-group">Initial:</div>
+            <div class="form-group">Initial:<span class='required'>*</span></div>
             <div class="init-div">
                 {% render_field form.permanent_init %}
             </div>
@@ -176,7 +182,7 @@
                     <label for="input_social_media_perm">I allow my tattoo to be photographed and be used for Mad Ink by Stripes portfolio. Pictures may be posted on Facebook, instagram, and studio website.</label>
                 </div>
             </span>
-            <div class="form-group">Initial:</div>
+            <div class="form-group">Initial:<span class='required'>*</span></div>
             <div class="init-div">
                 {{ form.social_media_perm_init }}
             </div>
@@ -187,7 +193,7 @@
                     <label for="input_refund">I acknowledge that Mad Ink by Stripes does not offer refunds or free touch ups after 3 months. Hands, fingers, feet, and micro tattoos do not get free touch ups at any time.</label>
                 </div>
             </span>
-            <div class="form-group">Initial:</div>
+            <div class="form-group">Initial:<span class='required'>*</span></div>
             <div class="init-div">
                 {{ form.refund_init }}
             </div>
@@ -198,9 +204,9 @@
                     <label for="input_allergen_disclosure">I agree that the studio does not have a way of identifying if I am allergic to the elements or ingredients that will be used for my tattoo. If I am allergic to anything I will let my artist know. That includes pigment, dyes, soaps, disinfectant ,latex, metal, and food allergies.</label>
                 </div>
             </span>
-            <div class="form-group">Initial:</div>
+            <div class="form-group">Initial:<span class='required'>*</span></div>
             <div class="init-div">
-                <div>{{ form.allergen_disclosure_init }}</div>
+                {{ form.allergen_disclosure_init }}
             </div>
 
             <span class="form-group">
@@ -209,7 +215,7 @@
                     <label for="input_aftercare">I understand that I need to take care of the tattoo by following the written and verbal aftercare provided.</label>
                 </div>
             </span>
-            <div class="form-group">Initial:</div>
+            <div class="form-group">Initial:<span class='required'>*</span></div>
             <div class="init-div">
                 {{ form.aftercare_init }}
             </div>
@@ -220,7 +226,7 @@
                     <label for="input_infection">I understand that I might get an infection if I don't follow the instructions given to me in regards of taking care of my tattoo. If I have had issues healing before, I will tell my artist before the session.</label>
                 </div>
             </span>
-            <div class="form-group">Initial:</div>
+            <div class="form-group">Initial:<span class='required'>*</span></div>
             <div class="init-div">
                 {{ form.infection_init }}
             </div>
@@ -231,7 +237,7 @@
                     <label for="input_compensation">I agree to compensate Mad Ink by Stripes for the services provided today by paying the agreed upon price for the session.</label>
                 </div>
             </span>
-            <div class="form-group">Initial:</div>
+            <div class="form-group">Initial:<span class='required'>*</span></div>
             <div class="init-div">
                 {{ form.compensation_init }}
             </div>
@@ -242,7 +248,7 @@
                     <label for="input_allergen_risk">I acknowledge it is not reasonably possible for an employee of Mad Ink by Stripes to determine whether I have an allergic reaction to the pigments or processes used in my tattoo and I agreed to accept the risk that such a reaction is possible. I will search medical attention if needed.</label>
                 </div>
             </span>
-            <div class="form-group">Initial:</div>
+            <div class="form-group">Initial:<span class='required'>*</span></div>
             <div class="init-div">
                 {{ form.allergen_risk_init }}
             </div>
@@ -253,7 +259,7 @@
                     <label for="input_accurate_info">I confirm that the information I provided in this document is accurate and true.</label>
                 </div>
             </span>
-            <div class="form-group">Initial:</div>
+            <div class="form-group">Initial:<span class='required'>*</span></div>
             <div class="init-div">
                 {{ form.accurate_info_init }}
             </div>
@@ -264,26 +270,192 @@
                     <label for="input_not_minor">I confirm that I am 18 years or older.</label>
                 </div>
             </span>
-            <div class="form-group">Initial:</div>
+            <div class="form-group">Initial:<span class='required'>*</span></div>
             <div class="init-div">
                 {{ form.not_minor_init }}
             </div>
 
             <div class="form-group">
-                <h3>Signed Date</h3>
-                <div class="form-group init-div">
+                <h3>Signed Date<span class='required'>*</span></h3>
+                <div class="form-group">
                     {% render_field form.signed_date class="date-input" %}
                 </div>
             </div>
 
             <div class="form-group">
-            <h3>Client Signature</h3>
+                <h3>Client Signature<span class='required'>*</span></h3>
+            </div>
+            <div class='form-group'>
                 <div class="signature-div">
-                    {% render_field form.signature %}
+                        {{ form.signature }}
                 </div>
             </div>
-            <div class="submit-button"><button>Submit</button></div>
 
+            <hr>
+
+            <div>
+                <h3>Please Type Name, Sign, and Date</h3>
+                <div class="form-group">
+                    <label for="full_name">
+                        By signing these forms I acknowledge that
+                        I have read and understand all pages of this consent form.
+                        I acknowledge that all information is correct. I understand that
+                        tattoos are permanent and will change my appearance forever.
+                        I ACKNOWLEDGE THAT WRITTEN AND VERBAL AFTERCARE WERE PROVIDED
+                    </label>
+                    <label for="full_name" class='form-group'>Type Full Name<span class='required'>*</span></label>
+                    {% render_field form.full_name id="full_name" class='name' placeholder='Full Name' %}
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>Signature<span class='required'>*</span></h3>
+            </div>
+            <div class="form-group">
+                <div class="signature-div">
+                    {{ form.general_sig }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>Date<span class='required'>*</span></h3>
+                <div class="form-group">
+                    {% render_field form.general_date class="date-input" %}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class='form-group'>
+                <p>
+                    <h3>Mad Ink By Stripes</h3>
+                </p>
+                <p>
+                    <h3>After Care Instructions</h3>
+                </p>
+            </div>
+            <div class='form-group'>
+                <p>
+                    <em>If you have any questions or concerns, Call or Text (719)-428-5728</em>
+                </p>
+
+                <p>
+                    Remove saniderm 12- 15 hours after tattoo procedure. Wash immediately .
+                    <br>
+                    **DO NOT LEAVE ON  LONGER THAN 24 HOURS**
+                </p>
+
+                <p>
+                    If paper towels or gauze are used to cover a larger tattoo, remove within 2 or 3 hours. Wash immediately.
+                </p>
+
+                <p>
+                    After bandage is removed, wash tattoo with warm water and gentle fragrance free soap
+                    <br>
+                    *Blue Dawn or Dial is recommended*
+                </p>
+
+                <p>
+                    Wash tattoo 2-3 times a day and keep clean
+                    <br>
+                    Gently PAT dry with a paper towel
+                    <br>
+                    Apply a thin layer of ointment after drying the tattoo
+                    <br>
+                    *Aquaphor or Bag Balm is recommended*
+                </p>
+
+                <p>
+                    If your tattoo is looking dry throughout the day, apply another THIN layer of ointment.
+                    DO NOT stay in direct sunlight or use tanning beds until the tattoo is healed. Approx 14 days.
+                    After 2 weeks, use at least SPF 25 to protect tattoo from fading.
+                </p>
+
+                <p>
+                    DO NOT soak in the bathtub, hot tub, sauna, jacuzzi, or swimming pools while your tattoo is healing. Approx. 14 days
+                </p>
+
+                <p>
+                    YOU MUST SHOWER to keep your tattoo healthy
+                </p>
+
+                <p>
+                    DO NOT scratch or pick at tattoo. It could cause color loss, scarring or infection. Ink and skin flaking off and scabbing is normal.
+                </p>
+
+                <p>
+                    Tattoos will cause redness and swelling but if you develop a fever, rash, yellow/green discharge, or constant irritation after 7 days, call your doctor immediately.</p>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <h3>Client Signature<span class='required'>*</span></h3>
+            </div>
+            <div class="form-group">
+                <div class="signature-div">
+                    {{ form.aftercare_sig }}
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <h3>Date<span class='required'>*</span></h3>
+                <div class="form-group">
+                    {% render_field form.aftercare_date class="date-input" %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>Artist Signature<span class='required'>*</span></h3>
+            </div>
+            <div class="form-group">
+                <div class="signature-div">
+                    {{ form.artist_sig }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>Date<span class='required'>*</span></h3>
+                <div class="form-group">
+                    {% render_field form.artist_date_signed class="date-input" %}
+                </div>
+            </div>
+
+            <div class='form-group'>
+                <p style='text-align: center;'>
+                    <span style='font-size: 36pt;'>
+                        STOP HERE!
+                    </span>
+                </p>
+            </div>
+
+            <div class='form-group'>
+                <h3>FOR TATTOO ARTIST ONLY</h3>
+            </div>
+
+            <div>
+                <div class="form-group">
+                    <label for="artist_name">
+                        Name of Artist or Representative
+                    </label>
+                    {% render_field form.artist_name class='name' placeholder='Artist Name' %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for='artist_date'>Signed Date</label>
+                <div class="form-group">
+                    {% render_field form.artist_date class="date-input" %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p>LOT #- EXPIRATION DATE - STERILIZATION DATE -COMPANY/BRAND</p>
+                {% render_field form.needle_info class="large-input" %}
+            </div>
+
+            <div class="submit-button"><button>Submit</button></div>
         </form>
     </div>
 </main>

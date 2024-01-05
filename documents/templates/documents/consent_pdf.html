@@ -1,257 +1,496 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load widget_tweaks %}
+{% load jsignature_filters %}
 
 {% block head %}
-<title>Consent Form | PDF</title>
+<title>Consent Form</title>
 <link rel="stylesheet" href="{% static "css/documents.css" %}">
 {{form.media}}
+<style>
+    main {
+        display: flex;
+        justify-content: center;
+        font-size: larger;
+    }
+
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .pdfform {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .form-div {
+        display: flex;
+        max-width: 752px;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        padding: 38px;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .form-group {
+        margin-top: 6px;
+        margin-bottom: 0px;
+        padding: 12px 0px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        border-radius: 3px;
+        position: relative;
+        width: 100%;
+        text-align: left;
+        position: relative;
+    }
+
+    .form-waiver {
+        margin-top: 6px;
+        margin-bottom: 12px;
+        padding: 12px 0px 15px;
+        {% comment %} display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        border-radius: 3px; {% endcomment %}
+        width: 100%;
+        text-align: left;
+        position: relative;
+    }
+
+    .initials {
+        height: 100px;
+        width: 100px;
+    }
+
+    .form-control {
+        width: 100%;
+        height: 30px;
+
+    }
+
+    .signature-div {
+        /* margin-top: 12px; */
+        margin-bottom: 12px;
+        padding: 12px 10px;
+        display: flex;
+        flex-wrap: wrap;
+        border-radius: 3px;
+        position: relative;
+        width: 300px;
+        text-align: left;
+        position: relative;
+        border: 1px solid grey;
+        border-radius: 5px;
+    }
+
+    .init-div {
+        width: 110px;
+        border: 1px solid grey;
+        border-radius: 5px;
+    }
+
+    .form-checkbox {
+        height: 20px;
+        width: 20px;
+    }
+
+    .large-input {
+        width: 100%;
+        height: 150px;
+        resize: both;
+    }
+
+    .div-name {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 6px;
+        margin-bottom: 6px;
+        padding: 12px 0px;
+    }
+
+    .name {
+        width: 48%;
+        height: 30px;
+
+    }
+
+    .required {
+        color: red;
+    }
+
+    label {
+        margin-bottom: 2px;
+    }
+
+</style>
 {% endblock head %}
 
 {% block main %}
 <main>
     <div class="form-div">
-            <div class="form-group">
-                {{ form.front_id }}
-            </div>
+        <div class="pdfform">
 
+            <h1>Client Information</h1>
 
             <div class="form-group">
-                {{ form.first_name }} {{ form.last_name }}
-            </div>
-            {% comment %} <div class="form-group">
-                {% render_field form.back_id class="id_file" id="backfile" %}
+                <p style="font-weight: bold;">Front of Id:</p>
+                <img src="{{ obj.front_id.path }}" alt="">
             </div>
 
             <div class="form-group">
-                <label>Name:</label>
-            </div>
-            <div class="div-name">
-            {% render_field form.first_name class="name" placeholder="First Name" type="text" %}
-            {% render_field form.last_name type="text" class="name" placeholder="Last Name" %}
+                <p style="font-weight: bold;">Back of Id:</p>
+                <img src="{{ obj.back_id.path }}" alt="">
             </div>
 
             <div class="form-group">
-                <label>Preferred pronouns:</label>
+                <p><span style="font-weight: bold;">Name: </span>{{obj.first_name}} {{obj.last_name}}</p>
             </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Preferred pronouns:  </span>{{obj.preferred_pronouns}}</p>
+            </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Age: </span>{{obj.age}}</p>
+            </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Date of birth: </span>{{ obj.birth_date }}</p>
+            </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Phone number: </span>{{ obj.phone_number }}</p>
+            </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Email address: </span>{{ obj.email }}</p>
+            </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Address: </span>
+                    {{ obj.address_line_1 }},
+                   {% if obj.address_line_2 %}{{obj.address_line_2}},{% endif %}
+                    {{ obj.city }},
+                    {{ obj.state_province }} {{ obj.postal_zip_code }}
+                </p>
+            </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Brief Description of the tattoo: </span>{{ obj.tattoo_description }}</p>
+            </div>
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Placement of tattoo: </span>{{ obj.tattoo_placement }}</p>
+            </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">How did you hear about us?: </span>{{ obj.connection }}</p>
+            </div>
+
             <div>
-                {% render_field form.preferred_pronouns class="radio-buttons" %}
-            </div>
-
-            <div class="form-group">
-                <p>Age:</p>
-                {% render_field form.age class="form-control" placeholder="Age" %}
-            </div>
-
-            <div class="form-group">
-                <p>Date of birth:</p>
-                {% render_field form.birth_date class="form-control" %}
-            </div>
-
-            <div class="form-group">
-                <p>Phone number:</p>
-                {% render_field form.phone_number class="form-control" placeholder="(000)-000-0000" %}
-            </div>
-
-            <div class="form-group">
-                <p>Email address:</p>
-                {% render_field form.email class="form-control" placeholder="example@email.com" %}
-            </div>
-
-            <h3>Address</h3>
-            <div class="form-group">
-                <div class="form-group">
-                    {% render_field form.address_line_1 class="form-control" placeholder="Address Line 1" %}
-                </div>
-                <div class="form-group">
-                    {% render_field form.address_line_2 class="form-control" placeholder="Address Line 2" %}
-                </div>
-                <div class="div-name">
-                    {% render_field form.city class="name" placeholder="City" %}
-                    {% render_field form.state_province class="name" placeholder="State/Province" %}
-                </div>
-                <div class="form-group">
-                    {% render_field form.postal_zip_code class="form-control" placeholder="Zip/Postal Code" %}
-                </div>
-            </div>
-            <div class="form-group">
-                <p>Brief Description of the tattoo:</p>
-                {% render_field form.tattoo_description class="form-control" %}
-            </div>
-            <div class="form-group">
-                <p>Placement of tattoo:</p>
-                {% render_field form.tattoo_placement class="form-control" %}
-            </div>
-            <div class="form-group">
-                <p>How did you hear about us?:</p>
-                {% render_field form.connection class="form-control" %}
+                <pdf:nextpage/>
             </div>
 
             <h2>Pre-Prodecure Questionnaire</h2>
 
             <div class="form-group">
-                <label>Are you under the influence of drugs or alcohol?</label>
+                <p><span style="font-weight: bold;">Are you under the influence of drugs or alcohol?</span><br>{{ obj.under_influence }}<p>
             </div>
-            <div class="radio-buttons">
-                {% render_field form.under_influence class="radio-buttons" %}
+
+            {% if obj.pregnant_or_nursing %}
+            <div class="form-group">
+                <p><span style="font-weight: bold;">FEMALE ONLY: Are you pregnant or nursing?</span><br>{{ obj.pregnant_or_nursing }}</label>
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Do you have a communicable disease?</span><br>{{ obj.communicable_disease }}</label>
             </div>
 
             <div class="form-group">
-                <label class="form=group">FEMALE ONLY: Are you pregnant or nursing?</label>
-            </div>
-            <div class="radio-buttons">
-                {% render_field form.pregnant_or_nursing class="radio-buttons" %}
-            </div>
-
-
-            <div class="form-group">
-                <label>Do you have a communicable disease?</label>
-            </div>
-            <div class="radio-buttons">
-                {% render_field form.communicable_disease class="radio-buttons" %}
+                <p><span style="font-weight: bold;">Do you have any skin conditions?</span><br>{{ obj.skin_conditions }}</label>
             </div>
 
             <div class="form-group">
-                <label>Do you have any skin conditions?</label>
-            </div>
-            <div class="radio-buttons">
-                {% render_field form.skin_conditions class="radio-buttons" %}
-            </div>
-
-
-            <div class="form-group">
-                <p>Please tell us about your medical history (e.g. Are you on blood thinners?, Diabetes, Cardiovascular Disease, Epilepsy, Blood-related disease, Hemophilia ,immune compromised, etc.)</p>
-                {% render_field form.medical_history class="large-input" %}
+                <p style="font-weight: bold;">Please tell us about your medical history (e.g. Are you on blood thinners?, Diabetes, Cardiovascular Disease, Epilepsy, Blood-related disease, Hemophilia ,immune compromised, etc.)</p>
+                {% if obj.medical_history %}
+                    {{ obj.medical_history }}
+                {% else %}
+                    Client did not declare anything.
+                {% endif %}
             </div>
 
+            <hr>
 
-            <h2>Acknowledgment and Waiver</h2>
+            <h1>Acknowledgment and Waiver</h1>
             <h3>Please check the box and initial under each statement.</h3>
-            <span class="form-group">
-                <div class="form-waiver">
-                    {% render_field form.permanent class="form-checkbox" id="input_permanent" %}
-                    <label for="input_permanent">I understand that this procedure is a permanent change to my skin and body.</label>
-                </div>
-            </span>
-            <div class="form-group">Initial:</div>
-            <div class="init-div">
-                {% render_field form.permanent_init %}
+
+            <div class='form-waiver'>
+                <p><span style="font-weight: bold;">I understand that this procedure is
+                    a permanent change to my skin and body.</span>
+                    <br>Initial: <br><img src="{{ obj.permanent_init.path }}" alt=""></p>
+            </div>
+            <hr>
+
+            <div class='form-waiver'>
+                <p><span style="font-weight: bold;">I allow my tattoo to be photographed and be used for
+                     Mad Ink by Stripes portfolio. Pictures may be posted on Facebook, instagram, and studio website.</span>
+                     <br>Initial: <br><img src="{{ obj.social_media_perm_init.path }}" alt=""></p>
+            </div>
+            <hr>
+
+            <div class='form-waiver'>
+                <p><span style="font-weight: bold;">I acknowledge that Mad Ink by
+                    Stripes does not offer refunds or free touch ups after 3 months.
+                    Hands, fingers, feet, and micro tattoos do not get free touch ups at any time.</span>
+                    <br>Initial: <br><img src="{{ obj.refund_init.path }}" alt="" class="initials"></p>
+            </div>
+            <hr>
+
+            <div>
+                <pdf:nextpage/>
             </div>
 
-            <span class="form-group">
-                <div class="form-waiver">
-                    {% render_field form.social_media_perm class="form-checkbox" id="input_social_media_perm" %}
-                    <label for="input_social_media_perm">I allow my tattoo to be photographed and be used for Mad Ink by Stripes portfolio. Pictures may be posted on Facebook, instagram, and studio website.</label>
-                </div>
-            </span>
-            <div class="form-group">Initial:</div>
-            <div class="init-div">
-                {{ form.social_media_perm_init }}
+            <div class='form-waiver'>
+                <p><span style="font-weight: bold;">I agree that the studio does not have a
+                    way of identifying if I am allergic to the elements or ingredients
+                    that will be used for my tattoo. If I am allergic to anything I
+                    will let my artist know. That includes pigment, dyes, soaps,
+                    disinfectant, latex, metal, and food allergies.</span>
+                    <br>Initial: <br><img src="{{ obj.allergen_disclosure_init.path }}" alt=""></p>
+            </div>
+            <hr>
+
+            <div class='form-waiver'>
+                <p><span style="font-weight: bold;">I understand that I need to take care of the tattoo
+                     by following the written and verbal aftercare provided.</span>
+                     <br>Initial: <br><img src="{{ obj.aftercare_init.path }}" alt=""></p>
+            </div>
+            <hr>
+
+            <div class='form-waiver'>
+                <p><span style="font-weight: bold;">I understand that I might get an
+                    infection if I don't follow the instructions given to me in regards
+                    to taking care of my tattoo. If I have had issues healing before,
+                    I will tell my artist before the session.</span>
+                    <br>Initial: <br><img src="{{ obj.infection_init.path }}" alt=""></p>
+            </div>
+            <hr>
+
+            <div class='form-waiver'>
+                <p><span style="font-weight: bold;">I agree to compensate Mad Ink by Stripes
+                    for the services provided today by
+                    paying the agreed-upon price for the session.</span>
+                    <br>Initial: <br><img src="{{ obj.compensation_init.path }}" alt=""></p>
+            </div>
+            <hr>
+
+            <div class='form-waiver'>
+                <p><span style="font-weight: bold;">I acknowledge it is not reasonably possible
+                    for an employee of Mad Ink by Stripes to determine
+                    whether I have an allergic reaction to the pigments or
+                    processes used in my tattoo and I agreed to accept the risk
+                    that such a reaction is possible. I will search for medical attention if needed.</span>
+                    <br>Initial: <br><img src="{{ obj.allergen_risk_init.path }}" alt=""></p>
+            </div>
+            <hr>
+
+            <div>
+                <pdf:nextpage/>
             </div>
 
-            <span class="form-group">
-                <div class="form-waiver">
-                    {% render_field form.refund class="form-checkbox" id="input_refund" %}
-                    <label for="input_refund">I acknowledge that Mad Ink by Stripes does not offer refunds or free touch ups after 3 months. Hands, fingers, feet, and micro tattoos do not get free touch ups at any time.</label>
-                </div>
-            </span>
-            <div class="form-group">Initial:</div>
-            <div class="init-div">
-                {{ form.refund_init }}
+            <div class='form-waiver'>
+                <p><span style="font-weight: bold;">I confirm that the information I
+                    provided in this document is accurate and true.</span>
+                    <br>Initial: <br><img src="{{ obj.accurate_info_init.path }}" alt=""></p>
             </div>
+            <hr>
 
-            <span class="form-group">
-                <div class="form-waiver">
-                    {% render_field form.allergen_disclosure class="form-checkbox" id="input_allergen_disclosure" %}
-                    <label for="input_allergen_disclosure">I agree that the studio does not have a way of identifying if I am allergic to the elements or ingredients that will be used for my tattoo. If I am allergic to anything I will let my artist know. That includes pigment, dyes, soaps, disinfectant ,latex, metal, and food allergies.</label>
-                </div>
-            </span>
-            <div class="form-group">Initial:</div>
-            <div class="init-div">
-                <div>{{ form.allergen_disclosure_init }}</div>
+            <div class='form-waiver'>
+                <p><span style="font-weight: bold;">I confirm that I am 18 years or older.</span>
+                    <br>Initial: <br><img src="{{ obj.not_minor_init.path }}" alt=""></p>
             </div>
-
-            <span class="form-group">
-                <div class="form-waiver">
-                    {% render_field form.aftercare class="form-checkbox" id="input_aftercare" %}
-                    <label for="input_aftercare">I understand that I need to take care of the tattoo by following the written and verbal aftercare provided.</label>
-                </div>
-            </span>
-            <div class="form-group">Initial:</div>
-            <div class="init-div">
-                {{ form.aftercare_init }}
-            </div>
-
-            <span class="form-group">
-                <div class="form-waiver">
-                    {% render_field form.infection class="form-checkbox" id="input_infection" %}
-                    <label for="input_infection">I understand that I might get an infection if I don't follow the instructions given to me in regards of taking care of my tattoo. If I have had issues healing before, I will tell my artist before the session.</label>
-                </div>
-            </span>
-            <div class="form-group">Initial:</div>
-            <div class="init-div">
-                {{ form.infection_init }}
-            </div>
-
-            <span class="form-group">
-                <div class="form-waiver">
-                    {% render_field form.compensation class="form-checkbox" id="input_compensation" %}
-                    <label for="input_compensation">I agree to compensate Mad Ink by Stripes for the services provided today by paying the agreed upon price for the session.</label>
-                </div>
-            </span>
-            <div class="form-group">Initial:</div>
-            <div class="init-div">
-                {{ form.compensation_init }}
-            </div>
-
-            <span class="form-group">
-                <div class="form-waiver">
-                    {% render_field form.allergen_risk class="form-checkbox" id="input_allergen_risk" %}
-                    <label for="input_allergen_risk">I acknowledge it is not reasonably possible for an employee of Mad Ink by Stripes to determine whether I have an allergic reaction to the pigments or processes used in my tattoo and I agreed to accept the risk that such a reaction is possible. I will search medical attention if needed.</label>
-                </div>
-            </span>
-            <div class="form-group">Initial:</div>
-            <div class="init-div">
-                {{ form.allergen_risk_init }}
-            </div>
-
-            <span class="form-group">
-                <div class="form-waiver">
-                    {% render_field form.accurate_info class="form-checkbox" id="input_accurate_info" %}
-                    <label for="input_accurate_info">I confirm that the information I provided in this document is accurate and true.</label>
-                </div>
-            </span>
-            <div class="form-group">Initial:</div>
-            <div class="init-div">
-                {{ form.accurate_info_init }}
-            </div>
-
-            <span class="form-group">
-                <div class="form-waiver">
-                    {% render_field form.not_minor class="form-checkbox" id="input_not_minor" %}
-                    <label for="input_not_minor">I confirm that I am 18 years or older.</label>
-                </div>
-            </span>
-            <div class="form-group">Initial:</div>
-            <div class="init-div">
-                {{ form.not_minor_init }}
-            </div>
+            <hr>
 
             <div class="form-group">
-                <h3>Signed Date</h3>
-                <div class="form-group init-div">
-                    {% render_field form.signed_date class="date-input" %}
-                </div>
+                <p><span style="font-weight: bold;">Signed Date: </span>{{ obj.signed_date }}</p>
             </div>
 
             <div class="form-group">
             <h3>Client Signature</h3>
                 <div class="signature-div">
-                    {% render_field form.signature %}
+                    <img src="{{ obj.signature.path }}" alt="">
+
                 </div>
             </div>
-            <div class="submit-button"><button>Submit</button></div> {% endcomment %}
 
+            <div>
+                <pdf:nextpage/>
+            </div>
+
+            <hr>
+
+            <div>
+                <h3>Please Type Name, Sign, and Date</h3>
+                <div class="form-group">
+                    <label for="full_name">
+                        By signing these forms I acknowledge that
+                        I have read and understand all pages of this consent form.
+                        I acknowledge that all information is correct. I understand that
+                        tattoos are permanent and will change my appearance forever.
+                        I ACKNOWLEDGE THAT WRITTEN AND VERBAL AFTERCARE WERE PROVIDED
+                    </label>
+                    <p><span style="font-weight: bold;">Full Name: </span>{{ obj.full_name }}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>Signature</h3>
+                    <div class="signature-div">
+                        <img src="{{ obj.general_sig.path }}" alt="">
+                    </div>
+            </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Date: </span>{{ obj.general_date }}</p>
+            </div>
+
+            <hr>
+
+            <div>
+                <pdf:nextpage/>
+            </div>
+
+            <div class='form-group'>
+                <p>
+                    <h1>Mad Ink By Stripes</h1>
+                </p>
+                <p>
+                    <h3>After Care Instructions</h3>
+                </p>
+            </div>
+            <div class='form-group'>
+                <p>
+                    <em>If you have any questions or concerns, Call or Text (719)-428-5728</em>
+                </p>
+
+                <p>
+                    Remove saniderm 12- 15 hours after tattoo procedure. Wash immediately .
+                    <br>
+                    **DO NOT LEAVE ON  LONGER THAN 24 HOURS**
+                </p>
+
+                <p>
+                    If paper towels or gauze are used to cover a larger tattoo, remove within 2 or 3 hours. Wash immediately.
+                </p>
+
+                <p>
+                    After bandage is removed, wash tattoo with warm water and gentle fragrance free soap
+                    <br>
+                    *Blue Dawn or Dial is recommended*
+                </p>
+
+                <p>
+                    Wash tattoo 2-3 times a day and keep clean
+                    <br>
+                    Gently PAT dry with a paper towel
+                    <br>
+                    Apply a thin layer of ointment after drying the tattoo
+                    <br>
+                    *Aquaphor or Bag Balm is recommended*
+                </p>
+
+                <p>
+                    If your tattoo is looking dry throughout the day, apply another THIN layer of ointment.
+                    DO NOT stay in direct sunlight or use tanning beds until the tattoo is healed. Approx 14 days.
+                    After 2 weeks, use at least SPF 25 to protect tattoo from fading.
+                </p>
+
+                <p>
+                    DO NOT soak in the bathtub, hot tub, sauna, jacuzzi, or swimming pools while your tattoo is healing. Approx. 14 days
+                </p>
+
+                <p>
+                    YOU MUST SHOWER to keep your tattoo healthy
+                </p>
+
+                <p>
+                    DO NOT scratch or pick at tattoo. It could cause color loss, scarring or infection. Ink and skin flaking off and scabbing is normal.
+                </p>
+
+                <p>
+                    Tattoos will cause redness and swelling but if you develop a fever, rash, yellow/green discharge, or constant irritation after 7 days, call your doctor immediately.</p>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <h3>Client Signature</h3>
+                    <div class="signature-div">
+                        <img src="{{ obj.aftercare_sig.path }}" alt="">
+                    </div>
+            </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Date: </span>{{ obj.aftercare_date }}</p>
+            </div>
+
+            <div class="form-group">
+                <h3>Artist Signature</h3>
+                    <div class="signature-div">
+                        <img src="{{ obj.artist_sig.path }}" alt="">
+                    </div>
+            </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Date: </span>{{ obj.artist_date }}</p>
+            </div>
+
+            <div>
+                <pdf:nextpage/>
+            </div>
+
+            <div class='form-group'>
+                <p style='text-align: center;'>
+                    <span style='font-size: 36pt;'>
+                        STOP HERE!
+                    </span>
+                </p>
+            </div>
+
+            <div class='form-group'>
+                <h3>FOR TATTOO ARTIST ONLY</h3>
+            </div>
+
+            <div>
+                <div class="form-group">
+                    <label for="artist_name">
+                        Name of Artist or Representative
+                    </label>
+                    {{ obj.artist_name }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">Signed Date: </span>{{ obj.artist_date }}</p>
+            </div>
+
+            <div class="form-group">
+                <p><span style="font-weight: bold;">LOT #- EXPIRATION DATE - STERILIZATION DATE -COMPANY/BRAND</span>
+                    <br>
+                    {{ obj.needle_info }}
+                </p>
+            </div>
+
+        </div>
     </div>
 </main>
 {% endblock main %}
