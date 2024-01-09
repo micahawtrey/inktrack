@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'documents.apps.DocumentsConfig',
+    'pdfcreation.apps.PdfcreationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'localflavor',
     'phonenumber_field',
+    'weasyprint',
     'django_cleanup.apps.CleanupConfig',
 ]
 

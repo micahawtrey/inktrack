@@ -17,9 +17,11 @@ def consent_form(request):
             # fields from the form, and converts the ones
             # that are signatures into images
             fields = {}
+            full_name = form.cleaned_data['full_name']
             for key, data in form.cleaned_data.items():
                 if type(data) == list:
-                    data = sig_to_image(data)
+                    print(data)
+                    data = sig_to_image(data, key, full_name)
                 fields[key] = data
             # Creates a new Consent object that has all the
             # fields from the form dictionary

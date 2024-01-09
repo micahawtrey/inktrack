@@ -1,31 +1,18 @@
 {% extends "base.html" %}
-{% load static %}
-{% load widget_tweaks %}
-{% load jsignature_filters %}
 
 {% block head %}
-<title>Consent Form</title>
-<link rel="stylesheet" href="{% static "css/documents.css" %}">
-{{form.media}}
+<title>Consent PDF</title>
 <style>
+    @page {
+        size: Letter;
+        margin: 1in;
+    }
+
     main {
         display: flex;
         justify-content: center;
         font-size: larger;
-    }
-
-    form {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: flex-start;
-    }
-
-    .pdfform {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: flex-start;
+        color: rgb(50, 50, 85);
     }
 
     .form-div {
@@ -57,10 +44,6 @@
         margin-top: 6px;
         margin-bottom: 12px;
         padding: 12px 0px 15px;
-        {% comment %} display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        border-radius: 3px; {% endcomment %}
         width: 100%;
         text-align: left;
         position: relative;
@@ -69,12 +52,6 @@
     .initials {
         height: 100px;
         width: 100px;
-    }
-
-    .form-control {
-        width: 100%;
-        height: 30px;
-
     }
 
     .signature-div {
@@ -92,42 +69,6 @@
         border-radius: 5px;
     }
 
-    .init-div {
-        width: 110px;
-        border: 1px solid grey;
-        border-radius: 5px;
-    }
-
-    .form-checkbox {
-        height: 20px;
-        width: 20px;
-    }
-
-    .large-input {
-        width: 100%;
-        height: 150px;
-        resize: both;
-    }
-
-    .div-name {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin-top: 6px;
-        margin-bottom: 6px;
-        padding: 12px 0px;
-    }
-
-    .name {
-        width: 48%;
-        height: 30px;
-
-    }
-
-    .required {
-        color: red;
-    }
-
     label {
         margin-bottom: 2px;
     }
@@ -141,26 +82,15 @@
         <div class="pdfform">
 
             <h1>Client Information</h1>
+            <p style="font-weight: bold;">Front of Id:</p>
+            <img src="{{ obj.front_id.url }}" alt="">
+
+            <p style="font-weight: bold;">Back of Id:</p>
+            <img src="{{ obj.back_id.url }}" alt="">
 
             <div class="form-group">
-                <p style="font-weight: bold;">Front of Id:</p>
-                <img src="{{ obj.front_id.path }}" alt="">
-            </div>
-
-            <div class="form-group">
-                <p style="font-weight: bold;">Back of Id:</p>
-                <img src="{{ obj.back_id.path }}" alt="">
-            </div>
-
-            <div class="form-group">
-                <p><span style="font-weight: bold;">Name: </span>{{obj.first_name}} {{obj.last_name}}</p>
-            </div>
-
-            <div class="form-group">
-                <p><span style="font-weight: bold;">Preferred pronouns:  </span>{{obj.preferred_pronouns}}</p>
-            </div>
-
-            <div class="form-group">
+                <p><span style="font-weight: bold;">Name: </span>{{obj.first_name}} {{obj.last_name}}<br>
+                <span style="font-weight: bold;">Preferred pronouns:  </span>{{obj.preferred_pronouns}}<br>
                 <p><span style="font-weight: bold;">Age: </span>{{obj.age}}</p>
             </div>
 
@@ -188,16 +118,13 @@
             <div class="form-group">
                 <p><span style="font-weight: bold;">Brief Description of the tattoo: </span>{{ obj.tattoo_description }}</p>
             </div>
+
             <div class="form-group">
                 <p><span style="font-weight: bold;">Placement of tattoo: </span>{{ obj.tattoo_placement }}</p>
             </div>
 
             <div class="form-group">
                 <p><span style="font-weight: bold;">How did you hear about us?: </span>{{ obj.connection }}</p>
-            </div>
-
-            <div>
-                <pdf:nextpage/>
             </div>
 
             <h2>Pre-Prodecure Questionnaire</h2>
@@ -208,16 +135,16 @@
 
             {% if obj.pregnant_or_nursing %}
             <div class="form-group">
-                <p><span style="font-weight: bold;">FEMALE ONLY: Are you pregnant or nursing?</span><br>{{ obj.pregnant_or_nursing }}</label>
+                <p><span style="font-weight: bold;">FEMALE ONLY: Are you pregnant or nursing?</span><br>{{ obj.pregnant_or_nursing }}</p>
             </div>
             {% endif %}
 
             <div class="form-group">
-                <p><span style="font-weight: bold;">Do you have a communicable disease?</span><br>{{ obj.communicable_disease }}</label>
+                <p><span style="font-weight: bold;">Do you have a communicable disease?</span><br>{{ obj.communicable_disease }}</p>
             </div>
 
             <div class="form-group">
-                <p><span style="font-weight: bold;">Do you have any skin conditions?</span><br>{{ obj.skin_conditions }}</label>
+                <p><span style="font-weight: bold;">Do you have any skin conditions?</span><br>{{ obj.skin_conditions }}</p>
             </div>
 
             <div class="form-group">
@@ -237,14 +164,14 @@
             <div class='form-waiver'>
                 <p><span style="font-weight: bold;">I understand that this procedure is
                     a permanent change to my skin and body.</span>
-                    <br>Initial: <br><img src="{{ obj.permanent_init.path }}" alt=""></p>
+                    <br>Initial: <br><img src="{{ obj.permanent_init.url }}" alt=""></p>
             </div>
             <hr>
 
             <div class='form-waiver'>
                 <p><span style="font-weight: bold;">I allow my tattoo to be photographed and be used for
                      Mad Ink by Stripes portfolio. Pictures may be posted on Facebook, instagram, and studio website.</span>
-                     <br>Initial: <br><img src="{{ obj.social_media_perm_init.path }}" alt=""></p>
+                     <br>Initial: <br><img src="{{ obj.social_media_perm_init.url }}" alt=""></p>
             </div>
             <hr>
 
@@ -252,7 +179,7 @@
                 <p><span style="font-weight: bold;">I acknowledge that Mad Ink by
                     Stripes does not offer refunds or free touch ups after 3 months.
                     Hands, fingers, feet, and micro tattoos do not get free touch ups at any time.</span>
-                    <br>Initial: <br><img src="{{ obj.refund_init.path }}" alt="" class="initials"></p>
+                    <br>Initial: <br><img src="{{ obj.refund_init.url }}" alt="" class="initials"></p>
             </div>
             <hr>
 
@@ -266,14 +193,14 @@
                     that will be used for my tattoo. If I am allergic to anything I
                     will let my artist know. That includes pigment, dyes, soaps,
                     disinfectant, latex, metal, and food allergies.</span>
-                    <br>Initial: <br><img src="{{ obj.allergen_disclosure_init.path }}" alt=""></p>
+                    <br>Initial: <br><img src="{{ obj.allergen_disclosure_init.url }}" alt=""></p>
             </div>
             <hr>
 
             <div class='form-waiver'>
                 <p><span style="font-weight: bold;">I understand that I need to take care of the tattoo
                      by following the written and verbal aftercare provided.</span>
-                     <br>Initial: <br><img src="{{ obj.aftercare_init.path }}" alt=""></p>
+                     <br>Initial: <br><img src="{{ obj.aftercare_init.url }}" alt=""></p>
             </div>
             <hr>
 
@@ -282,7 +209,7 @@
                     infection if I don't follow the instructions given to me in regards
                     to taking care of my tattoo. If I have had issues healing before,
                     I will tell my artist before the session.</span>
-                    <br>Initial: <br><img src="{{ obj.infection_init.path }}" alt=""></p>
+                    <br>Initial: <br><img src="{{ obj.infection_init.url }}" alt=""></p>
             </div>
             <hr>
 
@@ -290,7 +217,7 @@
                 <p><span style="font-weight: bold;">I agree to compensate Mad Ink by Stripes
                     for the services provided today by
                     paying the agreed-upon price for the session.</span>
-                    <br>Initial: <br><img src="{{ obj.compensation_init.path }}" alt=""></p>
+                    <br>Initial: <br><img src="{{ obj.compensation_init.url }}" alt=""></p>
             </div>
             <hr>
 
@@ -300,7 +227,7 @@
                     whether I have an allergic reaction to the pigments or
                     processes used in my tattoo and I agreed to accept the risk
                     that such a reaction is possible. I will search for medical attention if needed.</span>
-                    <br>Initial: <br><img src="{{ obj.allergen_risk_init.path }}" alt=""></p>
+                    <br>Initial: <br><img src="{{ obj.allergen_risk_init.url }}" alt=""></p>
             </div>
             <hr>
 
@@ -311,13 +238,13 @@
             <div class='form-waiver'>
                 <p><span style="font-weight: bold;">I confirm that the information I
                     provided in this document is accurate and true.</span>
-                    <br>Initial: <br><img src="{{ obj.accurate_info_init.path }}" alt=""></p>
+                    <br>Initial: <br><img src="{{ obj.accurate_info_init.url }}" alt=""></p>
             </div>
             <hr>
 
             <div class='form-waiver'>
                 <p><span style="font-weight: bold;">I confirm that I am 18 years or older.</span>
-                    <br>Initial: <br><img src="{{ obj.not_minor_init.path }}" alt=""></p>
+                    <br>Initial: <br><img src="{{ obj.not_minor_init.url }}" alt=""></p>
             </div>
             <hr>
 
@@ -328,8 +255,7 @@
             <div class="form-group">
             <h3>Client Signature</h3>
                 <div class="signature-div">
-                    <img src="{{ obj.signature.path }}" alt="">
-
+                    <img src="{{ obj.signature.url }}" alt="">
                 </div>
             </div>
 
@@ -356,7 +282,7 @@
             <div class="form-group">
                 <h3>Signature</h3>
                     <div class="signature-div">
-                        <img src="{{ obj.general_sig.path }}" alt="">
+                        <img src="{{ obj.general_sig.url }}" alt="">
                     </div>
             </div>
 
@@ -435,7 +361,7 @@
             <div class="form-group">
                 <h3>Client Signature</h3>
                     <div class="signature-div">
-                        <img src="{{ obj.aftercare_sig.path }}" alt="">
+                        <img src="{{ obj.aftercare_sig.url }}" alt="">
                     </div>
             </div>
 
@@ -446,7 +372,7 @@
             <div class="form-group">
                 <h3>Artist Signature</h3>
                     <div class="signature-div">
-                        <img src="{{ obj.artist_sig.path }}" alt="">
+                        <img src="{{ obj.artist_sig.url }}" alt="">
                     </div>
             </div>
 
@@ -472,10 +398,7 @@
 
             <div>
                 <div class="form-group">
-                    <label for="artist_name">
-                        Name of Artist or Representative
-                    </label>
-                    {{ obj.artist_name }}
+                    <p><span style="font-weight: bold;">Name of Artist or Representative: </span>{{ obj.artist_name }}</p>
                 </div>
             </div>
 

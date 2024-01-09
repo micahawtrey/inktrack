@@ -7,11 +7,11 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 
 
-def sig_to_image(img):
+def sig_to_image(img, key, full_name):
     image = draw_signature(img, as_file=True)
     image_binary = open(image, 'rb')
     file = File(image_binary)
-    file.name = "tempname.png"
+    file.name = f"{key}_{full_name}.png"
     return file
 
 def model_to_pdf(model, id, template_path):
@@ -27,7 +27,7 @@ def model_to_pdf(model, id, template_path):
     # Create an HttpResponse as a surprise tool that
     # will help us later
     response = HttpResponse(content_type='application/pdf')
-    # response['Content-Disposition'] = f'attachment; filename="{obj.full_name}_{obj.signed_date}_consent.pdf"'
+    response['Content-Disposition'] = f'attachment; filename="{obj.full_name}_{obj.signed_date}_consent.pdf"'
 
     # Create a pdf
     pisa_status = pisa.CreatePDF(
