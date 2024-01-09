@@ -2,82 +2,6 @@
 
 {% block head %}
 <title>Consent PDF</title>
-{% comment %} <style>
-    @page {
-        size: Letter;
-        margin: 1in;
-    }
-
-    main {
-        display: flex;
-        justify-content: center;
-        font-size: larger;
-        color: rgb(50, 50, 85);
-    }
-
-    .form-div {
-        display: flex;
-        max-width: 752px;
-        width: 100%;
-        flex-direction: column;
-        justify-content: center;
-        padding: 38px;
-        align-items: flex-start;
-        text-align: left;
-    }
-
-    .form-group {
-        margin-top: 6px;
-        margin-bottom: 0px;
-        padding: 12px 0px;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        border-radius: 3px;
-        position: relative;
-        width: 100%;
-        text-align: left;
-        position: relative;
-    }
-
-    .form-waiver {
-        margin-top: 6px;
-        margin-bottom: 12px;
-        padding: 12px 0px 15px;
-        width: 100%;
-        text-align: left;
-        position: relative;
-    }
-
-    .initials {
-        height: 100px;
-        width: 100px;
-    }
-
-    .signature-div {
-        /* margin-top: 12px; */
-        margin-bottom: 12px;
-        padding: 12px 10px;
-        display: flex;
-        flex-wrap: wrap;
-        border-radius: 3px;
-        position: relative;
-        width: 300px;
-        text-align: left;
-        position: relative;
-        border: 1px solid grey;
-        border-radius: 5px;
-    }
-
-    label {
-        margin-bottom: 2px;
-    }
-
-    break {
-        page-break-after: always;
-    }
-
-</style> {% endcomment %}
 {% endblock head %}
 
 {% block main %}
@@ -86,14 +10,12 @@
         <div class="pdfform">
 
             <h1>Client Information</h1>
-
             <div class="form-group">
                 <p style="font-weight: bold;">Front of Id:</p>
                 <img src="{{ obj.front_id.url }}" alt="">
                 <p style="font-weight: bold;">Back of Id:</p>
                 <img src="{{ obj.back_id.url }}" alt="">
             </div>
-
             <div>
                 <p><span style="font-weight: bold;">Name: </span>{{obj.first_name}} {{obj.last_name}}<br>
                 <span style="font-weight: bold;">Preferred pronouns:  </span>{{obj.preferred_pronouns}}<br>
@@ -124,101 +46,58 @@
                     Client did not declare anything.
                 {% endif %}
             </div>
-
             <h1 style="page-break-before: always;">Acknowledgment and Waiver</h1>
             <h3>Please check the box and initial under each statement.</h3>
-
-            <div class='form-waiver'>
-                <p><span style="font-weight: bold;">I understand that this procedure is
-                    a permanent change to my skin and body.</span>
-                    <br>Initial: <img src="{{ obj.permanent_init.url }}" alt=""></p>
-            </div>
-
-            <div class='form-waiver'>
-                <p><span style="font-weight: bold;">I allow my tattoo to be photographed and be used for
-                     Mad Ink by Stripes portfolio. Pictures may be posted on Facebook, instagram, and studio website.</span>
-                     <br>Initial: <img src="{{ obj.social_media_perm_init.url }}" alt=""></p>
-            </div>
-
-            <div class='form-waiver'>
-                <p><span style="font-weight: bold;">I acknowledge that Mad Ink by
-                    Stripes does not offer refunds or free touch ups after 3 months.
-                    Hands, fingers, feet, and micro tattoos do not get free touch ups at any time.</span>
-                    <br>Initial: <img src="{{ obj.refund_init.url }}" alt="" class="initials"></p>
-            </div>
-
-            <div>
-                <pdf:nextpage/>
-            </div>
-
-            <div class='form-waiver'>
-                <p><span style="font-weight: bold;">I agree that the studio does not have a
-                    way of identifying if I am allergic to the elements or ingredients
-                    that will be used for my tattoo. If I am allergic to anything I
-                    will let my artist know. That includes pigment, dyes, soaps,
-                    disinfectant, latex, metal, and food allergies.</span>
-                    <br>Initial: <img src="{{ obj.allergen_disclosure_init.url }}" alt=""></p>
-            </div>
-
-            <div class='form-waiver'>
-                <p><span style="font-weight: bold;">I understand that I need to take care of the tattoo
-                     by following the written and verbal aftercare provided.</span>
-                     <br>Initial: <img src="{{ obj.aftercare_init.url }}" alt=""></p>
-            </div>
-
-            <div class='form-waiver'>
-                <p><span style="font-weight: bold;">I understand that I might get an
-                    infection if I don't follow the instructions given to me in regards
-                    to taking care of my tattoo. If I have had issues healing before,
-                    I will tell my artist before the session.</span>
-                    <br>Initial: <img src="{{ obj.infection_init.url }}" alt=""></p>
-            </div>
-
-            <div class='form-waiver'>
-                <p><span style="font-weight: bold;">I agree to compensate Mad Ink by Stripes
-                    for the services provided today by
-                    paying the agreed-upon price for the session.</span>
-                    <br>Initial: <img src="{{ obj.compensation_init.url }}" alt=""></p>
-            </div>
-
-            <div class='form-waiver'>
-                <p><span style="font-weight: bold;">I acknowledge it is not reasonably possible
-                    for an employee of Mad Ink by Stripes to determine
-                    whether I have an allergic reaction to the pigments or
-                    processes used in my tattoo and I agreed to accept the risk
-                    that such a reaction is possible. I will search for medical attention if needed.</span>
-                    <br>Initial: <img src="{{ obj.allergen_risk_init.url }}" alt=""></p>
-            </div>
-
-
-
-            <div class='form-waiver'>
-                <p><span style="font-weight: bold;">I confirm that the information I
-                    provided in this document is accurate and true.</span>
-                    <br>Initial: <img src="{{ obj.accurate_info_init.url }}" alt=""></p>
-            </div>
-
-            <div class='form-waiver'>
-                <p><span style="font-weight: bold;">I confirm that I am 18 years or older.</span>
-                    <br>Initial: <img src="{{ obj.not_minor_init.url }}" alt=""></p>
-            </div>
-
+            <p><span style="font-weight: bold;">I understand that this procedure is
+                a permanent change to my skin and body.</span>
+                <br>Initial: <img src="{{ obj.permanent_init.url }}" alt="">
+            </p>
+            <p><span style="font-weight: bold;">I allow my tattoo to be photographed and be used for
+                Mad Ink by Stripes portfolio. Pictures may be posted on Facebook, instagram, and studio website.</span>
+                <br>Initial: <img src="{{ obj.social_media_perm_init.url }}" alt="">
+            </p>
+            <p><span style="font-weight: bold;">I acknowledge that Mad Ink by
+                Stripes does not offer refunds or free touch ups after 3 months.
+                Hands, fingers, feet, and micro tattoos do not get free touch ups at any time.</span>
+                <br>Initial: <img src="{{ obj.refund_init.url }}" alt="" class="initials"></p>
+            <p><span style="font-weight: bold;">I agree that the studio does not have a
+                way of identifying if I am allergic to the elements or ingredients
+                that will be used for my tattoo. If I am allergic to anything I
+                will let my artist know. That includes pigment, dyes, soaps,
+                disinfectant, latex, metal, and food allergies.</span>
+                <br>Initial: <img src="{{ obj.allergen_disclosure_init.url }}" alt=""></p>
+            <p><span style="font-weight: bold;">I understand that I need to take care of the tattoo
+                by following the written and verbal aftercare provided.</span>
+                <br>Initial: <img src="{{ obj.aftercare_init.url }}" alt=""></p>
+            <p><span style="font-weight: bold;">I understand that I might get an
+                infection if I don't follow the instructions given to me in regards
+                to taking care of my tattoo. If I have had issues healing before,
+                I will tell my artist before the session.</span>
+                <br>Initial: <img src="{{ obj.infection_init.url }}" alt=""></p>
+            <p><span style="font-weight: bold;">I agree to compensate Mad Ink by Stripes
+                for the services provided today by
+                paying the agreed-upon price for the session.</span>
+                <br>Initial: <img src="{{ obj.compensation_init.url }}" alt=""></p>
+            <p><span style="font-weight: bold;">I acknowledge it is not reasonably possible
+                for an employee of Mad Ink by Stripes to determine
+                whether I have an allergic reaction to the pigments or
+                processes used in my tattoo and I agreed to accept the risk
+                that such a reaction is possible. I will search for medical attention if needed.</span>
+                <br>Initial: <img src="{{ obj.allergen_risk_init.url }}" alt=""></p>
+            <p><span style="font-weight: bold;">I confirm that the information I
+                provided in this document is accurate and true.</span>
+                <br>Initial: <img src="{{ obj.accurate_info_init.url }}" alt=""></p>
+            <p><span style="font-weight: bold;">I confirm that I am 18 years or older.</span>
+                <br>Initial: <img src="{{ obj.not_minor_init.url }}" alt=""></p>
             <div class="form-group">
                 <p><span style="font-weight: bold;">Signed Date: </span>{{ obj.signed_date }}</p>
             </div>
-
             <div class="form-group">
             <h3>Client Signature</h3>
                 <div class="signature-div">
                     <img src="{{ obj.signature.url }}" alt="">
                 </div>
             </div>
-
-            <div>
-                <pdf:nextpage/>
-            </div>
-
-
             <div>
                 <h3>Please Type Name, Sign, and Date</h3>
                 <div class="form-group">
@@ -227,28 +106,20 @@
                         I have read and understand all pages of this consent form.
                         I acknowledge that all information is correct. I understand that
                         tattoos are permanent and will change my appearance forever.
-                        I ACKNOWLEDGE THAT WRITTEN AND VERBAL AFTERCARE WERE PROVIDED
+                        I ACKNOWLEDGE THAT WRITTEN AND VERBAL AFTERCARE WERE PROVIDED.
                     </label>
                     <p><span style="font-weight: bold;">Full Name: </span>{{ obj.full_name }}</p>
                 </div>
             </div>
-
             <div class="form-group">
                 <h3>Signature</h3>
                     <div class="signature-div">
                         <img src="{{ obj.general_sig.url }}" alt="">
                     </div>
             </div>
-
             <div class="form-group">
                 <p><span style="font-weight: bold;">Date: </span>{{ obj.general_date }}</p>
             </div>
-
-
-            <div>
-                <pdf:nextpage/>
-            </div>
-
             <div class='form-group'>
                 <p>
                     <h1 style="page-break-before: always;">Mad Ink By Stripes After Care Instructions</h1>
@@ -256,26 +127,16 @@
                 </p>
             </div>
             <div class='form-group'>
-                <p>
-                    <em>If you have any questions or concerns, Call or Text (719)-428-5728</em>
-                </p>
-
-                <p>
-                    Remove saniderm 12- 15 hours after tattoo procedure. Wash immediately .
+                <p><em>If you have any questions or concerns, Call or Text (719)-428-5728</em></p>
+                <p>Remove saniderm 12- 15 hours after tattoo procedure. Wash immediately.
                     <br>
                     **DO NOT LEAVE ON  LONGER THAN 24 HOURS**
                 </p>
-
-                <p>
-                    If paper towels or gauze are used to cover a larger tattoo, remove within 2 or 3 hours. Wash immediately.
-                </p>
-
-                <p>
-                    After bandage is removed, wash tattoo with warm water and gentle fragrance free soap
+                <p>If paper towels or gauze are used to cover a larger tattoo, remove within 2 or 3 hours. Wash immediately.</p>
+                <p>After bandage is removed, wash tattoo with warm water and gentle fragrance free soap.
                     <br>
                     *Blue Dawn or Dial is recommended*
                 </p>
-
                 <p>
                     Wash tattoo 2-3 times a day and keep clean
                     <br>
@@ -285,30 +146,16 @@
                     <br>
                     *Aquaphor or Bag Balm is recommended*
                 </p>
-
                 <p>
                     If your tattoo is looking dry throughout the day, apply another THIN layer of ointment.
                     DO NOT stay in direct sunlight or use tanning beds until the tattoo is healed. Approx 14 days.
                     After 2 weeks, use at least SPF 25 to protect tattoo from fading.
                 </p>
-
-                <p>
-                    DO NOT soak in the bathtub, hot tub, sauna, jacuzzi, or swimming pools while your tattoo is healing. Approx. 14 days
-                </p>
-
-                <p>
-                    YOU MUST SHOWER to keep your tattoo healthy
-                </p>
-
-                <p>
-                    DO NOT scratch or pick at tattoo. It could cause color loss, scarring or infection. Ink and skin flaking off and scabbing is normal.
-                </p>
-
-                <p>
-                    Tattoos will cause redness and swelling but if you develop a fever, rash, yellow/green discharge, or constant irritation after 7 days, call your doctor immediately.</p>
-                </p>
+                <p>DO NOT soak in the bathtub, hot tub, sauna, jacuzzi, or swimming pools while your tattoo is healing. Approx. 14 days</p>
+                <p>YOU MUST SHOWER to keep your tattoo healthy</p>
+                <p>DO NOT scratch or pick at tattoo. It could cause color loss, scarring or infection. Ink and skin flaking off and scabbing is normal.</p>
+                <p>Tattoos will cause redness and swelling but if you develop a fever, rash, yellow/green discharge, or constant irritation after 7 days, call your doctor immediately.</p>
             </div>
-
             <div class="form-group">
                 <h3>Client Signature</h3>
                 <p><span style="font-weight: bold;">Date: </span>{{ obj.aftercare_date }}</p>
@@ -316,11 +163,8 @@
                         <img src="{{ obj.aftercare_sig.url }}" alt="">
                     </div>
             </div>
-
             <div class="form-group">
-
             </div>
-
             <div class="form-group">
                 <h3>Artist Signature</h3>
                 <p><span style="font-weight: bold;">Date: </span>{{ obj.artist_date }}</p>
@@ -328,27 +172,12 @@
                         <img src="{{ obj.artist_sig.url }}" alt="">
                     </div>
             </div>
-
-            <div class="form-group">
-
-            </div>
-
-            <div>
-                <pdf:nextpage/>
-            </div>
-
             <div class='form-group'>
-                <p style='text-align: center;'>
-                    <span style='font-size: 36pt;'>
-                        STOP HERE!
-                    </span>
-                </p>
+                <p style='text-align: center;'><span style='font-size: 36pt;'>STOP HERE!</span></p>
             </div>
-
             <div class='form-group'>
                 <h3>FOR TATTOO ARTIST ONLY</h3>
             </div>
-
             <div>
                 <div class="form-group">
                     <p><span style="font-weight: bold;">Name of Artist or Representative: </span>{{ obj.artist_name }}</p>
