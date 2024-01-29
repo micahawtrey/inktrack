@@ -162,3 +162,32 @@ class ConsentFormModel(models.Model):
     artist_name = models.CharField(max_length=100)
     artist_date = models.DateField()
     needle_info = models.CharField(max_length=1000)
+
+class MinorConsent(models.Model):
+    # identifying info
+    guardianship = models.CharField(max_length=100)
+    first = models.CharField(max_length=30)
+    last = models.CharField(max_length=30)
+    age = models.IntegerField()
+    birth_date = models.DateField()
+    phone_number = PhoneNumberField()
+    email = models.EmailField()
+
+    # address
+    address_line_1 = models.CharField(max_length=100)
+    address_line_2 = models.CharField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=100)
+    state_province = USStateField()
+    postal_zip_code = USZipCodeField()
+
+    # tattoo desc
+    tattoo_desc = models.CharField(max_length=500)
+    tattoo_place = models.CharField(max_length=100)
+
+    # signatures
+    signature = models.ImageField(upload_to="temp_signatures/")
+    signed_date = models.DateField()
+
+    # id photos
+    front_id = models.FileField(upload_to='temp_id_photos/')
+    back_id = models.FileField(upload_to='temp_id_photos/')
