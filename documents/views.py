@@ -43,7 +43,7 @@ def consentpdf(request, id):
 
 def minor_consent(request):
     if request.method == "POST":
-        form = MinorConsentForm(request.POST, request.FILES)
+        form = MinorConsent(request.POST, request.FILES)
         fields = {}
         full_name = f"{form.cleaned_data['first']} {form.cleaned_data['last']}"
         for key, data in form.cleaned_data.items():
