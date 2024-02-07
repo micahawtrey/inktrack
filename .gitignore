@@ -1,2 +1,24 @@
 # Ignore environment files
 .venv
+
+# dependencies
+ghi/node_modules
+ghi/.pnp
+ghi/*.pnp.js
+
+# testing
+ghi/coverage
+
+# production
+ghi/build
+
+# misc
+ghi/*.DS_Store
+ghi/*.env.local
+ghi/*.env.development.local
+ghi/*.env.test.local
+ghi/*.env.production.local
+
+ghinpm-debug.log*
+ghiyarn-debug.log*
+ghiyarn-error.log*
