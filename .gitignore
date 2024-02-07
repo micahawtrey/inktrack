@@ -2,23 +2,23 @@
 .venv
 
 # dependencies
-ghi/node_modules
-ghi/.pnp
-ghi/*.pnp.js
+reactdev/node_modules
+reactdev/.pnp
+reactdev/*.pnp.js
 
 # testing
-ghi/coverage
+reactdev/coverage
 
 # production
-ghi/build
+reactdev/build
 
 # misc
-ghi/*.DS_Store
-ghi/*.env.local
-ghi/*.env.development.local
-ghi/*.env.test.local
-ghi/*.env.production.local
+reactdev/*.DS_Store
+reactdev/*.env.local
+reactdev/*.env.development.local
+reactdev/*.env.test.local
+reactdev/*.env.production.local
 
-ghinpm-debug.log*
-ghiyarn-debug.log*
-ghiyarn-error.log*
+reactdev.npm-debug.log*
+reactdev.yarn-debug.log*
+reactdev.yarn-error.log*
