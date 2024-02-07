@@ -1,5 +1,13 @@
+import { useState } from "react"
+import { handleRadioButtonChange, handleOptionalInputChange } from "../utils/inputChangeUtils"
 
-export default function PreProcedureQuestionnaire() {
+export default function PreProcedureQuestionnaire({formData, setFormData, handleValidation, handleBackButton}) {
+    const [inputData, setInputData] = useState({
+        under_influence: false,
+        communicable_disease: false,
+        skin_conditions: false
+    })
+
     return (
         <div id="preProcedureQuestionnaire" >
             <h2>Pre-Prodecure Questionnaire</h2>
@@ -8,11 +16,11 @@ export default function PreProcedureQuestionnaire() {
                 <div>
                     <div className="form-check">
                         <div>
-                            <input type="radio" className="form-check-input" name="under_influence" id="yes" />
+                            <input onChange={(e) => handleRadioButtonChange(e, formData, setFormData, inputData, setInputData, "Yes")} type="radio" className="form-check-input" name="under_influence" id="under_influence" />
                             <label htmlFor="yes">Yes</label>
                         </div>
                         <div>
-                            <input type="radio" className="form-check-input" name="under_influence" id="no" />
+                            <input onChange={(e) => handleRadioButtonChange(e, formData, setFormData, inputData, setInputData, "No")} type="radio" className="form-check-input" name="under_influence" id="under_influence" />
                             <label htmlFor="no">No</label>
                         </div>
                     </div>
@@ -23,11 +31,11 @@ export default function PreProcedureQuestionnaire() {
                 <div>
                     <div className="form-check">
                         <div>
-                            <input type="radio" className="form-check-input" name="pregnant_or_nursing" id="yes" />
+                            <input onChange={(e) => handleRadioButtonChange(e, formData, setFormData, inputData, setInputData, "Yes")} type="radio" className="form-check-input" name="pregnant_or_nursing" id="yes" />
                             <label htmlFor="yes">Yes</label>
                         </div>
                         <div>
-                            <input type="radio" className="form-check-input" name="pregnant_or_nursing" id="no" />
+                            <input onChange={(e) => handleRadioButtonChange(e, formData, setFormData, inputData, setInputData, "No")} type="radio" className="form-check-input" name="pregnant_or_nursing" id="no" />
                             <label htmlFor="no">No</label>
                         </div>
                     </div>
@@ -38,11 +46,11 @@ export default function PreProcedureQuestionnaire() {
                 <div>
                     <div className="form-check">
                         <div>
-                            <input type="radio" className="form-check-input" name="communicable_disease" id="yes" />
+                            <input onChange={(e) => handleRadioButtonChange(e, formData, setFormData, inputData, setInputData, "Yes")} type="radio" className="form-check-input" name="communicable_disease" id="yes" />
                             <label htmlFor="yes">Yes</label>
                         </div>
                         <div>
-                            <input type="radio" className="form-check-input" name="communicable_disease" id="no" />
+                            <input onChange={(e) => handleRadioButtonChange(e, formData, setFormData, inputData, setInputData, "No")} type="radio" className="form-check-input" name="communicable_disease" id="no" />
                             <label htmlFor="no">No</label>
                         </div>
                     </div>
@@ -53,23 +61,23 @@ export default function PreProcedureQuestionnaire() {
                 <div>
                     <div className="form-check">
                         <div>
-                            <input type="radio" className="form-check-input" name="skin_conditions" id="yes" />
+                            <input onChange={(e) => handleRadioButtonChange(e, formData, setFormData, inputData, setInputData, "Yes")} type="radio" className="form-check-input" name="skin_conditions" id="yes" />
                             <label htmlFor="yes">Yes</label>
                         </div>
                         <div>
-                            <input type="radio" className="form-check-input" name="skin_conditions" id="no" />
+                            <input onChange={(e) => handleRadioButtonChange(e, formData, setFormData, inputData, setInputData, "No")} type="radio" className="form-check-input" name="skin_conditions" id="no" />
                             <label htmlFor="no">No</label>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="">
-                <label htmlFor="medical_history">Please tell us about your medical history (e.g. Are you on blood thinners?, Diabetes, Cardiovascular Disease, Epilepsy, Blood-related disease, Hemophilia ,immune compromised, etc.)</label>
-                <textarea className="form-control" name="medical_history" id="medical_history" ></textarea>
+                <label htmlFor="medical_history">Please tell us about your medical history (e.g. Are you on blood thinners?, Diabetes, Cardiovascular Disease, Epilepsy, Blood-related disease, Hemophilia ,immune compromised, etc.).</label>
+                <textarea onChange={(e) => handleOptionalInputChange(e, formData, setFormData)} value={formData.medical_history} className="form-control" name="medical_history" id="medical_history" ></textarea>
             </div>
             <div className="d-flex justify-content-end mt-3">
-                <button className="btn btn-danger me-3">Back</button>
-                <button className="btn btn-primary">Next</button>
+                <button onClick={() => handleBackButton("preProcedureQuestionnaire", "clientInfo")} className="btn btn-danger me-3">Back</button>
+                <button onClick={() => handleValidation(inputData, "preProcedureQuestionnaire", "acknowledgementAndWaiver")} className="btn btn-primary">Next</button>
             </div>
         </div>
     )

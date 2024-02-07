@@ -86,3 +86,42 @@ export const handleOptionalInputChange = (e, data, setData) => {
         [e.target.name]: e.target.value
     })
 }
+
+export const handleRadioButtonChange = (e, data, setData, inputData, setInputData, value) => {
+    setData({
+    ...data,
+    [e.target.name]: value
+    })
+
+    setInputData({
+        ...inputData,
+        [e.target.name]: true
+    })
+}
+
+export const handleCheckBoxChange = (e, data, setData, inputData, setInputData) => {
+    const name = e.target.name
+    const value = e.target.checked
+
+    if (!value) {
+        document.getElementById(name).classList.add("border-danger")
+        setInputData({
+            ...inputData,
+            [name]: false
+        })
+    } else if (document.getElementById(name).classList.contains("border-danger")) {
+        document.getElementById(name).classList.remove("border-danger")
+    }
+
+    setData({
+    ...data,
+    [name]: value
+    })
+
+    if (value) {
+        setInputData({
+            ...inputData,
+            [name]: true
+        })
+    }
+}

@@ -9,7 +9,16 @@ import SignaturePage from "../components/signaturePage"
 export default function ConsentForm() {
     const [components, setComponents] = useState({
         idPhotos: false,
-        clientInfo: true,
+        clientInfo: false,
+        preProcedureQuestionnaire: false,
+        acknowledgementAndWaiver: true,
+        afterCareInstructions: false,
+        signaturePage: false
+    })
+
+    const [completedComponents, setCompletedComponents] = useState({
+        idPhotos: false,
+        clientInfo: false,
         preProcedureQuestionnaire: false,
         acknowledgementAndWaiver: false,
         afterCareInstructions: false,
@@ -77,20 +86,6 @@ export default function ConsentForm() {
         event.preventDefault()
     }
 
-    const handleImageCapture = (file) => {
-        if (file.name.startsWith("frontIdFile")) {
-            setFormData({
-                ...formData,
-                front_id: file
-            })
-        } else if (file.name.startsWith("backIdFile")) {
-            setFormData({
-                ...formData,
-                back_id: file
-            })
-        }
-    }
-
     const componentDisplay = (activeComponent, nextComponent) => {
         setComponents({
             ...components,
@@ -100,7 +95,9 @@ export default function ConsentForm() {
     }
 
     const handleValidation = (validationData, activeComponent, nextComponent) => {
-        if (Object.values(validationData).includes(false)) {
+        if (completedComponents[activeComponent]) {
+            componentDisplay(activeComponent, nextComponent)
+        } else if (Object.values(validationData).includes(false)) {
             for (let [key, value] of Object.entries(validationData)) {
                 if (!value) {
                     document.getElementById(key).classList.add("border-danger")
@@ -108,6 +105,10 @@ export default function ConsentForm() {
             }
         } else {
             componentDisplay(activeComponent, nextComponent)
+            setCompletedComponents({
+                ...completedComponents,
+                [activeComponent]: true
+            })
         }
     }
 
@@ -120,15 +121,29 @@ export default function ConsentForm() {
             <div className="offset-1 col-10">
                 <div className="shadow p-4 mt-4">
                     <form onSubmit={handleSubmit} enctype="multipart/form-data">
-                        {components.idPhotos ? <IdPhotos handleImageCapture={handleImageCapture} />:<></>}
+                        {components.idPhotos ? <IdPhotos
+                            formData={formData}
+                            setFormData={setFormData}
+                            handleValidation={handleValidation}/>
+                            :<></>}
                         {components.clientInfo ? <ClientInfo
                             formData={formData}
                             setFormData={setFormData}
                             handleValidation={handleValidation}
                             handleBackButton={handleBackButton}/>
                             :<></>}
-                        {components.preProcedureQuestionnaire ? <PreProcedureQuestionnaire />:<></>}
-                        {components.acknowledgementAndWaiver ? <AcknowledgementAndWaiver />:<></>}
+                        {components.preProcedureQuestionnaire ? <PreProcedureQuestionnaire
+                            formData={formData}
+                            setFormData={setFormData}
+                            handleValidation={handleValidation}
+                            handleBackButton={handleBackButton}/>
+                            :<></>}
+                        {components.acknowledgementAndWaiver ? <AcknowledgementAndWaiver
+                            formData={formData}
+                            setFormData={setFormData}
+                            handleValidation={handleValidation}
+                            handleBackButton={handleBackButton}/>
+                            :<></>}
                         {components.afterCareInstructions ? <AfterCareInstructions />:<></>}
                         {components.signaturePage ? <SignaturePage />:<></>}
                     </form>
