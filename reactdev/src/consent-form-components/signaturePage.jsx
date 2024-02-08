@@ -2,7 +2,7 @@ import { useRef } from "react"
 import SignatureCanvas from 'react-signature-canvas'
 import { handleInputChange, handleSignatureChange, handleClear } from "../utils/inputChangeUtils"
 
-export default function SignaturePage({formData, setFormData, handleValidation, handleBackButton}) {
+export default function SignaturePage({formData, setFormData, handleNextButton, handleBackButton}) {
     const general_sig = useRef(null)
     const artist_sig = useRef(null)
 
@@ -115,7 +115,7 @@ export default function SignaturePage({formData, setFormData, handleValidation, 
             </div>
             <div className="d-flex justify-content-end mt-3">
                 <button onClick={() => handleBackButton("signaturePage", "afterCareInstructions")} className="btn btn-danger me-3">Back</button>
-                <button className="btn btn-success">Submit</button>
+                <button onClick={(e) => handleNextButton(e, formData, "signaturePage", "completedForm")} className="btn btn-success">Submit</button>
             </div>
         </div>
     )

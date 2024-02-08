@@ -104,7 +104,7 @@ export default function ClientInfo({ formData, setFormData, optionalData, setOpt
             </div>
             <div className="d-flex justify-content-end mt-3">
                 <button onClick={() => handleBackButton("clientInfo", "idPhotos")} className="btn btn-danger me-3">Back</button>
-                <button onClick={() => handleNextButton(formData, "clientInfo", "preProcedureQuestionnaire")} className="btn btn-primary">Next</button>
+                <button onClick={(e) => handleNextButton(e, formData, "clientInfo", "preProcedureQuestionnaire")} className="btn btn-primary">Next</button>
             </div>
         </div>
     )

@@ -63,7 +63,7 @@ export default function IdPhotos({formData, setFormData, handleNextButton}) {
                 <input type="file" name="back_id" id="backIdFile" className="id_file" required=""/>
             </div>
             <div className="d-flex justify-content-end mt-3">
-                <button onClick={() => handleNextButton(formData, "idPhotos", "clientInfo")} className="btn btn-primary">Next</button>
+                <button onClick={(e) => handleNextButton(e, formData, "idPhotos", "clientInfo")} className="btn btn-primary">Next</button>
             </div>
         </div>
     )

@@ -5,6 +5,7 @@ import ClientInfo from "../consent-form-components/clientInfo"
 import AfterCareInstructions from "../consent-form-components/afterCareInstructions"
 import PreProcedureQuestionnaire from "../consent-form-components/preProcedureQuestionnaire"
 import SignaturePage from "../consent-form-components/signaturePage"
+import CompletedForm from "../consent-form-components/completedForm"
 
 export default function ConsentForm() {
     const [components, setComponents] = useState({
@@ -13,7 +14,8 @@ export default function ConsentForm() {
         preProcedureQuestionnaire: false,
         acknowledgementAndWaiver: false,
         afterCareInstructions: false,
-        signaturePage: false
+        signaturePage: false,
+        completedForm: false
     })
 
     const [completedComponents, setCompletedComponents] = useState({
@@ -100,8 +102,20 @@ export default function ConsentForm() {
         medical_history: undefined
     })
 
-    const handleSubmit = (event) => {
+    const [formData, setFormData] = useState({
+    })
+
+    const handleSubmit = (event, activeComponent, nextComponent) => {
         event.preventDefault()
+        setFormData({
+            ...idData,
+            ...clientInfoData,
+            ...preProcedureData,
+            ...acknowledgementData,
+            ...afterCareData,
+            ...signaturePageData,
+            ...optionalData
+        })
     }
 
     const componentDisplay = (activeComponent, nextComponent) => {
@@ -110,9 +124,11 @@ export default function ConsentForm() {
             [activeComponent]: false,
             [nextComponent]: true
         })
+        window.scrollTo(0, 0)
     }
 
-    const handleNextButton = (validationData, activeComponent, nextComponent) => {
+    const handleNextButton = (event, validationData, activeComponent, nextComponent) => {
+        event.preventDefault()
         if (completedComponents[activeComponent]) {
             componentDisplay(activeComponent, nextComponent)
         } else if (Object.values(validationData).includes(undefined)) {
@@ -127,13 +143,20 @@ export default function ConsentForm() {
                 ...completedComponents,
                 [activeComponent]: true
             })
-            window.scrollTo(0, 0)
         }
+        setFormData({
+            ...idData,
+            ...clientInfoData,
+            ...preProcedureData,
+            ...acknowledgementData,
+            ...afterCareData,
+            ...signaturePageData,
+            ...optionalData
+        })
     }
 
     const handleBackButton = (activeComponent, backComponent) => {
         componentDisplay(activeComponent, backComponent)
-        window.scrollTo(0, 0)
     }
 
     return (
@@ -178,6 +201,11 @@ export default function ConsentForm() {
                             formData={signaturePageData}
                             setFormData={setSignaturePageData}
                             handleSubmit={handleSubmit}
+                            handleNextButton={handleNextButton}
+                            handleBackButton={handleBackButton}/>
+                            :<></>}
+                        {components.completedForm ? <CompletedForm
+                            formData={formData}
                             handleBackButton={handleBackButton}/>
                             :<></>}
                     </form>

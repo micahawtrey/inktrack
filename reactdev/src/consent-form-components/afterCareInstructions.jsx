@@ -74,7 +74,7 @@ export default function AfterCareInstructions({formData, setFormData, handleNext
             </div>
             <div className="d-flex justify-content-end mt-3">
                 <button onClick={() => handleBackButton("afterCareInstructions", "acknowledgementAndWaiver")} className="btn btn-danger me-3">Back</button>
-                <button onClick={() => handleNextButton(formData, "afterCareInstructions", "signaturePage")} className="btn btn-primary">Next</button>
+                <button onClick={(e) => handleNextButton(e, formData, "afterCareInstructions", "signaturePage")} className="btn btn-primary">Next</button>
             </div>
         </div>
     )

@@ -70,7 +70,7 @@ export default function PreProcedureQuestionnaire({formData, setFormData, option
             </div>
             <div className="d-flex justify-content-end mt-3">
                 <button onClick={() => handleBackButton("preProcedureQuestionnaire", "clientInfo")} className="btn btn-danger me-3">Back</button>
-                <button onClick={() => handleNextButton(formData, "preProcedureQuestionnaire", "acknowledgementAndWaiver")} className="btn btn-primary">Next</button>
+                <button onClick={(e) => handleNextButton(e, formData, "preProcedureQuestionnaire", "acknowledgementAndWaiver")} className="btn btn-primary">Next</button>
             </div>
         </div>
     )

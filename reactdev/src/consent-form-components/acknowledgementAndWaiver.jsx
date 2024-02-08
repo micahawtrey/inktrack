@@ -314,7 +314,7 @@ export default function AcknowledgementAndWaiver({formData, setFormData, handleN
 
             <div className="d-flex justify-content-end mt-3">
                 <button onClick={() => handleBackButton("acknowledgementAndWaiver", "preProcedureQuestionnaire")} className="btn btn-danger me-3">Back</button>
-                <button onClick={() => handleNextButton(formData, "acknowledgementAndWaiver", "afterCareInstructions")} className="btn btn-primary">Next</button>
+                <button onClick={(e) => handleNextButton(e, formData, "acknowledgementAndWaiver", "afterCareInstructions")} className="btn btn-primary">Next</button>
             </div>
         </div>
     )
