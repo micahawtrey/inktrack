@@ -8,10 +8,10 @@ import SignaturePage from "../components/signaturePage"
 
 export default function ConsentForm() {
     const [components, setComponents] = useState({
-        idPhotos: false,
+        idPhotos: true,
         clientInfo: false,
         preProcedureQuestionnaire: false,
-        acknowledgementAndWaiver: true,
+        acknowledgementAndWaiver: false,
         afterCareInstructions: false,
         signaturePage: false
     })
@@ -36,7 +36,6 @@ export default function ConsentForm() {
         phone_number: "",
         email: "",
         address_line_1: "",
-        address_line_2: "",
         city: "",
         state_province: "",
         postal_zip_code: "",
@@ -44,10 +43,8 @@ export default function ConsentForm() {
         tattoo_placement: "",
         connection: "",
         under_influence: "",
-        pregnant_or_nursing: "",
         communicable_disease: "",
         skin_conditions: "",
-        medical_history: "",
         permanent: "",
         permanent_init: "",
         social_media_perm: "",
@@ -82,6 +79,12 @@ export default function ConsentForm() {
         needle_info: ""
     })
 
+    const [optionalData, setOptionalData] = useState({
+        address_line_2: "",
+        pregnant_or_nursing: "",
+        medical_history: ""
+    })
+
     const handleSubmit = (event) => {
         event.preventDefault()
     }
@@ -94,7 +97,7 @@ export default function ConsentForm() {
         })
     }
 
-    const handleValidation = (validationData, activeComponent, nextComponent) => {
+    const handleNextButton = (validationData, activeComponent, nextComponent) => {
         if (completedComponents[activeComponent]) {
             componentDisplay(activeComponent, nextComponent)
         } else if (Object.values(validationData).includes(false)) {
@@ -124,28 +127,42 @@ export default function ConsentForm() {
                         {components.idPhotos ? <IdPhotos
                             formData={formData}
                             setFormData={setFormData}
-                            handleValidation={handleValidation}/>
+                            handleNextButton={handleNextButton}/>
                             :<></>}
                         {components.clientInfo ? <ClientInfo
                             formData={formData}
                             setFormData={setFormData}
-                            handleValidation={handleValidation}
+                            optionalData={optionalData}
+                            setOptionalData={setOptionalData}
+                            handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>
                             :<></>}
                         {components.preProcedureQuestionnaire ? <PreProcedureQuestionnaire
                             formData={formData}
                             setFormData={setFormData}
-                            handleValidation={handleValidation}
+                            optionalData={optionalData}
+                            setOptionalData={setOptionalData}
+                            handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>
                             :<></>}
                         {components.acknowledgementAndWaiver ? <AcknowledgementAndWaiver
                             formData={formData}
                             setFormData={setFormData}
-                            handleValidation={handleValidation}
+                            handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>
                             :<></>}
-                        {components.afterCareInstructions ? <AfterCareInstructions />:<></>}
-                        {components.signaturePage ? <SignaturePage />:<></>}
+                        {components.afterCareInstructions ? <AfterCareInstructions
+                            formData={formData}
+                            setFormData={setFormData}
+                            handleNextButton={handleNextButton}
+                            handleBackButton={handleBackButton}/>
+                            :<></>}
+                        {components.signaturePage ? <SignaturePage
+                            formData={formData}
+                            setFormData={setFormData}
+                            handleSubmit={handleSubmit}
+                            handleBackButton={handleBackButton}/>
+                            :<></>}
                     </form>
                 </div>
             </div>

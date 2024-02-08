@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { capturePicture, idPicture } from "../utils/WebcamManagement"
 
-export default function IdPhotos({formData, setFormData, handleValidation}) {
+export default function IdPhotos({formData, setFormData, handleNextButton}) {
     const [cameras, setCameras] = useState({
         frontCamera: false,
         frontPhoto: false,
@@ -68,7 +68,7 @@ export default function IdPhotos({formData, setFormData, handleValidation}) {
                 <input type="file" name="back_id" id="backIdFile" className="id_file" required=""/>
             </div>
             <div className="d-flex justify-content-end mt-3">
-                <button onClick={() => handleValidation(inputData, "idPhotos", "clientInfo")} className="btn btn-primary">Next</button>
+                <button onClick={() => handleNextButton(inputData, "idPhotos", "clientInfo")} className="btn btn-primary">Next</button>
             </div>
         </div>
     )

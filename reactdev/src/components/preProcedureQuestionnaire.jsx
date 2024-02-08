@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { handleRadioButtonChange, handleOptionalInputChange } from "../utils/inputChangeUtils"
 
-export default function PreProcedureQuestionnaire({formData, setFormData, handleValidation, handleBackButton}) {
+export default function PreProcedureQuestionnaire({formData, setFormData, optionalData, setOptionalData, handleNextButton, handleBackButton}) {
     const [inputData, setInputData] = useState({
         under_influence: false,
         communicable_disease: false,
@@ -31,11 +31,11 @@ export default function PreProcedureQuestionnaire({formData, setFormData, handle
                 <div>
                     <div className="form-check">
                         <div>
-                            <input onChange={(e) => handleRadioButtonChange(e, formData, setFormData, inputData, setInputData, "Yes")} type="radio" className="form-check-input" name="pregnant_or_nursing" id="yes" />
+                            <input onChange={(e) => handleRadioButtonChange(e, optionalData, setOptionalData, inputData, setInputData, "Yes")} type="radio" className="form-check-input" name="pregnant_or_nursing" id="yes" />
                             <label htmlFor="yes">Yes</label>
                         </div>
                         <div>
-                            <input onChange={(e) => handleRadioButtonChange(e, formData, setFormData, inputData, setInputData, "No")} type="radio" className="form-check-input" name="pregnant_or_nursing" id="no" />
+                            <input onChange={(e) => handleRadioButtonChange(e, optionalData, setOptionalData, inputData, setInputData, "No")} type="radio" className="form-check-input" name="pregnant_or_nursing" id="no" />
                             <label htmlFor="no">No</label>
                         </div>
                     </div>
@@ -73,11 +73,11 @@ export default function PreProcedureQuestionnaire({formData, setFormData, handle
             </div>
             <div className="">
                 <label htmlFor="medical_history">Please tell us about your medical history (e.g. Are you on blood thinners?, Diabetes, Cardiovascular Disease, Epilepsy, Blood-related disease, Hemophilia ,immune compromised, etc.).</label>
-                <textarea onChange={(e) => handleOptionalInputChange(e, formData, setFormData)} value={formData.medical_history} className="form-control" name="medical_history" id="medical_history" ></textarea>
+                <textarea onChange={(e) => handleOptionalInputChange(e, optionalData, setOptionalData)} value={formData.medical_history} className="form-control" name="medical_history" id="medical_history" ></textarea>
             </div>
             <div className="d-flex justify-content-end mt-3">
                 <button onClick={() => handleBackButton("preProcedureQuestionnaire", "clientInfo")} className="btn btn-danger me-3">Back</button>
-                <button onClick={() => handleValidation(inputData, "preProcedureQuestionnaire", "acknowledgementAndWaiver")} className="btn btn-primary">Next</button>
+                <button onClick={() => handleNextButton(inputData, "preProcedureQuestionnaire", "acknowledgementAndWaiver")} className="btn btn-primary">Next</button>
             </div>
         </div>
     )

@@ -2,7 +2,7 @@ import { useRef, useState } from "react"
 import { handleInputChange, handleCheckBoxChange, handleSignatureChange, handleClear } from "../utils/inputChangeUtils"
 import SignatureCanvas from 'react-signature-canvas'
 
-export default function AcknowledgementAndWaiver({formData, setFormData, handleValidation, handleBackButton}) {
+export default function AcknowledgementAndWaiver({formData, setFormData, handleNextButton, handleBackButton}) {
     const [inputData, setInputData] = useState({
         permanent: false,
         permanent_init: false,
@@ -339,7 +339,7 @@ export default function AcknowledgementAndWaiver({formData, setFormData, handleV
 
             <div className="d-flex justify-content-end mt-3">
                 <button onClick={() => handleBackButton("acknowledgementAndWaiver", "preProcedureQuestionnaire")} className="btn btn-danger me-3">Back</button>
-                <button onClick={() => handleValidation(inputData, "acknowledgementAndWaiver", "afterCareInstructions")} className="btn btn-primary">Next</button>
+                <button onClick={() => handleNextButton(inputData, "acknowledgementAndWaiver", "afterCareInstructions")} className="btn btn-primary">Next</button>
             </div>
         </div>
     )

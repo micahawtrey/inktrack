@@ -1,5 +1,15 @@
+import { useState, useRef } from "react"
+import SignatureCanvas from 'react-signature-canvas'
+import { handleInputChange, handleSignatureChange, handleClear } from "../utils/inputChangeUtils"
 
- export default function AfterCareInstructions() {
+export default function AfterCareInstructions({formData, setFormData, handleNextButton, handleBackButton}) {
+    const [inputData, setInputData] = useState({
+        aftercare_sig: false,
+        aftercare_date: false
+    })
+
+    const aftercare_sig = useRef(null)
+
     return (
         <div id="afterCareInstructions" >
             <div>
@@ -40,20 +50,36 @@
             <div>
                 <h4>Client Signature<span className="text-danger">*</span></h4>
             </div>
-            <div>
-                {/* <div className="signature-div">
-                    {{ form.aftercare_sig }}
-                </div> */}
+            <div className=''>
+                <div>
+                    <div className="col-4 mb-3" style={{ width:127, height: 145, }}>
+                        <div>
+                            <SignatureCanvas
+                                canvasProps={{name: "aftercare_sig", id: "aftercare_sig", className: "border border-secondary", width:450, height: 100 }}
+                                ref={aftercare_sig}
+                                onEnd={() => handleSignatureChange(aftercare_sig.current, formData, setFormData, inputData, setInputData)}
+                            />
+                        </div>
+                        <div className="row justify-content-center">
+                            <button
+                                onClick={() => handleClear(aftercare_sig, formData, setFormData, inputData, setInputData)}
+                                className="my-1 btn btn-secondary col-6"
+                                >Clear</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="form-group">
                 <h4>Date<span className="text-danger">*</span></h4>
                 <div className="form-group">
-                    <input type="date" className="form-control w-50" value="" name="aftercare_date" id="aftercare_date" />
+                    <input
+                        onChange={(e) => handleInputChange(e, formData, setFormData, inputData, setInputData)}
+                        type="date" className="form-control w-50" value={formData.aftercare_date} name="aftercare_date" id="aftercare_date" />
                 </div>
             </div>
             <div className="d-flex justify-content-end mt-3">
-                <button className="btn btn-danger me-3">Back</button>
-                <button className="btn btn-primary">Next</button>
+                <button onClick={() => handleBackButton("afterCareInstructions", "acknowledgementAndWaiver")} className="btn btn-danger me-3">Back</button>
+                <button onClick={() => handleNextButton(inputData, "afterCareInstructions", "signaturePage")} className="btn btn-primary">Next</button>
             </div>
         </div>
     )
