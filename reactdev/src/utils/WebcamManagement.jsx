@@ -22,23 +22,15 @@ export const handleImageCapture = (file, data, setData, inputDataState, setInput
             ...data,
             front_id: file
         })
-        setInputDataState({
-            ...inputDataState,
-            front_id: true
-        })
     } else if (file.name.startsWith("backIdFile")) {
         setData({
             ...data,
             back_id: file
         })
-        setInputDataState({
-            ...inputDataState,
-            back_id: true
-        })
     }
 }
 
-export const capturePicture = (videoId, photoId, fileInputId, idButtonId, camera, id, cameraState, setCameraState, dataState, setDataState, inputDataState, setInputDataState) => {
+export const capturePicture = (videoId, photoId, fileInputId, idButtonId, camera, id, cameraState, setCameraState, dataState, setDataState) => {
     const videoTag = document.getElementById(videoId)
     const photoTag = document.getElementById(photoId)
     const fileInputTag = document.getElementById(fileInputId)
@@ -54,7 +46,7 @@ export const capturePicture = (videoId, photoId, fileInputId, idButtonId, camera
     const blob = dataURItoBlob(data)
 
     const file = new File([blob], `${fileInputTag.id}_image.png`, {type: 'image/png' })
-    handleImageCapture(file, dataState, setDataState, inputDataState, setInputDataState)
+    handleImageCapture(file, dataState, setDataState)
 
     idButtonTag.innerHTML = `Retake ID ${id} photo`
     setCameraState({

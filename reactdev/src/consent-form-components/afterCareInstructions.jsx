@@ -1,13 +1,8 @@
-import { useState, useRef } from "react"
+import { useRef } from "react"
 import SignatureCanvas from 'react-signature-canvas'
 import { handleInputChange, handleSignatureChange, handleClear } from "../utils/inputChangeUtils"
 
 export default function AfterCareInstructions({formData, setFormData, handleNextButton, handleBackButton}) {
-    const [inputData, setInputData] = useState({
-        aftercare_sig: false,
-        aftercare_date: false
-    })
-
     const aftercare_sig = useRef(null)
 
     return (
@@ -57,12 +52,12 @@ export default function AfterCareInstructions({formData, setFormData, handleNext
                             <SignatureCanvas
                                 canvasProps={{name: "aftercare_sig", id: "aftercare_sig", className: "border border-secondary", width:450, height: 100 }}
                                 ref={aftercare_sig}
-                                onEnd={() => handleSignatureChange(aftercare_sig.current, formData, setFormData, inputData, setInputData)}
+                                onEnd={() => handleSignatureChange(aftercare_sig.current, formData, setFormData)}
                             />
                         </div>
                         <div className="row justify-content-center">
                             <button
-                                onClick={() => handleClear(aftercare_sig, formData, setFormData, inputData, setInputData)}
+                                onClick={() => handleClear(aftercare_sig, formData, setFormData)}
                                 className="my-1 btn btn-secondary col-6"
                                 >Clear</button>
                         </div>
@@ -73,13 +68,13 @@ export default function AfterCareInstructions({formData, setFormData, handleNext
                 <h4>Date<span className="text-danger">*</span></h4>
                 <div className="form-group">
                     <input
-                        onChange={(e) => handleInputChange(e, formData, setFormData, inputData, setInputData)}
+                        onChange={(e) => handleInputChange(e, formData, setFormData)}
                         type="date" className="form-control w-50" value={formData.aftercare_date} name="aftercare_date" id="aftercare_date" />
                 </div>
             </div>
             <div className="d-flex justify-content-end mt-3">
                 <button onClick={() => handleBackButton("afterCareInstructions", "acknowledgementAndWaiver")} className="btn btn-danger me-3">Back</button>
-                <button onClick={() => handleNextButton(inputData, "afterCareInstructions", "signaturePage")} className="btn btn-primary">Next</button>
+                <button onClick={() => handleNextButton(formData, "afterCareInstructions", "signaturePage")} className="btn btn-primary">Next</button>
             </div>
         </div>
     )

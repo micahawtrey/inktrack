@@ -9,11 +9,6 @@ export default function IdPhotos({formData, setFormData, handleNextButton}) {
         backPhoto: false,
         })
 
-    const [inputData, setInputData] = useState({
-        front_id: false,
-        back_id: false
-        })
-
     const displayCamera = (event, camera, video, photo) => {
         event.preventDefault()
 
@@ -38,7 +33,7 @@ export default function IdPhotos({formData, setFormData, handleNextButton}) {
             <div className="mb-3">
                 <video id="frontVideo" className="form-control mb-3" width="320" height="240" hidden >Video stream not available.</video>
                 {cameras.frontCamera ?
-                    <button onClick={() => capturePicture("frontVideo", "frontPhoto", "frontIdFile", "frontIdCameraButton", "frontCamera", "front", cameras, setCameras, formData, setFormData, inputData, setInputData)} id="frontCapture" type="button" className="btn btn-outline-primary">Take photo</button>
+                    <button onClick={() => capturePicture("frontVideo", "frontPhoto", "frontIdFile", "frontIdCameraButton", "frontCamera", "front", cameras, setCameras, formData, setFormData)} id="frontCapture" type="button" className="btn btn-outline-primary">Take photo</button>
                     : <></>
                 }
                 <input id="frontPhoto" onClick={(e) => {e.preventDefault()}} className="" width="320" height="240" alt="your image" type='image' hidden/>
@@ -52,7 +47,7 @@ export default function IdPhotos({formData, setFormData, handleNextButton}) {
             <div>
                 <video id="backVideo" className="form-control mb-3" width="320" height="240" hidden >Video stream not available.</video>
                 {cameras.backCamera ?
-                <button onClick={() => capturePicture("backVideo", "backPhoto", "backIdFile", "backIdCameraButton", "backCamera", "back", cameras, setCameras, formData, setFormData, inputData, setInputData)} id="backCapture" type="button" className="btn btn-outline-primary">Take photo</button>
+                <button onClick={() => capturePicture("backVideo", "backPhoto", "backIdFile", "backIdCameraButton", "backCamera", "back", cameras, setCameras, formData, setFormData)} id="backCapture" type="button" className="btn btn-outline-primary">Take photo</button>
                 : <></>}
                 <input id="backPhoto" onClick={(e) => {e.preventDefault()}}  alt="your image" type='image' hidden/>
             </div>
@@ -68,7 +63,7 @@ export default function IdPhotos({formData, setFormData, handleNextButton}) {
                 <input type="file" name="back_id" id="backIdFile" className="id_file" required=""/>
             </div>
             <div className="d-flex justify-content-end mt-3">
-                <button onClick={() => handleNextButton(inputData, "idPhotos", "clientInfo")} className="btn btn-primary">Next</button>
+                <button onClick={() => handleNextButton(formData, "idPhotos", "clientInfo")} className="btn btn-primary">Next</button>
             </div>
         </div>
     )

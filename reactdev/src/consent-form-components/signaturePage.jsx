@@ -1,19 +1,8 @@
-import { useState, useRef } from "react"
+import { useRef } from "react"
 import SignatureCanvas from 'react-signature-canvas'
 import { handleInputChange, handleSignatureChange, handleClear } from "../utils/inputChangeUtils"
 
 export default function SignaturePage({formData, setFormData, handleValidation, handleBackButton}) {
-    const [inputData, setInputData] = useState({
-        full_name: false,
-        general_sig: false,
-        general_date: false,
-        artist_sig: false,
-        artist_date_signed: false,
-        artist_name: false,
-        artist_date: false,
-        needle_info: false
-    })
-
     const general_sig = useRef(null)
     const artist_sig = useRef(null)
 
@@ -30,7 +19,7 @@ export default function SignaturePage({formData, setFormData, handleValidation, 
                     </p>
                     <div className="form-floating">
                         <input
-                            onChange={(e) => handleInputChange(e, formData, setFormData, inputData, setInputData)}
+                            onChange={(e) => handleInputChange(e, formData, setFormData)}
                             type="text" className="form-control w-50" value={formData.full_name} name="full_name" id="full_name" placeholder="Full name" />
                         <label htmlFor="full_name">Full name<span ></span></label>
                     </div>
@@ -44,12 +33,12 @@ export default function SignaturePage({formData, setFormData, handleValidation, 
                             <SignatureCanvas
                                 canvasProps={{name: "general_sig", id: "general_sig", className: "border border-secondary", width:450, height: 100 }}
                                 ref={general_sig}
-                                onEnd={() => handleSignatureChange(general_sig.current, formData, setFormData, inputData, setInputData)}
+                                onEnd={() => handleSignatureChange(general_sig.current, formData, setFormData)}
                             />
                         </div>
                         <div className="row justify-content-center">
                             <button
-                                onClick={() => handleClear(general_sig, formData, setFormData, inputData, setInputData)}
+                                onClick={() => handleClear(general_sig, formData, setFormData)}
                                 className="my-1 btn btn-secondary col-6"
                                 >Clear</button>
                         </div>
@@ -60,7 +49,7 @@ export default function SignaturePage({formData, setFormData, handleValidation, 
             <h5>Date<span className="text-danger">*</span></h5>
             <div className="mb-3">
                 <input
-                    onChange={(e) => handleInputChange(e, formData, setFormData, inputData, setInputData)}
+                    onChange={(e) => handleInputChange(e, formData, setFormData)}
                     type="date" className="form-control w-50" value={formData.general_date} name="general_date" id="general_date" />
             </div>
 
@@ -72,12 +61,12 @@ export default function SignaturePage({formData, setFormData, handleValidation, 
                             <SignatureCanvas
                                 canvasProps={{name: "artist_sig", id: "artist_sig", className: "border border-secondary", width:450, height: 100 }}
                                 ref={artist_sig}
-                                onEnd={() => handleSignatureChange(artist_sig.current, formData, setFormData, inputData, setInputData)}
+                                onEnd={() => handleSignatureChange(artist_sig.current, formData, setFormData)}
                             />
                         </div>
                         <div className="row justify-content-center">
                             <button
-                                onClick={() => handleClear(artist_sig, formData, setFormData, inputData, setInputData)}
+                                onClick={() => handleClear(artist_sig, formData, setFormData)}
                                 className="my-1 btn btn-secondary col-6"
                                 >Clear</button>
                         </div>
@@ -89,7 +78,7 @@ export default function SignaturePage({formData, setFormData, handleValidation, 
                 <h5>Date<span className="text-danger">*</span></h5>
                 <div className="">
                     <input
-                        onChange={(e) => handleInputChange(e, formData, setFormData, inputData, setInputData)}
+                        onChange={(e) => handleInputChange(e, formData, setFormData)}
                         type="date" className="form-control w-50" value={formData.artist_date_signed} name="artist_date_signed" id="artist_date_signed" />
                 </div>
             </div>
@@ -107,21 +96,21 @@ export default function SignaturePage({formData, setFormData, handleValidation, 
             <div>
                 <label htmlFor="artist_name">Name of Artist or Representative</label>
                 <input
-                    onChange={(e) => handleInputChange(e, formData, setFormData, inputData, setInputData)}
+                    onChange={(e) => handleInputChange(e, formData, setFormData)}
                     type="text" className="form-control w-50 mb-3" value={formData.artist_name} name="artist_name" id="artist_name" />
             </div>
 
             <div className="">
                 <label htmlFor='artist_date'>Signed Date</label>
                 <input
-                    onChange={(e) => handleInputChange(e, formData, setFormData, inputData, setInputData)}
+                    onChange={(e) => handleInputChange(e, formData, setFormData)}
                     type="date" className="form-control w-50 mb-3" value={formData.artist_date} name="artist_date" id="artist_date"  />
             </div>
 
             <div className="">
                 <p>LOT #- EXPIRATION DATE - STERILIZATION DATE -COMPANY/BRAND</p>
                 <textarea
-                    onChange={(e) => handleInputChange(e, formData, setFormData, inputData, setInputData)}
+                    onChange={(e) => handleInputChange(e, formData, setFormData)}
                     value={formData.needle_info} name="needle_info" id="needle_info" className="form-control"></textarea>
             </div>
             <div className="d-flex justify-content-end mt-3">
