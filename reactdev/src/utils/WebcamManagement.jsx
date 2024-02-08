@@ -55,9 +55,6 @@ export const capturePicture = (videoId, photoId, fileInputId, idButtonId, camera
 
     const file = new File([blob], `${fileInputTag.id}_image.png`, {type: 'image/png' })
     handleImageCapture(file, dataState, setDataState, inputDataState, setInputDataState)
-    // const dataTransfer = new DataTransfer()
-    // dataTransfer.items.add(file)
-    // fileInputTag.files = dataTransfer.files
 
     idButtonTag.innerHTML = `Retake ID ${id} photo`
     setCameraState({

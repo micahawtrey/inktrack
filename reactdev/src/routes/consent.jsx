@@ -120,7 +120,7 @@ export default function ConsentForm() {
         <div className="row">
             <div className="offset-1 col-10">
                 <div className="shadow p-4 mt-4">
-                    <form onSubmit={handleSubmit} enctype="multipart/form-data">
+                    <form onSubmit={handleSubmit} className="">
                         {components.idPhotos ? <IdPhotos
                             formData={formData}
                             setFormData={setFormData}
