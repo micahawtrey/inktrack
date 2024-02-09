@@ -11,15 +11,20 @@ import { useForm } from "react-hook-form"
 export default function ConsentForm() {
     const [components, setComponents] = useState({
         idPhotos: false,
-        clientInfo: true,
+        clientInfo: false,
         preProcedureQuestionnaire: false,
-        acknowledgementAndWaiver: false,
+        acknowledgementAndWaiver: true,
         afterCareInstructions: false,
         signaturePage: false,
         completedForm: false
     })
 
-    const { register, handleSubmit, formState: { errors }, trigger } = useForm()
+    const { register, control, handleSubmit, formState: { errors }, trigger } = useForm()
+
+    const [userInfo, setUserInfo] = useState({
+        first_name: "",
+        last_name: "",
+    })
 
     const [completedComponents, setCompletedComponents] = useState({
         idPhotos: false,
@@ -149,7 +154,13 @@ export default function ConsentForm() {
         if (e.target.className.includes("border-danger")){
             trigger(e.target.id)
             }
+        if (Object.keys(userInfo).includes(e.target.id)) {
+            setUserInfo({
+                ...userInfo,
+                [e.target.id]: e.target.innerHtml
+            })
         }
+    }
 
     const handleNextButton = (activeComponent, nextComponent) => {
         trigger().then((isValid) => {
@@ -178,29 +189,32 @@ export default function ConsentForm() {
                             handleBackButton={handleBackButton}/>
                             :<></>}
                         {components.preProcedureQuestionnaire ? <PreProcedureQuestionnaire
-                            formData={preProcedureData}
-                            setFormData={setPreProcedureData}
-                            optionalData={optionalData}
-                            setOptionalData={setOptionalData}
+                            register={register}
+                            errors={errors}
+                            handleInputChange={handleInputChange}
                             handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>
                             :<></>}
                         {components.acknowledgementAndWaiver ? <AcknowledgementAndWaiver
-                            formData={acknowledgementData}
-                            setFormData={setAcknowledgementData}
+                            register={register}
+                            errors={errors}
+                            control={control}
+                            userInfo={userInfo}
+                            handleInputChange={handleInputChange}
                             handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>
                             :<></>}
                         {components.afterCareInstructions ? <AfterCareInstructions
-                            formData={afterCareData}
-                            setFormData={setAfterCareData}
+                            register={register}
+                            errors={errors}
+                            handleInputChange={handleInputChange}
                             handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>
                             :<></>}
                         {components.signaturePage ? <SignaturePage
-                            formData={signaturePageData}
-                            setFormData={setSignaturePageData}
-                            handleSubmit={handleSubmit}
+                            register={register}
+                            errors={errors}
+                            handleInputChange={handleInputChange}
                             handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>
                             :<></>}

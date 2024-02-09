@@ -1,9 +1,7 @@
 import PhoneInput from "react-phone-input-2"
 import 'react-phone-input-2/lib/style.css'
 import { statesList } from "../utils/utils"
-import { handleAlphaInputChange, handlePhoneNumberChange, handleOptionalInputChange } from "../utils/inputChangeUtils"
-import { useRef } from "react"
-import { useForm } from "react-hook-form"
+
 
 export default function ClientInfo({ register, errors, handleInputChange, handleNextButton, handleBackButton }) {
     return (

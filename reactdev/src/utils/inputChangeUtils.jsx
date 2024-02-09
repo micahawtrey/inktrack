@@ -94,23 +94,13 @@ export const handleCheckBoxChange = (e, data, setData) => {
     })
 }
 
-export const handleSignatureChange = (refCurrent, data, setData) => {
+export const handleSignatureChange = (refCurrent, userInfo) => {
     const base64 = refCurrent.toDataURL("image/png")
     const blob = dataURItoBlob(base64)
-    const file = new File([blob], `${data["first_name"]}_${data["last_name"]}_${refCurrent._canvas.id}_image.png`, {type: 'image/png' })
-
-    if (file) {
-        setData({
-        ...data,
-        [refCurrent._canvas.id]: file
-        })
-    }
+    const file = new File([blob], `${userInfo["first_name"]}_${userInfo["last_name"]}_${refCurrent._canvas.id}_image.png`, {type: 'image/png' })
+    return file
 }
 
-export const handleClear = (pad, data, setData) => {
+export const handleClear = (pad) => {
     pad.current.clear()
-    setData({
-        ...data,
-        [pad.current._canvas.id]: undefined
-    })
 }
