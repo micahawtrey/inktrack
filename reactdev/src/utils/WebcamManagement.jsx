@@ -33,7 +33,6 @@ export const handleImageCapture = (file, data, setData, inputDataState, setInput
 export const capturePicture = (videoId, photoId, fileInputId, idButtonId, camera, id, cameraState, setCameraState, dataState, setDataState) => {
     const videoTag = document.getElementById(videoId)
     const photoTag = document.getElementById(photoId)
-    const fileInputTag = document.getElementById(fileInputId)
     const idButtonTag = document.getElementById(idButtonId)
     const canvas = document.getElementById("canvas")
     const context = canvas.getContext('2d')
@@ -45,7 +44,7 @@ export const capturePicture = (videoId, photoId, fileInputId, idButtonId, camera
 
     const blob = dataURItoBlob(data)
 
-    const file = new File([blob], `${fileInputTag.id}_image.png`, {type: 'image/png' })
+    const file = new File([blob], `${fileInputId}_image.png`, {type: 'image/png' })
     handleImageCapture(file, dataState, setDataState)
 
     idButtonTag.innerHTML = `Retake ID ${id} photo`

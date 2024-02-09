@@ -1,4 +1,4 @@
-export default function CompletedForm({formData, handleBackButton}) {
+export default function CompletedForm({formData, handleBackButton, handleSubmit}) {
 
 
     return (
@@ -166,12 +166,7 @@ export default function CompletedForm({formData, handleBackButton}) {
                         <img src={ URL.createObjectURL(formData.artist_sig) } alt=""/>
                     </div>
             </div>
-            <div>
-                <div className=''>
-                    <p className="text-center fs-1 text-danger">
-                        -----STOP HERE!-----
-                    </p>
-                </div>
+            <div className="mt-5">
                 <h3>FOR TATTOO ARTIST ONLY</h3>
                 <div>
                     <div>
@@ -187,7 +182,10 @@ export default function CompletedForm({formData, handleBackButton}) {
                         <b>{ formData.needle_info }</b>
                     </p>
                 </div>
-                <button onClick={() => handleBackButton("completedForm", "signaturePage")} className="btn btn-danger">Back</button>
+                <div className="d-flex justify-content-end mt-3">
+                    <button onClick={() => handleBackButton("completedForm", "signaturePage")} className="btn btn-danger me-1">Back</button>
+                    <button onClick={(e) => handleSubmit(e)} className="btn btn-success">Submit</button>
+                </div>
             </div>
         </div>
     )

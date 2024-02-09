@@ -105,7 +105,7 @@ export default function ConsentForm() {
     const [formData, setFormData] = useState({
     })
 
-    const handleSubmit = (event, activeComponent, nextComponent) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
         setFormData({
             ...idData,
@@ -116,6 +116,20 @@ export default function ConsentForm() {
             ...signaturePageData,
             ...optionalData
         })
+
+        const consentAPIUrl = "http://localhost:8000/api/documents/consent/"
+        const fetchConfig = {
+            method: "POST",
+            body: formData,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+        const response = await fetch(consentAPIUrl, fetchConfig)
+        if (response.ok) {
+            const data = await response.json()
+            console.log(data)
+        }
     }
 
     const componentDisplay = (activeComponent, nextComponent) => {
@@ -206,7 +220,8 @@ export default function ConsentForm() {
                             :<></>}
                         {components.completedForm ? <CompletedForm
                             formData={formData}
-                            handleBackButton={handleBackButton}/>
+                            handleBackButton={handleBackButton}
+                            handleSubmit={handleSubmit}/>
                             :<></>}
                     </form>
                 </div>
