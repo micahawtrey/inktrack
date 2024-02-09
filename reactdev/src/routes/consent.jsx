@@ -6,17 +6,20 @@ import AfterCareInstructions from "../consent-form-components/afterCareInstructi
 import PreProcedureQuestionnaire from "../consent-form-components/preProcedureQuestionnaire"
 import SignaturePage from "../consent-form-components/signaturePage"
 import CompletedForm from "../consent-form-components/completedForm"
+import { useForm } from "react-hook-form"
 
 export default function ConsentForm() {
     const [components, setComponents] = useState({
-        idPhotos: true,
-        clientInfo: false,
+        idPhotos: false,
+        clientInfo: true,
         preProcedureQuestionnaire: false,
         acknowledgementAndWaiver: false,
         afterCareInstructions: false,
         signaturePage: false,
         completedForm: false
     })
+
+    const { register, handleSubmit, formState: { errors }, trigger } = useForm()
 
     const [completedComponents, setCompletedComponents] = useState({
         idPhotos: false,
@@ -105,31 +108,32 @@ export default function ConsentForm() {
     const [formData, setFormData] = useState({
     })
 
-    const handleSubmit = async (event) => {
-        event.preventDefault()
-        setFormData({
-            ...idData,
-            ...clientInfoData,
-            ...preProcedureData,
-            ...acknowledgementData,
-            ...afterCareData,
-            ...signaturePageData,
-            ...optionalData
-        })
+    const onSubmit = async () => {
+        console.log("AHHHHHHHHHHHHH")
+        // event.preventDefault()
+        // setFormData({
+        //     ...idData,
+        //     ...clientInfoData,
+        //     ...preProcedureData,
+        //     ...acknowledgementData,
+        //     ...afterCareData,
+        //     ...signaturePageData,
+        //     ...optionalData
+        // })
 
-        const consentAPIUrl = "http://localhost:8000/api/documents/consent/"
-        const fetchConfig = {
-            method: "POST",
-            body: formData,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }
-        const response = await fetch(consentAPIUrl, fetchConfig)
-        if (response.ok) {
-            const data = await response.json()
-            console.log(data)
-        }
+        // const consentAPIUrl = "http://localhost:8000/api/documents/consent/"
+        // const fetchConfig = {
+        //     method: "POST",
+        //     body: formData,
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     }
+        // }
+        // const response = await fetch(consentAPIUrl, fetchConfig)
+        // if (response.ok) {
+        //     const data = await response.json()
+        //     console.log(data)
+        // }
     }
 
     const componentDisplay = (activeComponent, nextComponent) => {
@@ -141,33 +145,16 @@ export default function ConsentForm() {
         window.scrollTo(0, 0)
     }
 
-    const handleNextButton = (event, validationData, activeComponent, nextComponent) => {
-        event.preventDefault()
-        if (completedComponents[activeComponent]) {
-            componentDisplay(activeComponent, nextComponent)
-        } else if (Object.values(validationData).includes(undefined)) {
-            for (let [key, value] of Object.entries(validationData)) {
-                if (!value) {
-                    document.getElementById(key).classList.add("border-danger")
-                }
+    const handleInputChange = (e) => {
+        if (e.target.className.includes("border-danger")){
+            trigger(e.target.id)
             }
-        } else {
-            componentDisplay(activeComponent, nextComponent)
-            setCompletedComponents({
-                ...completedComponents,
-                [activeComponent]: true
-            })
         }
-        setFormData({
-            ...idData,
-            ...clientInfoData,
-            ...preProcedureData,
-            ...acknowledgementData,
-            ...afterCareData,
-            ...signaturePageData,
-            ...optionalData
-        })
-    }
+
+    const handleNextButton = (activeComponent, nextComponent) => {
+        trigger().then((isValid) => {
+            if (isValid) {componentDisplay(activeComponent, nextComponent)}})
+        }
 
     const handleBackButton = (activeComponent, backComponent) => {
         componentDisplay(activeComponent, backComponent)
@@ -177,17 +164,16 @@ export default function ConsentForm() {
         <div className="row">
             <div className="offset-1 col-10">
                 <div className="shadow p-4 mt-4">
-                    <form onSubmit={handleSubmit} className="">
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         {components.idPhotos ? <IdPhotos
                             formData={idData}
                             setFormData={setIdData}
                             handleNextButton={handleNextButton}/>
                             :<></>}
                         {components.clientInfo ? <ClientInfo
-                            formData={clientInfoData}
-                            setFormData={setClientInfoData}
-                            optionalData={optionalData}
-                            setOptionalData={setOptionalData}
+                            register={register}
+                            errors={errors}
+                            handleInputChange={handleInputChange}
                             handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>
                             :<></>}
