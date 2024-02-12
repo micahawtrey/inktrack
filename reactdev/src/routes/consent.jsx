@@ -12,9 +12,9 @@ export default function ConsentForm() {
     const [components, setComponents] = useState({
         idPhotos: false,
         clientInfo: false,
-        preProcedureQuestionnaire: true,
+        preProcedureQuestionnaire: false,
         acknowledgementAndWaiver: false,
-        afterCareInstructions: false,
+        afterCareInstructions: true,
         signaturePage: false,
         completedForm: false
     })
@@ -207,6 +207,8 @@ export default function ConsentForm() {
                         {components.afterCareInstructions ? <AfterCareInstructions
                             register={register}
                             errors={errors}
+                            control={control}
+                            userInfo={userInfo}
                             handleInputChange={handleInputChange}
                             handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>

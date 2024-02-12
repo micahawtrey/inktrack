@@ -1,8 +1,9 @@
 import { useRef } from "react"
 import SignatureCanvas from 'react-signature-canvas'
-import { handleInputChange, handleSignatureChange, handleClear } from "../utils/inputChangeUtils"
+import { handleSignatureChange, handleClear } from "../utils/inputChangeUtils"
+import { Controller } from "react-hook-form"
 
-export default function AfterCareInstructions({formData, setFormData, handleNextButton, handleBackButton}) {
+export default function AfterCareInstructions({register, errors, control, userInfo, handleInputChange, handleNextButton, handleBackButton}) {
     const aftercare_sig = useRef(null)
 
     return (
@@ -44,20 +45,32 @@ export default function AfterCareInstructions({formData, setFormData, handleNext
             </div>
             <div>
                 <h4>Client Signature<span className="text-danger">*</span></h4>
+                {errors.aftercare_sig && <span className="text-danger">Please sign here.</span>}
             </div>
             <div className=''>
                 <div>
                     <div className="col-4 mb-3" style={{ width:127, height: 145, }}>
                         <div>
-                            <SignatureCanvas
-                                canvasProps={{name: "aftercare_sig", id: "aftercare_sig", className: "border border-secondary", width:450, height: 100 }}
-                                ref={aftercare_sig}
-                                onEnd={() => handleSignatureChange(aftercare_sig.current, formData, setFormData)}
+                            <Controller
+                                control={control}
+                                name="aftercare_sig"
+                                rules={{required: true}}
+                                render={({ field: { onChange } }) => (
+                                    <SignatureCanvas
+                                        canvasProps={{className: "border border-secondary", width:450, height: 100 }}
+                                        ref={aftercare_sig}
+                                        onEnd={() => {
+                                            const file = handleSignatureChange(aftercare_sig.current, userInfo)
+                                            onChange(file)
+                                        }}
+                                        />
+                                    )}
                             />
+
                         </div>
                         <div className="row justify-content-center">
                             <button
-                                onClick={() => handleClear(aftercare_sig, formData, setFormData)}
+                                onClick={() => handleClear(aftercare_sig)}
                                 className="my-1 btn btn-secondary col-6"
                                 >Clear</button>
                         </div>
@@ -67,14 +80,18 @@ export default function AfterCareInstructions({formData, setFormData, handleNext
             <div className="form-group">
                 <h4>Date<span className="text-danger">*</span></h4>
                 <div className="form-group">
-                    <input
-                        onChange={(e) => handleInputChange(e, formData, setFormData)}
-                        type="date" className="form-control w-50" value={formData.aftercare_date} name="aftercare_date" id="aftercare_date" />
+                    <input {...register("aftercare_date", {required: true})}
+                        onBlur={(e) => {handleInputChange(e)}}
+                        className={`form-control w-50 ${errors.aftercare_date ? "border-danger":null}`}
+                        type="date" name="aftercare_date" id="aftercare_date" />
                 </div>
             </div>
             <div className="d-flex justify-content-end mt-3">
                 <button onClick={() => handleBackButton("afterCareInstructions", "acknowledgementAndWaiver")} className="btn btn-danger me-3">Back</button>
-                <button onClick={(e) => handleNextButton(e, formData, "afterCareInstructions", "signaturePage")} className="btn btn-primary">Next</button>
+                <button onClick={(e) => {
+                    e.preventDefault()
+                    handleNextButton("afterCareInstructions", "signaturePage")}}
+                    className="btn btn-primary">Next</button>
             </div>
         </div>
     )
