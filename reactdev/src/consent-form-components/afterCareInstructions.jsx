@@ -66,7 +66,6 @@ export default function AfterCareInstructions({register, errors, control, userIn
                                         />
                                     )}
                             />
-
                         </div>
                         <div className="row justify-content-center">
                             <button

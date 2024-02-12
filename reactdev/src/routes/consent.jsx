@@ -14,8 +14,8 @@ export default function ConsentForm() {
         clientInfo: false,
         preProcedureQuestionnaire: false,
         acknowledgementAndWaiver: false,
-        afterCareInstructions: true,
-        signaturePage: false,
+        afterCareInstructions: false,
+        signaturePage: true,
         completedForm: false
     })
 
@@ -216,6 +216,8 @@ export default function ConsentForm() {
                         {components.signaturePage ? <SignaturePage
                             register={register}
                             errors={errors}
+                            control={control}
+                            userInfo={userInfo}
                             handleInputChange={handleInputChange}
                             handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>
