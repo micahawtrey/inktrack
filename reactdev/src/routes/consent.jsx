@@ -12,8 +12,8 @@ export default function ConsentForm() {
     const [components, setComponents] = useState({
         idPhotos: false,
         clientInfo: false,
-        preProcedureQuestionnaire: false,
-        acknowledgementAndWaiver: true,
+        preProcedureQuestionnaire: true,
+        acknowledgementAndWaiver: false,
         afterCareInstructions: false,
         signaturePage: false,
         completedForm: false
@@ -151,9 +151,9 @@ export default function ConsentForm() {
     }
 
     const handleInputChange = (e) => {
-        if (e.target.className.includes("border-danger")){
+        if (Object.keys(errors).includes(e.target.id)) {
             trigger(e.target.id)
-            }
+        }
         if (Object.keys(userInfo).includes(e.target.id)) {
             setUserInfo({
                 ...userInfo,

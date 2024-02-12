@@ -25,7 +25,6 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                         className={`form-check-input ${errors.permanent ? "border-danger": ""}`}
                         onBlur={(e) => handleInputChange(e)}
                         type="checkbox" id="permanent"/>
-
                 <label htmlFor="permanent" className="form-check-label">I understand that this procedure is a permanent change to my skin and body.</label>
             </div>
             <div>
@@ -59,7 +58,6 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                     </div>
                 </div>
             </div>
-
             <div className="form-check">
                 <input {...register("social_media_perm", { required: true })}
                         className={`form-check-input ${errors.social_media_perm ? "border-danger": ""}`}
@@ -99,7 +97,6 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                     </div>
                 </div>
             </div>
-
             <div className="form-check">
                 <input {...register("refund", { required: true })}
                         className={`form-check-input ${errors.refund ? "border-danger": ""}`}
@@ -139,7 +136,6 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                     </div>
                 </div>
             </div>
-
             <div className="form-check">
                 <input {...register("allergen_disclosure", { required: true })}
                         className={`form-check-input ${errors.allergen_disclosure ? "border-danger": ""}`}
@@ -180,7 +176,6 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                     </div>
                 </div>
             </div>
-
             <div className="form-check">
                 <input {...register("aftercare", { required: true })}
                         className={`form-check-input ${errors.aftercare ? "border-danger": ""}`}
@@ -220,7 +215,6 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                     </div>
                 </div>
             </div>
-
             <div className="form-check">
                 <input {...register("infection", { required: true })}
                         className={`form-check-input ${errors.infection ? "border-danger": ""}`}
@@ -261,7 +255,6 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                     </div>
                 </div>
             </div>
-
             <div className="form-check">
                 <input {...register("compensation", { required: true })}
                         className={`form-check-input ${errors.compensation ? "border-danger": ""}`}
@@ -270,7 +263,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 <label htmlFor="compensation">I agree to compensate Mad Ink by Stripes for the
                     services provided today by paying the agreed upon price for the session.</label>
             </div>
-            <div className="">
+            <div >
                 Initial:<span className="text-danger">*</span>
                 <div className="col-2 mb-3" style={{width: 127, height: 165, }}>
                     <div>
@@ -301,7 +294,6 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                     </div>
                 </div>
             </div>
-
             <div className="form-check">
                 <input {...register("allergen_risk", { required: true })}
                         className={`form-check-input ${errors.allergen_risk ? "border-danger": ""}`}
@@ -423,44 +415,40 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 </div>
             </div>
 
-            <div className="">
+            <div>
                 <h4>Client Signature<span className="text-danger">*</span></h4>
             </div>
-            <div className=''>
+            <div className="col-4 mb-3" style={{ width:127, height: 165, }}>
                 <div>
-                    <div className="col-4 mb-3" style={{ width:127, height: 165, }}>
-                        <div>
-                            <Controller
-                                control={control}
-                                name="signature"
-                                rules={{required: true}}
-                                render={({ field: { onChange } }) => (
-                                    <SignatureCanvas
-                                        canvasProps={{ className: "border border-secondary", width:450, height: 100 }}
-                                        ref={signature}
-                                        onEnd={() => {
-                                            const file = handleSignatureChange(signature.current, userInfo)
-                                            onChange(file)
-                                        }}/>
-                                    )}
-                            />
-                            {errors.signature && <span className="text-danger">Please sign here.</span>}
-                        </div>
-                        <div className="row justify-content-center">
-                            <button
-                                onClick={(event) => {
-                                    event.preventDefault()
-                                    handleClear(signature)}
-                                }
-                                className="my-1 btn btn-secondary col-6"
-                                >Clear</button>
-                        </div>
-                    </div>
+                    <Controller
+                        control={control}
+                        name="signature"
+                        rules={{required: true}}
+                        render={({ field: { onChange } }) => (
+                            <SignatureCanvas
+                                canvasProps={{ className: "border border-secondary", width:450, height: 100 }}
+                                ref={signature}
+                                onEnd={() => {
+                                    const file = handleSignatureChange(signature.current, userInfo)
+                                    onChange(file)
+                                }}/>
+                            )}
+                    />
+                    {errors.signature && <span className="text-danger">Please sign here.</span>}
+                </div>
+                <div className="row justify-content-center">
+                    <button
+                        onClick={(event) => {
+                            event.preventDefault()
+                            handleClear(signature)}
+                        }
+                        className="my-1 btn btn-secondary col-6"
+                        >Clear</button>
                 </div>
             </div>
-            <div className=" mb-3">
+            <div className="mb-3">
                 <h4>Signed Date<span className="text-danger">*</span></h4>
-                <div className="">
+                <div>
                     <input {...register("signed_date", { required: true })}
                         className={`form-control w-50 ${errors.signed_date ? "border-danger": ""}`}
                         onBlur={(e) => handleInputChange(e)}
