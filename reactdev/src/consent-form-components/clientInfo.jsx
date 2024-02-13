@@ -1,9 +1,10 @@
 import PhoneInput from "react-phone-input-2"
 import 'react-phone-input-2/lib/style.css'
 import { statesList } from "../utils/utils"
+import { Controller } from "react-hook-form"
 
 
-export default function ClientInfo({ register, errors, handleInputChange, handleNextButton, handleBackButton }) {
+export default function ClientInfo({ register, errors, control, handleInputChange, handleNextButton, handleBackButton }) {
     return (
         <div id="clientInfo" >
             <h2>Client Information</h2>
@@ -64,9 +65,20 @@ export default function ClientInfo({ register, errors, handleInputChange, handle
             </div>
             <div className="mb-3">
                 <label htmlFor="phone_number">Phone Number:<span className='text-danger'>*</span></label>
-                <PhoneInput {...register("phone_number", {required: true})}
-                    country="us" inputProps={{id: "phone_number", }} />
-                    {errors.phone_number && <span className="text-danger">Please provide a valid phone number.</span>}
+                <Controller
+                    control={control}
+                    name="phone_number"
+                    rules={{required: true}}
+                    render={( {field: { onChange, onBlur, value } }) => (
+                        <PhoneInput
+                            country="us"
+                            value={value}
+                            onChange={onChange}
+                            onBlur={onBlur}
+                            inputProps={{id: "phone_number", }} />
+                    )}
+                />
+                {errors.phone_number && <span className="text-danger">Please provide a valid phone number.</span>}
             </div>
             <div className="mb-3">
                 <label htmlFor="preferred_pronouns" className="form-label mb-1">Preferred pronouns:<span className='text-danger'>*</span></label>
@@ -172,7 +184,9 @@ export default function ClientInfo({ register, errors, handleInputChange, handle
                 </div>
             </div>
             <div className="d-flex justify-content-end mt-3">
-                <button onClick={() => handleBackButton("clientInfo", "idPhotos")} className="btn btn-danger me-3">Back</button>
+                <button onClick={(e) => {
+                    e.preventDefault()
+                    handleBackButton("clientInfo", "idPhotos")}} className="btn btn-danger me-3">Back</button>
                 <button onClick={(event) => {
                     event.preventDefault();
                     handleNextButton("clientInfo", "preProcedureQuestionnaire");

@@ -16,44 +16,28 @@ export function dataURItoBlob(dataURI) {
     return new Blob([ab], {type:mimeString});
 }
 
-export const handleImageCapture = (file, data, setData, inputDataState, setInputDataState) => {
-    if (file.name.startsWith("frontIdFile")) {
-        setData({
-            ...data,
-            front_id: file
-        })
-    } else if (file.name.startsWith("backIdFile")) {
-        setData({
-            ...data,
-            back_id: file
-        })
-    }
+export const handleImageCapture = (imageRef, fileInputId) => {
+    const blob = dataURItoBlob(imageRef.current.src)
+    const file = new File([blob], `${fileInputId}_image.png`, {type: 'image/png' })
+    return file
 }
 
-export const capturePicture = (videoId, photoId, fileInputId, idButtonId, camera, id, cameraState, setCameraState, dataState, setDataState) => {
-    const videoTag = document.getElementById(videoId)
-    const photoTag = document.getElementById(photoId)
-    const idButtonTag = document.getElementById(idButtonId)
+export const capturePicture = (videoRef, photoRef, idButtonRef, camera, cameraState, setCameraState) => {
     const canvas = document.getElementById("canvas")
     const context = canvas.getContext('2d')
 
-    context.drawImage(videoTag, 0, 0, 320, 240)
-
+    context.drawImage(videoRef.current, 0, 0, 320, 240)
     const data = canvas.toDataURL('image/png')
-    photoTag.setAttribute('src', data)
+    photoRef.current.setAttribute('src', data)
 
-    const blob = dataURItoBlob(data)
-
-    const file = new File([blob], `${fileInputId}_image.png`, {type: 'image/png' })
-    handleImageCapture(file, dataState, setDataState)
-
-    idButtonTag.innerHTML = `Retake ID ${id} photo`
+    idButtonRef.current.innerHTML = `Retake ID photo`
+    videoRef.current.hidden = true
+    photoRef.current.hidden = false
     setCameraState({
         ...cameraState,
         [camera]: false
     })
-    videoTag.hidden = true
-    photoTag.hidden = false
+    photoRef.current.click()
 }
 
 export const idPicture = (idVideo) => {

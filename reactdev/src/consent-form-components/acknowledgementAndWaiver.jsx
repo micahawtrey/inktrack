@@ -17,7 +17,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
     const signature = useRef(null)
 
     return (
-        <div id="acknowledgementAndWaiver" >
+        <div id="acknowledgementAndWaiver">
             <h2>Acknowledgment and Waiver</h2>
             <h4>Please check the box and initial under each statement.</h4>
             <div className="form-check">
@@ -455,9 +455,10 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                         type="date" id="signed_date"/>
                 </div>
             </div>
-
             <div className="d-flex justify-content-end mt-3">
-                <button onClick={() => handleBackButton("acknowledgementAndWaiver", "preProcedureQuestionnaire")} className="btn btn-danger me-3">Back</button>
+                <button onClick={(e) => {
+                    e.preventDefault()
+                    handleBackButton("acknowledgementAndWaiver", "preProcedureQuestionnaire")}} className="btn btn-danger me-3">Back</button>
                 <button onClick={(event) => {
                     event.preventDefault()
                     handleNextButton("acknowledgementAndWaiver", "afterCareInstructions")

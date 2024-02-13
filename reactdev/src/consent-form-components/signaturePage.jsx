@@ -119,7 +119,7 @@ export default function SignaturePage({register, errors, control, userInfo, hand
             </div>
 
             <div className="mb-3">
-                <label htmlFor="needle_info">LOT #- EXPIRATION DATE - STERILIZATION DATE -COMPANY/BRAND<span className="text-danger">*</span></label>
+                <label htmlFor="needle_info">LOT # - EXPIRATION DATE - STERILIZATION DATE - COMPANY/BRAND<span className="text-danger">*</span></label>
                 <textarea {...register("needle_info", {required: true})}
                     onBlur={(e) => handleInputChange(e)}
                     className={`form-control ${errors.needle_info ? "border-danger":null}`}
@@ -135,7 +135,9 @@ export default function SignaturePage({register, errors, control, userInfo, hand
             </div>
 
             <div className="d-flex justify-content-end mt-3">
-                <button onClick={() => handleBackButton("signaturePage", "afterCareInstructions")} className="btn btn-danger me-3">Back</button>
+                <button onClick={(e) => {
+                    e.preventDefault()
+                    handleBackButton("signaturePage", "afterCareInstructions")}} className="btn btn-danger me-3">Back</button>
                 <button onClick={(e) => {
                     e.preventDefault()
                     handleNextButton("signaturePage", "completedForm")}}

@@ -86,7 +86,9 @@ export default function AfterCareInstructions({register, errors, control, userIn
                 </div>
             </div>
             <div className="d-flex justify-content-end mt-3">
-                <button onClick={() => handleBackButton("afterCareInstructions", "acknowledgementAndWaiver")} className="btn btn-danger me-3">Back</button>
+                <button onClick={(e) => {
+                    e.preventDefault()
+                    handleBackButton("afterCareInstructions", "acknowledgementAndWaiver")}} className="btn btn-danger me-3">Back</button>
                 <button onClick={(e) => {
                     e.preventDefault()
                     handleNextButton("afterCareInstructions", "signaturePage")}}
