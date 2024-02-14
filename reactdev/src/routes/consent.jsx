@@ -7,16 +7,17 @@ import PreProcedureQuestionnaire from "../consent-form-components/preProcedureQu
 import SignaturePage from "../consent-form-components/signaturePage"
 import CompletedForm from "../consent-form-components/completedForm"
 import { useForm } from "react-hook-form"
+import axios from "axios"
 
 export default function ConsentForm() {
     const [components, setComponents] = useState({
-        idPhotos: false,
+        idPhotos: true,
         clientInfo: false,
         preProcedureQuestionnaire: false,
         acknowledgementAndWaiver: false,
         afterCareInstructions: false,
         signaturePage: false,
-        completedForm: true
+        completedForm: false
     })
 
     const { register, control, handleSubmit, formState: { errors }, trigger, getValues } = useForm()
@@ -26,30 +27,30 @@ export default function ConsentForm() {
         last_name: "",
     })
 
-    const onSubmit = async () => {
-        console.log("AHHHHHHHHHHHHH")
-        // setFormData({
-        //     ...idData,
-        //     ...clientInfoData,
-        //     ...preProcedureData,
-        //     ...acknowledgementData,
-        //     ...afterCareData,
-        //     ...signaturePageData,
-        //     ...optionalData
-        // })
+    const onSubmit = async (data) => {
+        console.log(data)
+        const cleanData = {...data}
 
-        // const consentAPIUrl = "http://localhost:8000/api/documents/consent/"
-        // const fetchConfig = {
-        //     method: "POST",
-        //     body: formData,
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     }}
-        // const response = await fetch(consentAPIUrl, fetchConfig)
-        // if (response.ok) {
-        //     const data = await response.json()
-        //     console.log(data)
-        //     }
+        delete cleanData.front_id
+        delete cleanData.back_id
+        delete cleanData.permanent_init
+        delete cleanData.social_media_perm_init
+        delete cleanData.refund_init
+        delete cleanData.allergen_disclosure_init
+        delete cleanData.aftercare_init
+        delete cleanData.infection_init
+        delete cleanData.compensation_init
+        delete cleanData.allergen_risk_init
+        delete cleanData.accurate_info_init
+        delete cleanData.not_minor_init
+        delete cleanData.signature
+        delete cleanData.aftercare_sig
+        delete cleanData.general_sig
+        delete cleanData.artist_sig
+
+        await axios.post("http://localhost:8000/api/documents/consent/", cleanData)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
 
     const componentDisplay = (activeComponent, nextComponent) => {
@@ -88,7 +89,6 @@ export default function ConsentForm() {
                 <div className="shadow p-4 mt-4">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         {components.idPhotos ? <IdPhotos
-                            getValues={getValues}
                             errors={errors}
                             control={control}
                             handleInputChange={handleInputChange}
@@ -138,8 +138,7 @@ export default function ConsentForm() {
                             :<></>}
                         {components.completedForm ? <CompletedForm
                             getValues={getValues}
-                            handleBackButton={handleBackButton}
-                            />
+                            handleBackButton={handleBackButton}/>
                             :<></>}
                     </form>
                 </div>

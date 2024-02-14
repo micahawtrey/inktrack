@@ -11,8 +11,11 @@ from .encoders import ConsentEncoder
 def consent_form(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        print(data)
-        new_consent = Consent.objects.create(**data)
+        print("Body:", data)
+        files = request.FILES
+        print("Files", files)
+        return JsonResponse({"message": "Submission received"})
+
 
 # def minor_consent(request):
 #     if request.method == "POST":

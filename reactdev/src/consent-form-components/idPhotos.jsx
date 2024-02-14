@@ -2,7 +2,7 @@ import { useState, useRef } from "react"
 import { capturePicture, idPicture, handleImageCapture } from "../utils/WebcamManagement"
 import { Controller } from "react-hook-form"
 
-export default function IdPhotos({getValues, errors, control, handleInputChange, handleNextButton}) {
+export default function IdPhotos({errors, control, handleInputChange, handleNextButton}) {
     const [cameras, setCameras] = useState({
         frontCamera: false,
         frontPhoto: false,
@@ -51,11 +51,12 @@ export default function IdPhotos({getValues, errors, control, handleInputChange,
                     rules={{required: true}}
                     render={({ field: { onChange } }) => (
                         <input
-                            id="frontPhoto" ref={frontPhoto}
+                            id="front_id" ref={frontPhoto}
                             onClick={(e) => {
                                 e.preventDefault()
                                 const file = handleImageCapture(frontPhoto, "front_id")
                                 onChange(file)
+                                handleInputChange(e)
                             }}
                             width="320" height="240" alt="The front of your ID" type='image' hidden/>
                     )}
@@ -84,11 +85,12 @@ export default function IdPhotos({getValues, errors, control, handleInputChange,
                     rules={{required: true}}
                     render={({ field: { onChange } }) => (
                         <input
-                            id="backPhoto" ref={backPhoto}
+                            id="back_id" ref={backPhoto}
                             onClick={(e) => {
                                 e.preventDefault()
                                 const file = handleImageCapture(backPhoto, "back_id")
                                 onChange(file)
+                                handleInputChange(e)
                             }}
                             width="320" height="240" alt="The back of your ID" type='image' hidden/>
                     )}

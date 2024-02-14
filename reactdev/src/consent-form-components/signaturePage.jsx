@@ -141,7 +141,7 @@ export default function SignaturePage({register, errors, control, userInfo, hand
                 <button onClick={(e) => {
                     e.preventDefault()
                     handleNextButton("signaturePage", "completedForm")}}
-                    className="btn btn-success">Submit</button>
+                    className="btn btn-primary">Next</button>
             </div>
         </div>
     )
