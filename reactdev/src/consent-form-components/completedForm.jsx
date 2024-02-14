@@ -158,7 +158,7 @@ export default function CompletedForm({getValues, handleBackButton}) {
             <div>
                 <h2>FOR TATTOO ARTIST ONLY</h2>
                 <h3>Artist Signature</h3>
-                <p><span>Date: </span><b>{ getValues("artist_date") }</b></p>
+                <p><span>Date: </span><b>{ getValues("artist_date_signed") }</b></p>
                 <div className="signature-div">
                     <img src={ URL.createObjectURL(getValues("artist_sig")) } alt=""/>
                 </div>

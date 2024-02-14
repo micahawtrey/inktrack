@@ -1,9 +1,9 @@
 import { useRef } from "react"
 import SignatureCanvas from 'react-signature-canvas'
-import { handleSignatureChange, handleClear } from "../utils/inputChangeUtils"
+import { handleSignatureChange, handleClear, handleSignatureTimeCapture } from "../utils/inputChangeUtils"
 import { Controller } from "react-hook-form"
 
-export default function SignaturePage({register, errors, control, userInfo, handleInputChange, handleNextButton, handleBackButton}) {
+export default function SignaturePage({register, errors, control, userInfo, signatureTime, setSignatureTime, handleInputChange, handleNextButton, handleBackButton}) {
     const general_sig = useRef(null)
     const artist_sig = useRef(null)
 
@@ -38,10 +38,11 @@ export default function SignaturePage({register, errors, control, userInfo, hand
                         rules={{required: true}}
                         render={({ field: { onChange } }) => (
                         <SignatureCanvas
-                            canvasProps={{className: "border border-secondary", width:450, height: 100 }}
+                            canvasProps={{className: "border border-secondary", width:450, height: 100, id: "general_sig" }}
                             ref={general_sig}
                             onEnd={() => {
                                 const file = handleSignatureChange(general_sig.current, userInfo)
+                                handleSignatureTimeCapture(signatureTime, setSignatureTime, "general_sig_time_stamp")
                                 onChange(file)
                             }}
                         />)}
@@ -82,10 +83,11 @@ export default function SignaturePage({register, errors, control, userInfo, hand
                         rules={{required: true}}
                         render={({ field: { onChange } }) => (
                             <SignatureCanvas
-                            canvasProps={{className: "border border-secondary", width:450, height: 100 }}
+                            canvasProps={{className: "border border-secondary", width:450, height: 100, id: "artist_sig" }}
                             ref={artist_sig}
                             onEnd={() => {
                                 const file = handleSignatureChange(artist_sig.current, userInfo)
+                                handleSignatureTimeCapture(signatureTime, setSignatureTime, "artist_sig_time_stamp")
                                 onChange(file)
                                 }}
                         />)}

@@ -1,9 +1,9 @@
 import { useRef } from "react"
-import { handleSignatureChange, handleClear } from "../utils/inputChangeUtils"
+import { handleSignatureChange, handleClear, handleSignatureTimeCapture } from "../utils/inputChangeUtils"
 import SignatureCanvas from 'react-signature-canvas'
 import { Controller } from "react-hook-form"
 
-export default function AcknowledgementAndWaiver({register, errors, control, userInfo, handleInputChange, handleNextButton, handleBackButton}) {
+export default function AcknowledgementAndWaiver({register, errors, control, userInfo, signatureTime, setSignatureTime, handleInputChange, handleNextButton, handleBackButton}) {
     const permanent_init = useRef(null)
     const social_media_perm_init = useRef(null)
     const refund_init = useRef(null)
@@ -37,10 +37,11 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
                                 <SignatureCanvas
-                                    canvasProps={{ className: "border border-secondary", width:125, height: 100 }}
+                                    canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "permanent_init" }}
                                     ref={permanent_init}
                                     onEnd={() => {
                                         const file = handleSignatureChange(permanent_init.current, userInfo)
+                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "permanent_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
@@ -76,10 +77,11 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
                                 <SignatureCanvas
-                                    canvasProps={{ className: "border border-secondary", width:125, height: 100 }}
+                                    canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "social_media_perm_init" }}
                                     ref={social_media_perm_init}
                                     onEnd={() => {
                                         const file = handleSignatureChange(social_media_perm_init.current, userInfo)
+                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "social_media_perm_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
@@ -115,10 +117,11 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
                                 <SignatureCanvas
-                                    canvasProps={{ className: "border border-secondary", width:125, height: 100 }}
+                                    canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "refund_init" }}
                                     ref={refund_init}
                                     onEnd={() => {
                                         const file = handleSignatureChange(refund_init.current, userInfo)
+                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "refund_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
@@ -155,10 +158,11 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
                                 <SignatureCanvas
-                                    canvasProps={{ className: "border border-secondary", width:125, height: 100 }}
+                                    canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "allergen_disclosure_init" }}
                                     ref={allergen_disclosure_init}
                                     onEnd={() => {
                                         const file = handleSignatureChange(allergen_disclosure_init.current, userInfo)
+                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "allergen_disclosure_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
@@ -194,10 +198,11 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
                                 <SignatureCanvas
-                                    canvasProps={{ className: "border border-secondary", width:125, height: 100 }}
+                                    canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "aftercare_init" }}
                                     ref={aftercare_init}
                                     onEnd={() => {
                                         const file = handleSignatureChange(aftercare_init.current, userInfo)
+                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "aftercare_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
@@ -234,10 +239,11 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
                                 <SignatureCanvas
-                                    canvasProps={{ className: "border border-secondary", width:125, height: 100 }}
+                                    canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "infection_init" }}
                                     ref={infection_init}
                                     onEnd={() => {
                                         const file = handleSignatureChange(infection_init.current, userInfo)
+                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "infection_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
@@ -273,10 +279,11 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
                                 <SignatureCanvas
-                                    canvasProps={{ className: "border border-secondary", width:125, height: 100 }}
+                                    canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "compensation_init" }}
                                     ref={compensation_init}
                                     onEnd={() => {
                                         const file = handleSignatureChange(compensation_init.current, userInfo)
+                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "compensation_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
@@ -314,10 +321,11 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
                                 <SignatureCanvas
-                                    canvasProps={{ className: "border border-secondary", width:125, height: 100 }}
+                                    canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "allergen_risk_init" }}
                                     ref={allergen_risk_init}
                                     onEnd={() => {
                                         const file = handleSignatureChange(allergen_risk_init.current, userInfo)
+                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "allergen_risk_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
@@ -354,10 +362,11 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
                                 <SignatureCanvas
-                                    canvasProps={{ className: "border border-secondary", width:125, height: 100 }}
+                                    canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "accurate_info_init" }}
                                     ref={accurate_info_init}
                                     onEnd={() => {
                                         const file = handleSignatureChange(accurate_info_init.current, userInfo)
+                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "accurate_info_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
@@ -393,10 +402,11 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
                                 <SignatureCanvas
-                                    canvasProps={{ className: "border border-secondary", width:125, height: 100 }}
+                                    canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "not_minor_init" }}
                                     ref={not_minor_init}
                                     onEnd={() => {
                                         const file = handleSignatureChange(not_minor_init.current, userInfo)
+                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "not_minor_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
@@ -426,10 +436,11 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                         rules={{required: true}}
                         render={({ field: { onChange } }) => (
                             <SignatureCanvas
-                                canvasProps={{ className: "border border-secondary", width:450, height: 100 }}
+                                canvasProps={{ className: "border border-secondary", width:450, height: 100, id: "signature" }}
                                 ref={signature}
                                 onEnd={() => {
                                     const file = handleSignatureChange(signature.current, userInfo)
+                                    handleSignatureTimeCapture(signatureTime, setSignatureTime, "signature_time_stamp")
                                     onChange(file)
                                 }}/>
                             )}

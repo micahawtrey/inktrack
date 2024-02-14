@@ -2,7 +2,7 @@ from django.db import models
 from localflavor.us.models import USStateField, USZipCodeField
 from phonenumber_field.modelfields import PhoneNumberField
 from jsignature.fields import JSignatureField
-
+import uuid
 
 
 
@@ -24,7 +24,7 @@ class Consent(models.Model):
     preferred_pronouns = models.CharField(max_length=30)
     age = models.IntegerField()
     birth_date = models.DateField()
-    phone_number = PhoneNumberField()
+    phone_number = models.CharField(max_length=20)
     email = models.EmailField(blank=True, null=True)
 
     # address
@@ -88,6 +88,22 @@ class Consent(models.Model):
     artist_date = models.DateField()
     needle_info = models.CharField(max_length=1000)
 
+    # Signature Time Stamps
+    permanent_init_time_stamp = models.DateTimeField()
+    social_media_perm_init_time_stamp = models.DateTimeField()
+    refund_init_time_stamp = models.DateTimeField()
+    allergen_disclosure_init_time_stamp = models.DateTimeField()
+    aftercare_init_time_stamp = models.DateTimeField()
+    infection_init_time_stamp = models.DateTimeField()
+    compensation_init_time_stamp = models.DateTimeField()
+    allergen_risk_init_time_stamp = models.DateTimeField()
+    accurate_info_init_time_stamp = models.DateTimeField()
+    not_minor_init_time_stamp = models.DateTimeField()
+    signature_time_stamp = models.DateTimeField()
+    general_sig_time_stamp = models.DateTimeField()
+    aftercare_sig_time_stamp = models.DateTimeField()
+    artist_sig_time_stamp = models.DateTimeField()
+
 class MinorConsent(models.Model):
     # identifying info
     guardianship = models.CharField(max_length=100)
@@ -116,3 +132,50 @@ class MinorConsent(models.Model):
     # id photos
     front_id = models.FileField(upload_to='temp_id_photos/')
     back_id = models.FileField(upload_to='temp_id_photos/')
+
+    def __str__(self):
+        return f"{self.first} {self.last}"
+
+class Client(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    preferred_pronouns = models.CharField(max_length=30)
+    age = models.IntegerField()
+    birth_date = models.DateField()
+    phone_number = models.CharField(max_length=20)
+    email = models.EmailField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.last_name}_{self.first_name}"
+
+class ConsentPDF(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_on = models.DateField(auto_now_add=True)
+    pdf = models.FileField(upload_to="consent_pdfs/")
+    signed_at = models.DateTimeField()
+
+    client = models.ForeignKey(
+        Client,
+        related_name="consent_pdfs",
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return f"{self.client.last_name}_{self.client.first_name}_{self.created_on}"
+
+class Signature(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    signature_image = models.ImageField(upload_to='consent_pdfs/signatures/')
+    created_at = models.DateTimeField()
+
+    consent_pdf = models.ForeignKey(
+        ConsentPDF,
+        related_name="signatures",
+        on_delete=models.CASCADE
+    )
+    client = models.ForeignKey(
+        Client,
+        related_name="signatures",
+        on_delete=models.CASCADE
+    )

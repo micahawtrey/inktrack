@@ -1,20 +1,34 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from documents.models import *
-from django.http import HttpResponse, JsonResponse
+from .models import *
 from .utils import sig_to_image, model_to_pdf
-from django.views.decorators.http import require_http_methods
-import json
-from .encoders import ConsentEncoder
+from .serializers import ConsentSerializer
+
+from rest_framework.decorators import api_view
+from rest_framework import status
+from rest_framework.response import Response
+
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from io import BytesIO
 
 
-@require_http_methods(["POST"])
+
+@api_view(["POST"])
 def consent_form(request):
     if request.method == "POST":
-        data = json.loads(request.body)
-        print("Body:", data)
-        files = request.FILES
-        print("Files", files)
-        return JsonResponse({"message": "Submission received"})
+        serializer = ConsentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            obj = serializer.data
+            html_string = render_to_string("./templates/documents/consent_pdf.html", obj)
+            html = HTML(string=html_string)
+            pdf_bytes = html.write_pdf()
+            pdf_file = BytesIO(pdf_bytes)
+            pdf_file.seek(0)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # def minor_consent(request):

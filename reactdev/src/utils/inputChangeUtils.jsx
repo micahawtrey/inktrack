@@ -101,6 +101,13 @@ export const handleSignatureChange = (refCurrent, userInfo) => {
     return file
 }
 
+export const handleSignatureTimeCapture = (data, setData, name) => {
+    setData({
+        ...data,
+        [name]: new Date().toISOString()
+    })
+}
+
 export const handleClear = (pad) => {
     pad.current.clear()
 }

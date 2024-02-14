@@ -20,6 +20,23 @@ export default function ConsentForm() {
         completedForm: false
     })
 
+    const [signatureTime, setSignatureTime] = useState({
+        permanent_init_time_stamp: undefined,
+        social_media_perm_init_time_stamp: undefined,
+        refund_init_time_stamp: undefined,
+        allergen_disclosure_init_time_stamp: undefined,
+        aftercare_init_time_stamp: undefined,
+        infection_init_time_stamp: undefined,
+        compensation_init_time_stamp: undefined,
+        allergen_risk_init_time_stamp: undefined,
+        accurate_info_init_time_stamp: undefined,
+        not_minor_init_time_stamp: undefined,
+        signature_time_stamp: undefined,
+        general_sig_time_stamp: undefined,
+        aftercare_sig_time_stamp: undefined,
+        artist_sig_time_stamp: undefined
+    })
+
     const { register, control, handleSubmit, formState: { errors }, trigger, getValues } = useForm()
 
     const [userInfo, setUserInfo] = useState({
@@ -28,27 +45,15 @@ export default function ConsentForm() {
     })
 
     const onSubmit = async (data) => {
-        console.log(data)
-        const cleanData = {...data}
+        const formData = new FormData()
+        for (let [key, value] of Object.entries(data)) {
+            formData.append(key, value)
+        }
+        for (let [key, value] of Object.entries(signatureTime)) {
+            formData.append(key, value)
+        }
 
-        delete cleanData.front_id
-        delete cleanData.back_id
-        delete cleanData.permanent_init
-        delete cleanData.social_media_perm_init
-        delete cleanData.refund_init
-        delete cleanData.allergen_disclosure_init
-        delete cleanData.aftercare_init
-        delete cleanData.infection_init
-        delete cleanData.compensation_init
-        delete cleanData.allergen_risk_init
-        delete cleanData.accurate_info_init
-        delete cleanData.not_minor_init
-        delete cleanData.signature
-        delete cleanData.aftercare_sig
-        delete cleanData.general_sig
-        delete cleanData.artist_sig
-
-        await axios.post("http://localhost:8000/api/documents/consent/", cleanData)
+        await axios.post("http://localhost:8000/api/documents/consent/", formData)
         .then(res => console.log(res))
         .catch(err => console.log(err))
     }
@@ -69,7 +74,7 @@ export default function ConsentForm() {
         if (Object.keys(userInfo).includes(e.target.id)) {
             setUserInfo({
                 ...userInfo,
-                [e.target.id]: e.target.innerHtml
+                [e.target.id]: e.target.value
             })
         }
     }
@@ -114,6 +119,8 @@ export default function ConsentForm() {
                             errors={errors}
                             control={control}
                             userInfo={userInfo}
+                            signatureTime={signatureTime}
+                            setSignatureTime={setSignatureTime}
                             handleInputChange={handleInputChange}
                             handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>
@@ -123,6 +130,8 @@ export default function ConsentForm() {
                             errors={errors}
                             control={control}
                             userInfo={userInfo}
+                            signatureTime={signatureTime}
+                            setSignatureTime={setSignatureTime}
                             handleInputChange={handleInputChange}
                             handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>
@@ -132,6 +141,8 @@ export default function ConsentForm() {
                             errors={errors}
                             control={control}
                             userInfo={userInfo}
+                            signatureTime={signatureTime}
+                            setSignatureTime={setSignatureTime}
                             handleInputChange={handleInputChange}
                             handleNextButton={handleNextButton}
                             handleBackButton={handleBackButton}/>

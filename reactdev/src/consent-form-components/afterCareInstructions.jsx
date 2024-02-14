@@ -1,9 +1,9 @@
 import { useRef } from "react"
 import SignatureCanvas from 'react-signature-canvas'
-import { handleSignatureChange, handleClear } from "../utils/inputChangeUtils"
+import { handleSignatureChange, handleClear, handleSignatureTimeCapture } from "../utils/inputChangeUtils"
 import { Controller } from "react-hook-form"
 
-export default function AfterCareInstructions({register, errors, control, userInfo, handleInputChange, handleNextButton, handleBackButton}) {
+export default function AfterCareInstructions({register, errors, control, userInfo, signatureTime, setSignatureTime, handleInputChange, handleNextButton, handleBackButton}) {
     const aftercare_sig = useRef(null)
 
     return (
@@ -57,10 +57,11 @@ export default function AfterCareInstructions({register, errors, control, userIn
                                 rules={{required: true}}
                                 render={({ field: { onChange } }) => (
                                     <SignatureCanvas
-                                        canvasProps={{className: "border border-secondary", width:450, height: 100 }}
+                                        canvasProps={{className: "border border-secondary", width:450, height: 100, id: "aftercare_sig" }}
                                         ref={aftercare_sig}
                                         onEnd={() => {
                                             const file = handleSignatureChange(aftercare_sig.current, userInfo)
+                                            handleSignatureTimeCapture(signatureTime, setSignatureTime, "aftercare_sig_time_stamp")
                                             onChange(file)
                                         }}
                                         />
