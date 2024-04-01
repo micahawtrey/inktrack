@@ -6,18 +6,21 @@ import AfterCareInstructions from "../consent-form-components/afterCareInstructi
 import PreProcedureQuestionnaire from "../consent-form-components/preProcedureQuestionnaire"
 import SignaturePage from "../consent-form-components/signaturePage"
 import CompletedForm from "../consent-form-components/completedForm"
+import SubmittedLoading from "../consent-form-components/submittedLoading"
 import { useForm } from "react-hook-form"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 export default function ConsentForm() {
     const [components, setComponents] = useState({
-        idPhotos: true,
-        clientInfo: false,
+        idPhotos: false,
+        clientInfo: true,
         preProcedureQuestionnaire: false,
         acknowledgementAndWaiver: false,
         afterCareInstructions: false,
         signaturePage: false,
-        completedForm: false
+        completedForm: false,
+        submittedLoading: false
     })
 
     const [signatureTime, setSignatureTime] = useState({
@@ -39,6 +42,8 @@ export default function ConsentForm() {
 
     const { register, control, handleSubmit, formState: { errors }, trigger, getValues } = useForm()
 
+    const navigate = useNavigate()
+
     const [userInfo, setUserInfo] = useState({
         first_name: "",
         last_name: "",
@@ -53,9 +58,11 @@ export default function ConsentForm() {
             formData.append(key, value)
         }
 
+        componentDisplay("completedForm", "submittedLoading")
+
         await axios.post("http://localhost:8000/api/documents/consent/", formData)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+        .then(res => navigate("/"))
+        .catch(err => componentDisplay("submittedLoading", "completedForm"))
     }
 
     const componentDisplay = (activeComponent, nextComponent) => {
@@ -89,71 +96,84 @@ export default function ConsentForm() {
     }
 
     return (
-        <div className="row">
-            <div className="offset-1 col-10">
-                <div className="shadow p-4 mt-4">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        {components.idPhotos ? <IdPhotos
-                            errors={errors}
-                            control={control}
-                            handleInputChange={handleInputChange}
-                            handleNextButton={handleNextButton}/>
-                            :<></>}
-                        {components.clientInfo ? <ClientInfo
-                            register={register}
-                            errors={errors}
-                            control={control}
-                            handleInputChange={handleInputChange}
-                            handleNextButton={handleNextButton}
-                            handleBackButton={handleBackButton}/>
-                            :<></>}
-                        {components.preProcedureQuestionnaire ? <PreProcedureQuestionnaire
-                            register={register}
-                            errors={errors}
-                            handleInputChange={handleInputChange}
-                            handleNextButton={handleNextButton}
-                            handleBackButton={handleBackButton}/>
-                            :<></>}
-                        {components.acknowledgementAndWaiver ? <AcknowledgementAndWaiver
-                            register={register}
-                            errors={errors}
-                            control={control}
-                            userInfo={userInfo}
-                            signatureTime={signatureTime}
-                            setSignatureTime={setSignatureTime}
-                            handleInputChange={handleInputChange}
-                            handleNextButton={handleNextButton}
-                            handleBackButton={handleBackButton}/>
-                            :<></>}
-                        {components.afterCareInstructions ? <AfterCareInstructions
-                            register={register}
-                            errors={errors}
-                            control={control}
-                            userInfo={userInfo}
-                            signatureTime={signatureTime}
-                            setSignatureTime={setSignatureTime}
-                            handleInputChange={handleInputChange}
-                            handleNextButton={handleNextButton}
-                            handleBackButton={handleBackButton}/>
-                            :<></>}
-                        {components.signaturePage ? <SignaturePage
-                            register={register}
-                            errors={errors}
-                            control={control}
-                            userInfo={userInfo}
-                            signatureTime={signatureTime}
-                            setSignatureTime={setSignatureTime}
-                            handleInputChange={handleInputChange}
-                            handleNextButton={handleNextButton}
-                            handleBackButton={handleBackButton}/>
-                            :<></>}
-                        {components.completedForm ? <CompletedForm
-                            getValues={getValues}
-                            handleBackButton={handleBackButton}/>
-                            :<></>}
-                    </form>
+        <div>
+            <div className="row bg-secondary">
+                <div className="offset-1 col-10">
+                    <div className="shadow p-4 mt-4 bg-white">
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            {components.idPhotos ? <IdPhotos
+                                errors={errors}
+                                control={control}
+                                handleInputChange={handleInputChange}
+                                handleNextButton={handleNextButton}/>
+                                :null}
+                            {components.clientInfo ? <ClientInfo
+                                register={register}
+                                errors={errors}
+                                control={control}
+                                handleInputChange={handleInputChange}
+                                handleNextButton={handleNextButton}
+                                handleBackButton={handleBackButton}/>
+                                :null}
+                            {components.preProcedureQuestionnaire ? <PreProcedureQuestionnaire
+                                register={register}
+                                errors={errors}
+                                handleInputChange={handleInputChange}
+                                handleNextButton={handleNextButton}
+                                handleBackButton={handleBackButton}/>
+                                :null}
+                            {components.acknowledgementAndWaiver ? <AcknowledgementAndWaiver
+                                register={register}
+                                errors={errors}
+                                control={control}
+                                userInfo={userInfo}
+                                signatureTime={signatureTime}
+                                setSignatureTime={setSignatureTime}
+                                handleInputChange={handleInputChange}
+                                handleNextButton={handleNextButton}
+                                handleBackButton={handleBackButton}/>
+                                :null}
+                            {components.afterCareInstructions ? <AfterCareInstructions
+                                register={register}
+                                errors={errors}
+                                control={control}
+                                userInfo={userInfo}
+                                signatureTime={signatureTime}
+                                setSignatureTime={setSignatureTime}
+                                handleInputChange={handleInputChange}
+                                handleNextButton={handleNextButton}
+                                handleBackButton={handleBackButton}/>
+                                :null}
+                            {components.signaturePage ? <SignaturePage
+                                register={register}
+                                errors={errors}
+                                control={control}
+                                userInfo={userInfo}
+                                signatureTime={signatureTime}
+                                setSignatureTime={setSignatureTime}
+                                handleInputChange={handleInputChange}
+                                handleNextButton={handleNextButton}
+                                handleBackButton={handleBackButton}/>
+                                :null}
+                            {components.completedForm ? <CompletedForm
+                                getValues={getValues}
+                                handleBackButton={handleBackButton}/>
+                                :null}
+
+                        </form>
+                    </div>
                 </div>
             </div>
+            {components.submittedLoading ?
+                <div className="row">
+                    <div className="offset-2 col-8">
+                        <div className="shadow p-4 mt-4 bg-light">
+                            <SubmittedLoading/>
+                        </div>
+                    </div>
+                </div>
+                :null}
         </div>
+
     )
 }

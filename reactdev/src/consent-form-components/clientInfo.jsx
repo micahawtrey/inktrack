@@ -6,48 +6,46 @@ import { Controller } from "react-hook-form"
 
 export default function ClientInfo({ register, errors, control, handleInputChange, handleNextButton, handleBackButton }) {
     return (
-        <div id="clientInfo" >
+        <div className="position-relative">
             <h2>Client Information</h2>
-            <div className=" mb-3">
-                <div className="">
-                    <div className="row row-cols-2">
-                        <div className="col">
-                            <div className="form-floating">
-                                <input {...register("first_name", {
-                                    required: true,
-                                    pattern: {
-                                        value: /^[a-zA-Z\s]+$/,
-                                        message: "Please only type letters."
-                                    }
-                                    })}
-                                    className={`form-control ${errors.first_name ? "border-danger": ""}`}
-                                    onBlur={(e) => handleInputChange(e)}
-                                    type="text" placeholder="" id="first_name"/>
-                                <label htmlFor="first_name">First name<span className="text-danger">*</span></label>
-                                {errors.first_name && <span className="text-danger">Please provide your first name (letters and spaces only)</span>}
-                            </div>
+            <div className="mb-3 position-relative">
+                <div className="row row-cols-2 position-relative">
+                    <div className="col position-relative">
+                        <div className="form-floating position-relative">
+                            <input {...register("first_name", {
+                                required: true,
+                                pattern: {
+                                    value: /[a-zA-Z\s]/,
+                                    message: "Please only type letters."
+                                }
+                                })}
+                                className={`form-control ${errors.first_name ? "border-danger": ""}`}
+                                onBlur={(e) => handleInputChange(e)}
+                                type="text" placeholder="" id="first_name"/>
+                            <label htmlFor="first_name">First name<span className="text-danger">*</span></label>
+                            {errors.first_name && <span className="text-danger">Please provide your first name (letters and spaces only)</span>}
                         </div>
-                        <div className="col">
-                            <div className="form-floating">
-                                <input {...register("last_name", {
-                                    required: true,
-                                    pattern: {
-                                        value: /[a-zA-Z\s]/,
-                                        message: "Please only type letters."
-                                    }
-                                    })}
-                                    className={`form-control ${errors.last_name ? "border-danger": ""}`}
-                                    onBlur={(e) => handleInputChange(e)}
-                                    type="text"placeholder="" id="last_name"/>
-                                <label htmlFor="last_name">Last name<span className="text-danger">*</span></label>
-                                {errors.last_name && <span className="text-danger">Please provide your last name (letters and spaces only)</span>}
-                            </div>
+                    </div>
+                    <div className="col z-0">
+                        <div className="form-floating">
+                            <input {...register("last_name", {
+                                required: true,
+                                pattern: {
+                                    value: /[a-zA-Z\s]/,
+                                    message: "Please only type letters."
+                                }
+                                })}
+                                className={`form-control ${errors.last_name ? "border-danger": ""}`}
+                                onBlur={(e) => handleInputChange(e)}
+                                type="text"placeholder="" id="last_name"/>
+                            <label htmlFor="last_name">Last name<span className="text-danger">*</span></label>
+                            {errors.last_name && <span className="text-danger">Please provide your last name (letters and spaces only)</span>}
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="mb-3 form-floating">
+            <div className="mb-3 form-floating position-relative z-0">
                 <input {...register("email", {required: true})}
                     className={`form-control w-50 ${errors.email ? "border-danger": ""}`}
                     onBlur={(e) => handleInputChange(e)}
