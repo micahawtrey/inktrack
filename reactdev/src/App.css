@@ -2,18 +2,18 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: #E8EEEB;
+  background-color: #A7B9A2;
 }
 
 .nav-link {
-  color: black;
+  color: #3F3244;
   border-radius: 10px;
   margin-right: 0.25rem;
 }
 
 .nav-link:hover {
-  color: black;
-  background-color: rgb(28, 145, 80);
+  color: #A7B9A2;
+  background-color: #3F3244;
   border-radius: 10px;
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
 }
@@ -39,13 +39,44 @@ footer {
 .nav-link-footer {
   display: block;
   padding: .5rem;
-  color: rgba(0, 0, 0, .55);
+  color: #3F3244;
   text-decoration: none;
 }
 
 .nav-link-footer:hover {
-  color: black;
-  background-color: #c6cac8;
+  color: #A7B9A2;
+  background-color: #3F3244;
   border-radius: 10px;
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+.eng-violet {
+  color: #3F3244
+}
+
+.bg-hg {
+  background-color: #457364;
+  color: #3F3244;
+}
+
+.bg-rg {
+  background-color: #6A7D5C;
+  color: #3F3244;
+}
+
+.bg-bg {
+  background-color: #84817E;
+  color: #3F3244
+}
+
+.color-ag {
+  color: #A7B9A2;
+}
+
+.color-egg {
+  color: #60495A
+}
+
+.color-ev {
+  color: #3F3244
 }

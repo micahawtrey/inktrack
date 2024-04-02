@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom"
 
 export default function InkTrackNavbar() {
     return (
-        <div className="shadow mb-3" style={{ backgroundColor: "#3B9B66"}}>
+        <div className="shadow mb-3 bg-hg" >
             <Container className="d-flex justify-content-between">
                 <NavLink className="navbar-brand" to="/">
                     <img style={{ cursor: "pointer" }}
