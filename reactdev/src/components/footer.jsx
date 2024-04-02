@@ -7,7 +7,7 @@ export default function Footer() {
             <Container>
                 <div className="row b-flex justify-content-around mb-2">
                     <div className="col-6 pt-3">
-                        <strong>Company</strong>
+                        <p className="eng-violet" style={{fontWeight: "bold"}}>Company</p>
                         <hr className="w-25 my-2" />
                         <Navbar>
                             <Nav className="flex-column">
