@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap"
 export default function Home() {
     return (
         <div>
-            <nav className="navbar navbar-expand-lg shadow mb-3" style={{ backgroundColor: "#285E38"}}>
+            <nav className="navbar navbar-expand-lg shadow" style={{ backgroundColor: "#285E38"}}>
                 <Container>
                     <NavLink className="navbar-brand" to="/">
                         <img style={{ cursor: "pointer" }}
