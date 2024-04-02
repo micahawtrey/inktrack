@@ -12,10 +12,10 @@ export default function Footer() {
                         <Navbar>
                             <Nav className="flex-column">
                                 <Nav.Item>
-                                    <Link className="nav-link" to="/company/about_us">About Us</Link>
+                                    <Link className="nav-link-footer" to="/company/about_us">About Us</Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Link className="nav-link" to="/company/contact_us">Contact Us</Link>
+                                    <Link className="nav-link-footer" to="/company/contact_us">Contact Us</Link>
                                 </Nav.Item>
                             </Nav>
                         </Navbar>

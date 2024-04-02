@@ -2,5 +2,50 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: #cecbcb;
+  background-color: #E8EEEB;
+}
+
+.nav-link {
+  color: black;
+  border-radius: 10px;
+  margin-right: 0.25rem;
+}
+
+.nav-link:hover {
+  color: black;
+  background-color: rgb(28, 145, 80);
+  border-radius: 10px;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+.nav-link:focus {
+  color: black;
+}
+
+.nav-link-dropdown {
+  display: block;
+  margin: 0.25rem;
+  padding: .5rem;
+  color: rgba(0, 0, 0, .55);
+  text-decoration: none;
+}
+
+.nav-link-dropdown:hover {
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+.nav-link-footer {
+  display: block;
+  padding: .5rem;
+  color: rgba(0, 0, 0, .55);
+  text-decoration: none;
+}
+
+.nav-link-footer:hover {
+  color: black;
+  background-color: #c6cac8;
+  border-radius: 10px;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
 }
