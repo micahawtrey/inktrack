@@ -1,6 +1,15 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
+
 footer {
   position: absolute;
-  bottom: 0;
   width: 100%;
   background-color: #A7B9A2;
 }
@@ -51,7 +60,7 @@ footer {
 }
 
 .eng-violet {
-  color: #3F3244
+  color: #3F3244;
 }
 
 .bg-hg {
@@ -66,7 +75,12 @@ footer {
 
 .bg-bg {
   background-color: #84817E;
-  color: #3F3244
+  color: #3F3244;
+}
+
+.bg-bg-opaque {
+  background-color: rgba(132, 129, 126, 0.90);
+  color: #3F3244;
 }
 
 .color-ag {
@@ -74,9 +88,42 @@ footer {
 }
 
 .color-egg {
-  color: #60495A
+  color: #60495A;
 }
 
 .color-ev {
-  color: #3F3244
+  color: #3F3244;
+}
+
+.bg-leaves {
+  background-image: url("../public/tattoo-logo.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.home-image-r {
+  width: 60%;
+  right: 0;
+  position: relative;
+}
+
+.home-image-l {
+  width: 60%;
+  left: 0;
+  position: relative;
+}
+
+.home-text-r {
+  right: 30%;
+  width: 30%;
+  margin-bottom: 5rem;
+  position: absolute;
+}
+
+.home-text-l {
+  left: 30%;
+  width: 30%;
+  margin-bottom: 5rem;
+  position: absolute;
 }
