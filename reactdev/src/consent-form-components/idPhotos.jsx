@@ -2,7 +2,7 @@ import { useState, useRef } from "react"
 import { capturePicture, idPicture, handleImageCapture } from "../utils/WebcamManagement"
 import { Controller } from "react-hook-form"
 
-export default function IdPhotos({errors, control, handleInputChange, handleNextButton}) {
+export default function IdPhotos({ props }) {
     const [cameras, setCameras] = useState({
         frontCamera: false,
         frontPhoto: false,
@@ -27,26 +27,39 @@ export default function IdPhotos({errors, control, handleInputChange, handleNext
     }
 
     return (
-        <div>
+        <form>
             <canvas id="canvas" width="320" height="240" hidden></canvas>
 
             <div className="mb-3">
-                {errors.front_id && <><span className="text-danger">Please take a picture of the front of your ID.</span><br/></>}
-                <button onClick={(event) => displayCamera(event, "frontCamera", "frontVideo", "frontPhoto")}
-                    id="frontIdCameraButton" type="button" className="btn btn-outline-primary" ref={frontCamera}>Front of ID</button><span className="text-danger">*</span>
+                {props.errors.front_id && <><span className="text-danger">
+                    Please take a picture of the front of your ID.</span><br/></>}
+                <button
+                    onClick={(event) => displayCamera(event, "frontCamera", "frontVideo", "frontPhoto")}
+                    id="frontIdCameraButton" type="button"
+                    className="btn btn-outline-primary" ref={frontCamera}>
+                        Front of ID
+                </button>
+                <span className="text-danger">*</span>
             </div>
             <div className="mb-3">
-                <video id="frontVideo" className="form-control mb-3" width="320" height="240" ref={frontVideo} hidden>Video stream not available.</video>
+                <video
+                    id="frontVideo" className="form-control mb-3"
+                    width="320" height="240" ref={frontVideo} hidden>
+                        Video stream not available.
+                </video>
                 {cameras.frontCamera ?
                     <button
                         onClick={(event) => {
                             event.preventDefault()
                             capturePicture(frontVideo, frontPhoto, frontCamera, "frontCamera", cameras, setCameras)}}
-                        id="frontCapture" type="button" className="btn btn-outline-primary">Take photo</button>
+                        id="frontCapture" type="button"
+                        className="btn btn-outline-primary">
+                            Take photo
+                    </button>
                     : <></>
                 }
                 <Controller
-                    control={control}
+                    control={props.control}
                     name="front_id"
                     rules={{required: true}}
                     render={({ field: { onChange } }) => (
@@ -56,31 +69,47 @@ export default function IdPhotos({errors, control, handleInputChange, handleNext
                                 e.preventDefault()
                                 const file = handleImageCapture(frontPhoto, "front_id")
                                 onChange(file)
-                                handleInputChange(e)
+                                props.handleInputChange(e)
                             }}
-                            width="320" height="240" alt="The front of your ID" type='image' hidden/>
+                            width="320" height="240" alt="The front of your ID"
+                            type='image' hidden/>
                     )}
                 />
             </div>
             <br/>
             <div className="mb-3" id="back_id">
-                {errors.back_id && <><span className="text-danger">Please take a picture of the back of your ID.</span><br/></>}
-                <button onClick={(event) => {displayCamera(event, "backCamera", "backVideo", "backPhoto")}}
-                    id="backIdCameraButton" type="button" className="btn btn-outline-primary" ref={backCamera}>Back of ID</button><span className="text-danger">*</span>
+                {props.errors.back_id &&
+                    <><span className="text-danger">
+                        Please take a picture of the back of your ID.
+                    </span><br/></>}
+                <button
+                    onClick={(event) => {displayCamera(event, "backCamera", "backVideo", "backPhoto")}}
+                    id="backIdCameraButton" type="button"
+                    className="btn btn-outline-primary" ref={backCamera}>
+                        Back of ID
+                </button>
+                <span className="text-danger">*</span>
             </div>
             <div>
-                <video id="backVideo" className="form-control mb-3" width="320" height="240" ref={backVideo} hidden>Video stream not available.</video>
+                <video
+                    id="backVideo" className="form-control mb-3"
+                    width="320" height="240" ref={backVideo} hidden>
+                        Video stream not available.
+                </video>
                 {cameras.backCamera ?
                 <button
                     onClick={(event) => {
                         event.preventDefault()
                         capturePicture(backVideo, backPhoto, backCamera, "backCamera", cameras, setCameras)}
                     }
-                    id="backCapture" type="button" className="btn btn-outline-primary">Take photo</button>
+                    id="backCapture" type="button"
+                    className="btn btn-outline-primary">
+                        Take photo
+                </button>
                     : <></>
                 }
                 <Controller
-                    control={control}
+                    control={props.control}
                     name="back_id"
                     rules={{required: true}}
                     render={({ field: { onChange } }) => (
@@ -90,9 +119,10 @@ export default function IdPhotos({errors, control, handleInputChange, handleNext
                                 e.preventDefault()
                                 const file = handleImageCapture(backPhoto, "back_id")
                                 onChange(file)
-                                handleInputChange(e)
+                                props.handleInputChange(e)
                             }}
-                            width="320" height="240" alt="The back of your ID" type='image' hidden/>
+                            width="320" height="240" alt="The back of your ID"
+                            type='image' hidden/>
                     )}
                 />
             </div>
@@ -100,9 +130,9 @@ export default function IdPhotos({errors, control, handleInputChange, handleNext
             <div className="d-flex justify-content-end mt-3">
                 <button onClick={(e) => {
                     e.preventDefault()
-                    handleNextButton("idPhotos", "clientInfo")}}
+                    props.handleNextButton("idPhotos", "clientInfo")}}
                     className="btn btn-primary">Next</button>
             </div>
-        </div>
+        </form>
     )
 }

@@ -40,7 +40,13 @@ export default function ConsentForm() {
         artist_sig_time_stamp: undefined
     })
 
-    const { register, control, handleSubmit, formState: { errors }, trigger, getValues } = useForm()
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState: { errors },
+        trigger,
+        getValues } = useForm()
 
     const navigate = useNavigate()
 
@@ -95,17 +101,26 @@ export default function ConsentForm() {
         componentDisplay(activeComponent, backComponent)
     }
 
+    const props = {
+        errors,
+        control,
+        register,
+        handleInputChange,
+        handleNextButton,
+        handleBackButton,
+        userInfo,
+        signatureTime,
+        setSignatureTime,
+        getValues
+    }
+
     return (
         <div>
             <div className="row bg-secondary">
                 <div className="offset-1 col-10">
-                    <div className="shadow p-4 mt-4 bg-white">
+                    <div className="shadow p-4 my-4 bg-white rounded">
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            {components.idPhotos ? <IdPhotos
-                                errors={errors}
-                                control={control}
-                                handleInputChange={handleInputChange}
-                                handleNextButton={handleNextButton}/>
+                            {components.idPhotos ? <IdPhotos props={props}/>
                                 :null}
                             {components.clientInfo ? <ClientInfo
                                 register={register}
@@ -159,7 +174,6 @@ export default function ConsentForm() {
                                 getValues={getValues}
                                 handleBackButton={handleBackButton}/>
                                 :null}
-
                         </form>
                     </div>
                 </div>
