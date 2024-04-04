@@ -6,12 +6,12 @@ import { Controller } from "react-hook-form"
 
 export default function ClientInfo({ register, errors, control, handleInputChange, handleNextButton, handleBackButton }) {
     return (
-        <div className="position-relative">
+        <div>
             <h2>Client Information</h2>
-            <div className="mb-3 position-relative">
-                <div className="row row-cols-2 position-relative">
-                    <div className="col position-relative">
-                        <div className="form-floating position-relative">
+            <div className="mb-3">
+                <div className="row row-cols-2">
+                    <div className="col">
+                        <div className="form-floating">
                             <input {...register("first_name", {
                                 required: true,
                                 pattern: {
