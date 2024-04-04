@@ -1,9 +1,9 @@
 import { useRef } from "react"
-import { handleSignatureChange, handleClear, handleSignatureTimeCapture } from "../utils/inputChangeUtils"
+import { handleSignatureChange, handleClear, handleSignatureTimeCapture } from "../../utils/inputChangeUtils"
 import SignatureCanvas from 'react-signature-canvas'
 import { Controller } from "react-hook-form"
 
-export default function AcknowledgementAndWaiver({register, errors, control, userInfo, signatureTime, setSignatureTime, handleInputChange, handleNextButton, handleBackButton}) {
+export default function AcknowledgementAndWaiver({ props }) {
     const permanent_init = useRef(null)
     const social_media_perm_init = useRef(null)
     const refund_init = useRef(null)
@@ -21,9 +21,9 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
             <h2>Acknowledgment and Waiver</h2>
             <h4>Please check the box and initial under each statement.</h4>
             <div className="form-check">
-                <input {...register("permanent", { required: true })}
-                        className={`form-check-input ${errors.permanent ? "border-danger": ""}`}
-                        onBlur={(e) => handleInputChange(e)}
+                <input {...props.register("permanent", { required: true })}
+                        className={`form-check-input ${props.errors.permanent ? "border-danger": ""}`}
+                        onBlur={(e) => props.handleInputChange(e)}
                         type="checkbox" id="permanent"/>
                 <label htmlFor="permanent" className="form-check-label">I understand that this procedure is a permanent change to my skin and body.</label>
             </div>
@@ -32,7 +32,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 <div className="col-2 mb-3" style={{width: 127, height: 165, }}>
                     <div>
                         <Controller
-                            control={control}
+                            control={props.control}
                             name="permanent_init"
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
@@ -40,13 +40,13 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                                     canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "permanent_init" }}
                                     ref={permanent_init}
                                     onEnd={() => {
-                                        const file = handleSignatureChange(permanent_init.current, userInfo)
-                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "permanent_init_time_stamp")
+                                        const file = handleSignatureChange(permanent_init.current, props.userInfo)
+                                        handleSignatureTimeCapture(props.signatureTime, props.setSignatureTime, "permanent_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
                         />
-                        {errors.permanent_init && <span className="text-danger">Please initial here.</span>}
+                        {props.errors.permanent_init && <span className="text-danger">Please initial here.</span>}
                     </div>
                     <div className="row justify-content-center">
                         <button
@@ -60,9 +60,9 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 </div>
             </div>
             <div className="form-check">
-                <input {...register("social_media_perm", { required: true })}
-                        className={`form-check-input ${errors.social_media_perm ? "border-danger": ""}`}
-                        onBlur={(e) => handleInputChange(e)}
+                <input {...props.register("social_media_perm", { required: true })}
+                        className={`form-check-input ${props.errors.social_media_perm ? "border-danger": ""}`}
+                        onBlur={(e) => props.handleInputChange(e)}
                         type="checkbox" id="social_media_perm"/>
                 <label htmlFor="social_media_perm">I allow my tattoo to be photographed and be used for Mad Ink by Stripes portfolio.
                     Pictures may be posted on Facebook, instagram, and studio website.</label>
@@ -72,7 +72,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 <div className="col-2 mb-3" style={{width: 127, height: 165, }}>
                     <div>
                         <Controller
-                            control={control}
+                            control={props.control}
                             name="social_media_perm_init"
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
@@ -80,13 +80,13 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                                     canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "social_media_perm_init" }}
                                     ref={social_media_perm_init}
                                     onEnd={() => {
-                                        const file = handleSignatureChange(social_media_perm_init.current, userInfo)
-                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "social_media_perm_init_time_stamp")
+                                        const file = handleSignatureChange(social_media_perm_init.current, props.userInfo)
+                                        handleSignatureTimeCapture(props.signatureTime, props.setSignatureTime, "social_media_perm_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
                         />
-                        {errors.social_media_perm_init && <span className="text-danger">Please initial here.</span>}
+                        {props.errors.social_media_perm_init && <span className="text-danger">Please initial here.</span>}
                     </div>
                     <div className="row justify-content-center">
                         <button
@@ -100,9 +100,9 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 </div>
             </div>
             <div className="form-check">
-                <input {...register("refund", { required: true })}
-                        className={`form-check-input ${errors.refund ? "border-danger": ""}`}
-                        onBlur={(e) => handleInputChange(e)}
+                <input {...props.register("refund", { required: true })}
+                        className={`form-check-input ${props.errors.refund ? "border-danger": ""}`}
+                        onBlur={(e) => props.handleInputChange(e)}
                         type="checkbox" id="refund"/>
                 <label htmlFor="refund">I acknowledge that Mad Ink by Stripes does not offer refunds or free touch ups after 3 months.
                     Hands, fingers, feet, and micro tattoos do not get free touch ups at any time.</label>
@@ -112,7 +112,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 <div className="col-2 mb-3" style={{width: 127, height: 165, }}>
                     <div>
                         <Controller
-                            control={control}
+                            control={props.control}
                             name="refund_init"
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
@@ -120,13 +120,13 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                                     canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "refund_init" }}
                                     ref={refund_init}
                                     onEnd={() => {
-                                        const file = handleSignatureChange(refund_init.current, userInfo)
-                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "refund_init_time_stamp")
+                                        const file = handleSignatureChange(refund_init.current, props.userInfo)
+                                        handleSignatureTimeCapture(props.signatureTime, props.setSignatureTime, "refund_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
                         />
-                        {errors.refund_init && <span className="text-danger">Please initial here.</span>}
+                        {props.errors.refund_init && <span className="text-danger">Please initial here.</span>}
                     </div>
                     <div className="row justify-content-center">
                         <button
@@ -140,9 +140,9 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 </div>
             </div>
             <div className="form-check">
-                <input {...register("allergen_disclosure", { required: true })}
-                        className={`form-check-input ${errors.allergen_disclosure ? "border-danger": ""}`}
-                        onBlur={(e) => handleInputChange(e)}
+                <input {...props.register("allergen_disclosure", { required: true })}
+                        className={`form-check-input ${props.errors.allergen_disclosure ? "border-danger": ""}`}
+                        onBlur={(e) => props.handleInputChange(e)}
                         type="checkbox" id="allergen_disclosure"/>
                 <label htmlFor="allergen_disclosure">I agree that the studio does not have a way of identifying if I am
                     allergic to the elements or ingredients that will be used for my tattoo. If I am allergic to anything I will
@@ -153,7 +153,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 <div className="col-2 mb-3" style={{width: 127, height: 165, }}>
                     <div>
                         <Controller
-                            control={control}
+                            control={props.control}
                             name="allergen_disclosure_init"
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
@@ -161,13 +161,13 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                                     canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "allergen_disclosure_init" }}
                                     ref={allergen_disclosure_init}
                                     onEnd={() => {
-                                        const file = handleSignatureChange(allergen_disclosure_init.current, userInfo)
-                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "allergen_disclosure_init_time_stamp")
+                                        const file = handleSignatureChange(allergen_disclosure_init.current, props.userInfo)
+                                        handleSignatureTimeCapture(props.signatureTime, props.setSignatureTime, "allergen_disclosure_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
                         />
-                        {errors.allergen_disclosure_init && <span className="text-danger">Please initial here.</span>}
+                        {props.errors.allergen_disclosure_init && <span className="text-danger">Please initial here.</span>}
                     </div>
                     <div className="row justify-content-center">
                         <button
@@ -181,9 +181,9 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 </div>
             </div>
             <div className="form-check">
-                <input {...register("aftercare", { required: true })}
-                        className={`form-check-input ${errors.aftercare ? "border-danger": ""}`}
-                        onBlur={(e) => handleInputChange(e)}
+                <input {...props.register("aftercare", { required: true })}
+                        className={`form-check-input ${props.errors.aftercare ? "border-danger": ""}`}
+                        onBlur={(e) => props.handleInputChange(e)}
                         type="checkbox" id="aftercare"/>
                 <label htmlFor="aftercare">I understand that I need to take care of the tattoo by
                     following the written and verbal aftercare provided.</label>
@@ -193,7 +193,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 <div className="col-2 mb-3" style={{width: 127, height: 165, }}>
                     <div>
                         <Controller
-                            control={control}
+                            control={props.control}
                             name="aftercare_init"
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
@@ -201,13 +201,13 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                                     canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "aftercare_init" }}
                                     ref={aftercare_init}
                                     onEnd={() => {
-                                        const file = handleSignatureChange(aftercare_init.current, userInfo)
-                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "aftercare_init_time_stamp")
+                                        const file = handleSignatureChange(aftercare_init.current, props.userInfo)
+                                        handleSignatureTimeCapture(props.signatureTime, props.setSignatureTime, "aftercare_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
                         />
-                        {errors.aftercare_init && <span className="text-danger">Please initial here.</span>}
+                        {props.errors.aftercare_init && <span className="text-danger">Please initial here.</span>}
                     </div>
                     <div className="row justify-content-center">
                         <button
@@ -221,9 +221,9 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 </div>
             </div>
             <div className="form-check">
-                <input {...register("infection", { required: true })}
-                        className={`form-check-input ${errors.infection ? "border-danger": ""}`}
-                        onBlur={(e) => handleInputChange(e)}
+                <input {...props.register("infection", { required: true })}
+                        className={`form-check-input ${props.errors.infection ? "border-danger": ""}`}
+                        onBlur={(e) => props.handleInputChange(e)}
                         type="checkbox" id="infection"/>
                 <label htmlFor="infection">I understand that I might get an infection if I don't follow
                     the instructions given to me in regards of taking care of my tattoo. If I have had issues
@@ -234,7 +234,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 <div className="col-2 mb-3" style={{width: 127, height: 165, }}>
                     <div>
                         <Controller
-                            control={control}
+                            control={props.control}
                             name="infection_init"
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
@@ -242,13 +242,13 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                                     canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "infection_init" }}
                                     ref={infection_init}
                                     onEnd={() => {
-                                        const file = handleSignatureChange(infection_init.current, userInfo)
-                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "infection_init_time_stamp")
+                                        const file = handleSignatureChange(infection_init.current, props.userInfo)
+                                        handleSignatureTimeCapture(props.signatureTime, props.setSignatureTime, "infection_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
                         />
-                        {errors.infection_init && <span className="text-danger">Please initial here.</span>}
+                        {props.errors.infection_init && <span className="text-danger">Please initial here.</span>}
                     </div>
                     <div className="row justify-content-center">
                         <button
@@ -262,9 +262,9 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 </div>
             </div>
             <div className="form-check">
-                <input {...register("compensation", { required: true })}
-                        className={`form-check-input ${errors.compensation ? "border-danger": ""}`}
-                        onBlur={(e) => handleInputChange(e)}
+                <input {...props.register("compensation", { required: true })}
+                        className={`form-check-input ${props.errors.compensation ? "border-danger": ""}`}
+                        onBlur={(e) => props.handleInputChange(e)}
                         type="checkbox" id="compensation"/>
                 <label htmlFor="compensation">I agree to compensate Mad Ink by Stripes for the
                     services provided today by paying the agreed upon price for the session.</label>
@@ -274,7 +274,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 <div className="col-2 mb-3" style={{width: 127, height: 165, }}>
                     <div>
                         <Controller
-                            control={control}
+                            control={props.control}
                             name="compensation_init"
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
@@ -282,13 +282,13 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                                     canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "compensation_init" }}
                                     ref={compensation_init}
                                     onEnd={() => {
-                                        const file = handleSignatureChange(compensation_init.current, userInfo)
-                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "compensation_init_time_stamp")
+                                        const file = handleSignatureChange(compensation_init.current, props.userInfo)
+                                        handleSignatureTimeCapture(props.signatureTime, props.setSignatureTime, "compensation_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
                         />
-                        {errors.compensation_init && <span className="text-danger">Please initial here.</span>}
+                        {props.errors.compensation_init && <span className="text-danger">Please initial here.</span>}
                     </div>
                     <div className="row justify-content-center">
                         <button
@@ -302,9 +302,9 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 </div>
             </div>
             <div className="form-check">
-                <input {...register("allergen_risk", { required: true })}
-                        className={`form-check-input ${errors.allergen_risk ? "border-danger": ""}`}
-                        onBlur={(e) => handleInputChange(e)}
+                <input {...props.register("allergen_risk", { required: true })}
+                        className={`form-check-input ${props.errors.allergen_risk ? "border-danger": ""}`}
+                        onBlur={(e) => props.handleInputChange(e)}
                         type="checkbox" id="allergen_risk"/>
                 <label htmlFor="allergen_risk">I acknowledge it is not reasonably possible for an
                     employee of Mad Ink by Stripes to determine whether I have an allergic reaction to the
@@ -316,7 +316,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 <div className="col-2 mb-3" style={{width: 127, height: 165, }}>
                     <div>
                         <Controller
-                            control={control}
+                            control={props.control}
                             name="allergen_risk_init"
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
@@ -324,13 +324,13 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                                     canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "allergen_risk_init" }}
                                     ref={allergen_risk_init}
                                     onEnd={() => {
-                                        const file = handleSignatureChange(allergen_risk_init.current, userInfo)
-                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "allergen_risk_init_time_stamp")
+                                        const file = handleSignatureChange(allergen_risk_init.current, props.userInfo)
+                                        handleSignatureTimeCapture(props.signatureTime, props.setSignatureTime, "allergen_risk_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
                         />
-                        {errors.allergen_risk_init && <span className="text-danger">Please initial here.</span>}
+                        {props.errors.allergen_risk_init && <span className="text-danger">Please initial here.</span>}
                     </div>
                     <div className="row justify-content-center">
                         <button
@@ -345,9 +345,9 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
             </div>
 
             <div className="form-check">
-                <input {...register("accurate_info", { required: true })}
-                        className={`form-check-input ${errors.accurate_info ? "border-danger": ""}`}
-                        onBlur={(e) => handleInputChange(e)}
+                <input {...props.register("accurate_info", { required: true })}
+                        className={`form-check-input ${props.errors.accurate_info ? "border-danger": ""}`}
+                        onBlur={(e) => props.handleInputChange(e)}
                         type="checkbox" id="accurate_info"/>
                 <label htmlFor="accurate_info">I confirm that the information I provided in this
                     document is accurate and true.</label>
@@ -357,7 +357,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 <div className="col-2 mb-3" style={{width: 127, height: 165, }}>
                     <div>
                         <Controller
-                            control={control}
+                            control={props.control}
                             name="accurate_info_init"
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
@@ -365,13 +365,13 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                                     canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "accurate_info_init" }}
                                     ref={accurate_info_init}
                                     onEnd={() => {
-                                        const file = handleSignatureChange(accurate_info_init.current, userInfo)
-                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "accurate_info_init_time_stamp")
+                                        const file = handleSignatureChange(accurate_info_init.current, props.userInfo)
+                                        handleSignatureTimeCapture(props.signatureTime, props.setSignatureTime, "accurate_info_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
                         />
-                        {errors.accurate_info_init && <span className="text-danger">Please initial here.</span>}
+                        {props.errors.accurate_info_init && <span className="text-danger">Please initial here.</span>}
                     </div>
                     <div className="row justify-content-center">
                         <button
@@ -386,9 +386,9 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
             </div>
 
             <div className="form-check">
-                <input {...register("not_minor", { required: true })}
-                        className={`form-check-input ${errors.not_minor ? "border-danger": ""}`}
-                        onBlur={(e) => handleInputChange(e)}
+                <input {...props.register("not_minor", { required: true })}
+                        className={`form-check-input ${props.errors.not_minor ? "border-danger": ""}`}
+                        onBlur={(e) => props.handleInputChange(e)}
                         type="checkbox" id="not_minor"/>
                 <label htmlFor="not_minor">I confirm that I am 18 years or older.</label>
             </div>
@@ -397,7 +397,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                 <div className="col-2 mb-3" style={{width: 127, height: 165, }}>
                     <div>
                         <Controller
-                            control={control}
+                            control={props.control}
                             name="not_minor_init"
                             rules={{required: true}}
                             render={({ field: { onChange } }) => (
@@ -405,13 +405,13 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                                     canvasProps={{ className: "border border-secondary", width:125, height: 100, id: "not_minor_init" }}
                                     ref={not_minor_init}
                                     onEnd={() => {
-                                        const file = handleSignatureChange(not_minor_init.current, userInfo)
-                                        handleSignatureTimeCapture(signatureTime, setSignatureTime, "not_minor_init_time_stamp")
+                                        const file = handleSignatureChange(not_minor_init.current, props.userInfo)
+                                        handleSignatureTimeCapture(props.signatureTime, props.setSignatureTime, "not_minor_init_time_stamp")
                                         onChange(file)
                                     }}/>
                                 )}
                         />
-                        {errors.not_minor_init && <span className="text-danger">Please initial here.</span>}
+                        {props.errors.not_minor_init && <span className="text-danger">Please initial here.</span>}
                     </div>
                     <div className="row justify-content-center">
                         <button
@@ -431,7 +431,7 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
             <div className="col-4 mb-3" style={{ width:127, height: 165, }}>
                 <div>
                     <Controller
-                        control={control}
+                        control={props.control}
                         name="signature"
                         rules={{required: true}}
                         render={({ field: { onChange } }) => (
@@ -439,13 +439,13 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
                                 canvasProps={{ className: "border border-secondary", width:450, height: 100, id: "signature" }}
                                 ref={signature}
                                 onEnd={() => {
-                                    const file = handleSignatureChange(signature.current, userInfo)
-                                    handleSignatureTimeCapture(signatureTime, setSignatureTime, "signature_time_stamp")
+                                    const file = handleSignatureChange(signature.current, props.userInfo)
+                                    handleSignatureTimeCapture(props.signatureTime, props.setSignatureTime, "signature_time_stamp")
                                     onChange(file)
                                 }}/>
                             )}
                     />
-                    {errors.signature && <span className="text-danger">Please sign here.</span>}
+                    {props.errors.signature && <span className="text-danger">Please sign here.</span>}
                 </div>
                 <div className="row justify-content-center">
                     <button
@@ -460,19 +460,19 @@ export default function AcknowledgementAndWaiver({register, errors, control, use
             <div className="mb-3">
                 <h4>Signed Date<span className="text-danger">*</span></h4>
                 <div>
-                    <input {...register("signed_date", { required: true })}
-                        className={`form-control w-50 ${errors.signed_date ? "border-danger": ""}`}
-                        onBlur={(e) => handleInputChange(e)}
+                    <input {...props.register("signed_date", { required: true })}
+                        className={`form-control w-50 ${props.errors.signed_date ? "border-danger": ""}`}
+                        onBlur={(e) => props.handleInputChange(e)}
                         type="date" id="signed_date"/>
                 </div>
             </div>
             <div className="d-flex justify-content-end mt-3">
                 <button onClick={(e) => {
                     e.preventDefault()
-                    handleBackButton("acknowledgementAndWaiver", "preProcedureQuestionnaire")}} className="btn btn-danger me-3">Back</button>
+                    props.handleBackButton("acknowledgementAndWaiver", "preProcedureQuestionnaire")}} className="btn btn-danger me-3">Back</button>
                 <button onClick={(event) => {
                     event.preventDefault()
-                    handleNextButton("acknowledgementAndWaiver", "afterCareInstructions")
+                    props.handleNextButton("acknowledgementAndWaiver", "afterCareInstructions")
                     }} className="btn btn-primary">Next</button>
             </div>
         </div>

@@ -96,10 +96,10 @@ footer {
 }
 
 .bg-leaves {
-  background-image: url("../public/tattoo-logo.jpg");
+  background-image: url("../public/bg-leaves.webp");
   background-attachment: fixed;
   background-position: center;
-  background-size: cover;
+  /* background-size: cover; */
 }
 
 @media (min-width: 992px) {

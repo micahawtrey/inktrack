@@ -72,7 +72,7 @@ export default function Home() {
     }, [])
 
     return (
-        <div className="py-3 bg-leaves">
+        <div>
             <div className="mb-3 container color-ev">
                 <div className="slide-in-left" ref={blockOne}>
                     <HomePageBlock props={blockOneProps}/>

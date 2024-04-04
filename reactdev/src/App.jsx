@@ -6,7 +6,7 @@ export default function App() {
   return (
     <div>
       <InkTrackNavbar />
-      <main>
+      <main className="py-3 bg-leaves">
         <Outlet />
       </main>
       <Footer />
