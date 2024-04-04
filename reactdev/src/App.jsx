@@ -6,7 +6,9 @@ export default function App() {
   return (
     <div>
       <InkTrackNavbar />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
       <Footer />
     </div>
   )
