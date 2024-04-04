@@ -1,5 +1,5 @@
 import { useState, useRef } from "react"
-import { capturePicture, idPicture, handleImageCapture } from "../utils/WebcamManagement"
+import { capturePicture, idPicture, handleImageCapture } from "../../utils/WebcamManagement"
 import { Controller } from "react-hook-form"
 
 export default function IdPhotos({ props }) {

@@ -1,12 +1,12 @@
 import { useState } from "react"
-import IdPhotos from "../consent-form-components/idPhotos"
-import AcknowledgementAndWaiver from "../consent-form-components/acknowledgementAndWaiver"
-import ClientInfo from "../consent-form-components/clientInfo"
-import AfterCareInstructions from "../consent-form-components/afterCareInstructions"
-import PreProcedureQuestionnaire from "../consent-form-components/preProcedureQuestionnaire"
-import SignaturePage from "../consent-form-components/signaturePage"
-import CompletedForm from "../consent-form-components/completedForm"
-import SubmittedLoading from "../consent-form-components/submittedLoading"
+import IdPhotos from "../components/consent-form-components/idPhotos"
+import AcknowledgementAndWaiver from "../components/consent-form-components/acknowledgementAndWaiver"
+import ClientInfo from "../components/consent-form-components/clientInfo"
+import AfterCareInstructions from "../components/consent-form-components/afterCareInstructions"
+import PreProcedureQuestionnaire from "../components/consent-form-components/preProcedureQuestionnaire"
+import SignaturePage from "../components/consent-form-components/signaturePage"
+import CompletedForm from "../components/consent-form-components/completedForm"
+import SubmittedLoading from "../components/consent-form-components/submittedLoading"
 import { useForm } from "react-hook-form"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
@@ -14,13 +14,13 @@ import { useNavigate } from "react-router-dom"
 export default function ConsentForm() {
     const [components, setComponents] = useState({
         idPhotos: false,
-        clientInfo: true,
+        clientInfo: false,
         preProcedureQuestionnaire: false,
         acknowledgementAndWaiver: false,
         afterCareInstructions: false,
         signaturePage: false,
         completedForm: false,
-        submittedLoading: false
+        submittedLoading: true
     })
 
     const [signatureTime, setSignatureTime] = useState({
@@ -115,79 +115,33 @@ export default function ConsentForm() {
     }
 
     return (
-        <div>
-            <div className="row bg-secondary">
-                <div className="offset-1 col-10">
-                    <div className="shadow p-4 my-4 bg-white rounded">
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            {components.idPhotos ? <IdPhotos props={props}/>
-                                :null}
-                            {components.clientInfo ? <ClientInfo
-                                register={register}
-                                errors={errors}
-                                control={control}
-                                handleInputChange={handleInputChange}
-                                handleNextButton={handleNextButton}
-                                handleBackButton={handleBackButton}/>
-                                :null}
-                            {components.preProcedureQuestionnaire ? <PreProcedureQuestionnaire
-                                register={register}
-                                errors={errors}
-                                handleInputChange={handleInputChange}
-                                handleNextButton={handleNextButton}
-                                handleBackButton={handleBackButton}/>
-                                :null}
-                            {components.acknowledgementAndWaiver ? <AcknowledgementAndWaiver
-                                register={register}
-                                errors={errors}
-                                control={control}
-                                userInfo={userInfo}
-                                signatureTime={signatureTime}
-                                setSignatureTime={setSignatureTime}
-                                handleInputChange={handleInputChange}
-                                handleNextButton={handleNextButton}
-                                handleBackButton={handleBackButton}/>
-                                :null}
-                            {components.afterCareInstructions ? <AfterCareInstructions
-                                register={register}
-                                errors={errors}
-                                control={control}
-                                userInfo={userInfo}
-                                signatureTime={signatureTime}
-                                setSignatureTime={setSignatureTime}
-                                handleInputChange={handleInputChange}
-                                handleNextButton={handleNextButton}
-                                handleBackButton={handleBackButton}/>
-                                :null}
-                            {components.signaturePage ? <SignaturePage
-                                register={register}
-                                errors={errors}
-                                control={control}
-                                userInfo={userInfo}
-                                signatureTime={signatureTime}
-                                setSignatureTime={setSignatureTime}
-                                handleInputChange={handleInputChange}
-                                handleNextButton={handleNextButton}
-                                handleBackButton={handleBackButton}/>
-                                :null}
-                            {components.completedForm ? <CompletedForm
-                                getValues={getValues}
-                                handleBackButton={handleBackButton}/>
-                                :null}
-                        </form>
-                    </div>
-                </div>
+        <div className="container shadow p-4 my-4 bg-bg rounded">
+            <div id="consent-form">
+                {components.idPhotos ? <IdPhotos
+                    props={props} />
+                    :null}
+                {components.clientInfo ? <ClientInfo
+                    props={props} />
+                    :null}
+                {components.preProcedureQuestionnaire ? <PreProcedureQuestionnaire
+                    props={props} />
+                    :null}
+                {components.acknowledgementAndWaiver ? <AcknowledgementAndWaiver
+                    props={props} />
+                    :null}
+                {components.afterCareInstructions ? <AfterCareInstructions
+                    props={props} />
+                    :null}
+                {components.signaturePage ? <SignaturePage
+                    props={props} />
+                    :null}
+                {components.completedForm ? <CompletedForm
+                    getValues={getValues}
+                    handleBackButton={handleBackButton}/>
+                    :null}
             </div>
-            {components.submittedLoading ?
-                <div className="row">
-                    <div className="offset-2 col-8">
-                        <div className="shadow p-4 mt-4 bg-light">
-                            <SubmittedLoading/>
-                        </div>
-                    </div>
-                </div>
+            {components.submittedLoading ? <SubmittedLoading/>
                 :null}
         </div>
-
     )
 }
