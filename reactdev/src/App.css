@@ -129,13 +129,24 @@ footer {
     position: absolute;
   }
 
-  .slide-in-div {
+  .slide-in-left {
     opacity: 0;
     transform: translateX(-100px);
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
 
-  .slide-in-div.slide-in {
+  .slide-in-right {
+    opacity: 0;
+    transform: translateX(100px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .slide-in-left.slide-in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .slide-in-right.slide-in {
     opacity: 1;
     transform: translateX(0);
   }
