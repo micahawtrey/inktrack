@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export default function AgeInput({ props, inputId }) {
     return (
         <div className="mb-3 form-floating">
@@ -9,4 +11,12 @@ export default function AgeInput({ props, inputId }) {
             {props.errors[inputId] && <span className="text-danger">Please provide your age.</span>}
         </div>
     )
+}
+
+AgeInput.propTypes = {
+    props: PropTypes.object,
+    inputId: PropTypes.string,
+    errors: PropTypes.object,
+    register: PropTypes.func,
+    handleInputChange: PropTypes.func
 }
