@@ -14,13 +14,13 @@ import { useNavigate } from "react-router-dom"
 export default function ConsentForm() {
     const [components, setComponents] = useState({
         idPhotos: false,
-        clientInfo: false,
+        clientInfo: true,
         preProcedureQuestionnaire: false,
         acknowledgementAndWaiver: false,
         afterCareInstructions: false,
         signaturePage: false,
         completedForm: false,
-        submittedLoading: true
+        submittedLoading: false
     })
 
     const [signatureTime, setSignatureTime] = useState({

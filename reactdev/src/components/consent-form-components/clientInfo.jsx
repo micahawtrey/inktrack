@@ -2,49 +2,13 @@ import PhoneInput from "react-phone-input-2"
 import 'react-phone-input-2/lib/style.css'
 import { statesList } from "../../utils/utils"
 import { Controller } from "react-hook-form"
-
+import FullNameInput from "../../input-components/FullNameInput"
 
 export default function ClientInfo({ props }) {
     return (
         <div>
             <h2>Client Information</h2>
-            <div className="mb-3">
-                <div className="row row-cols-2">
-                    <div className="col">
-                        <div className="form-floating">
-                            <input {...props.register("first_name", {
-                                required: true,
-                                pattern: {
-                                    value: /[a-zA-Z\s]/,
-                                    message: "Please only type letters."
-                                }
-                                })}
-                                className={`form-control ${props.errors.first_name ? "border-danger": ""}`}
-                                onBlur={(e) => props.handleInputChange(e)}
-                                type="text" placeholder="" id="first_name"/>
-                            <label htmlFor="first_name">First name<span className="text-danger">*</span></label>
-                            {props.errors.first_name && <span className="text-danger">Please provide your first name (letters and spaces only)</span>}
-                        </div>
-                    </div>
-                    <div className="col z-0">
-                        <div className="form-floating">
-                            <input {...props.register("last_name", {
-                                required: true,
-                                pattern: {
-                                    value: /[a-zA-Z\s]/,
-                                    message: "Please only type letters."
-                                }
-                                })}
-                                className={`form-control ${props.errors.last_name ? "border-danger": ""}`}
-                                onBlur={(e) => props.handleInputChange(e)}
-                                type="text"placeholder="" id="last_name"/>
-                            <label htmlFor="last_name">Last name<span className="text-danger">*</span></label>
-                            {props.errors.last_name && <span className="text-danger">Please provide your last name (letters and spaces only)</span>}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <FullNameInput props={props} first_name={"first_name"} last_name={"last_name"} />
             <div className="mb-3 form-floating position-relative z-0">
                 <input {...props.register("email", {required: true})}
                     className={`form-control w-50 ${props.errors.email ? "border-danger": ""}`}
