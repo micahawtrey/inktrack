@@ -4,6 +4,7 @@ import { statesList } from "../../utils/utils"
 import { Controller } from "react-hook-form"
 import FullNameInput from "../../input-components/FullNameInput"
 import EmailInput from "../../input-components/EmailInput"
+import AgeInput from "../../input-components/AgeInput"
 
 export default function ClientInfo({ props }) {
     return (
@@ -11,22 +12,7 @@ export default function ClientInfo({ props }) {
             <h2>Client Information</h2>
             <FullNameInput props={props} first_name={"first_name"} last_name={"last_name"} />
             <EmailInput props={props} inputId={"email"} />
-            {/* <div className="mb-3 form-floating position-relative z-0">
-                <input {...props.register("email", {required: true})}
-                    className={`form-control w-50 ${props.errors.email ? "border-danger": ""}`}
-                    onBlur={(e) => props.handleInputChange(e)}
-                    type="email" id="email" placeholder=""/>
-                <label htmlFor="email">Email address<span className='text-danger'>*</span></label>
-                {props.errors.email && <span className="text-danger">Please provide your email address.</span>}
-            </div> */}
-            <div className="mb-3 form-floating">
-                <input {...props.register("age", {required: true})}
-                    className={`form-control w-25 ${props.errors.age ? "border-danger": ""}`}
-                    onBlur={(e) => props.handleInputChange(e)}
-                    type="number" id="age" placeholder="" />
-                <label htmlFor="age">Age<span className="text-danger">*</span></label>
-                {props.errors.age && <span className="text-danger">Please provide your age.</span>}
-            </div>
+            <AgeInput props={props} inputId={"age"} />
             <div className="mb-3">
                 <label htmlFor="phone_number">Phone Number:<span className='text-danger'>*</span></label>
                 <Controller
