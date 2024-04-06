@@ -1,3 +1,5 @@
+import { ErrorMessage } from '@hookform/error-message';
+
 export default function FullNameInput({ props, first_name, last_name }) {
     return (
     <div className="row mb-3">
@@ -15,6 +17,7 @@ export default function FullNameInput({ props, first_name, last_name }) {
                     type="text" placeholder="" id={first_name}/>
                 <label htmlFor={first_name}>First name<span className="text-danger">*</span></label>
                 {props.errors.first_name && <span className="text-danger">Please provide your first name (letters and spaces only)</span>}
+                <ErrorMessage errors={props.errors} name="first_name" />
             </div>
         </div>
         <div className="col">

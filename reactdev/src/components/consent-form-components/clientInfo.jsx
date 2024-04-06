@@ -1,10 +1,9 @@
-import PhoneInput from "react-phone-input-2"
-import 'react-phone-input-2/lib/style.css'
-import { statesList } from "../../utils/utils"
-import { Controller } from "react-hook-form"
-import FullNameInput from "../../input-components/FullNameInput"
-import EmailInput from "../../input-components/EmailInput"
-import AgeInput from "../../input-components/AgeInput"
+import 'react-phone-input-2/lib/style.css';
+import { statesList } from "../../utils/utils";
+import FullNameInput from "../../input-components/FullNameInput";
+import EmailInput from "../../input-components/EmailInput";
+import AgeInput from "../../input-components/AgeInput";
+import PhoneNumberInput from "../../input-components/PhoneNumberInput";
 
 export default function ClientInfo({ props }) {
     return (
@@ -13,23 +12,7 @@ export default function ClientInfo({ props }) {
             <FullNameInput props={props} first_name={"first_name"} last_name={"last_name"} />
             <EmailInput props={props} inputId={"email"} />
             <AgeInput props={props} inputId={"age"} />
-            <div className="mb-3">
-                <label htmlFor="phone_number">Phone Number:<span className='text-danger'>*</span></label>
-                <Controller
-                    control={props.control}
-                    name="phone_number"
-                    rules={{required: true}}
-                    render={( {field: { onChange, onBlur, value } }) => (
-                        <PhoneInput
-                            country="us"
-                            value={value}
-                            onChange={onChange}
-                            onBlur={onBlur}
-                            inputProps={{id: "phone_number", }} />
-                    )}
-                />
-                {props.errors.phone_number && <span className="text-danger">Please provide a valid phone number.</span>}
-            </div>
+            <PhoneNumberInput props={props} inputId={"phone_number"} />
             <div className="mb-3">
                 <label htmlFor="preferred_pronouns" className="form-label mb-1">Preferred pronouns:<span className='text-danger'>*</span></label>
                 <select {...props.register("preferred_pronouns", {required: true})}
