@@ -1,6 +1,6 @@
 export default function EmailInput({ props, inputId }) {
     return (
-        <div className="mb-3 form-floating">
+        <div className="mb-3 me-4 form-floating">
             <input {...props.register(inputId, {required: true})}
                 className={`form-control w-50 ${props.errors[inputId] ? "border-danger": ""}`}
                 onBlur={(e) => props.handleInputChange(e)}

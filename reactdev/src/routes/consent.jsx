@@ -63,6 +63,9 @@ export default function ConsentForm() {
         for (let [key, value] of Object.entries(signatureTime)) {
             formData.append(key, value)
         }
+        if (formData["custom_pronouns"]) {
+            formData["preferred_pronouns"] = formData["custom_pronouns"]
+        }
 
         componentDisplay("completedForm", "submittedLoading")
 

@@ -4,6 +4,7 @@ import FullNameInput from "../../input-components/FullNameInput";
 import EmailInput from "../../input-components/EmailInput";
 import AgeInput from "../../input-components/AgeInput";
 import PhoneNumberInput from "../../input-components/PhoneNumberInput";
+import PronounsInput from '../../input-components/PronounsInput';
 
 export default function ClientInfo({ props }) {
     return (
@@ -13,7 +14,8 @@ export default function ClientInfo({ props }) {
             <EmailInput props={props} inputId={"email"} />
             <AgeInput props={props} inputId={"age"} />
             <PhoneNumberInput props={props} inputId={"phone_number"} />
-            <div className="mb-3">
+            <PronounsInput props={props} inputId={"preferred_pronouns"} />
+            {/* <div className="mb-3">
                 <label htmlFor="preferred_pronouns" className="form-label mb-1">Preferred pronouns:<span className='text-danger'>*</span></label>
                 <select {...props.register("preferred_pronouns", {required: true})}
                     className={`form-select w-50 ${props.errors.preferred_pronouns ? "border-danger": ""}`}
@@ -26,8 +28,8 @@ export default function ClientInfo({ props }) {
                     <option value="other">other</option>
                 </select>
                 {props.errors.preferred_pronouns && <span className="text-danger">Please select your preferred pronouns.</span>}
-            </div>
-            <div className="mb-3">
+            </div> */}
+            <div className="mb-3 me-4">
                 <label htmlFor='birth_date' className="mb-1">Date of birth:<span className='text-danger'>*</span></label>
                 <input {...props.register("birth_date", { required: true })}
                     className={`form-control w-50 ${props.errors.birth_date ? "border-danger": ""}`}

@@ -96,7 +96,7 @@ footer {
 }
 
 .bg-leaves {
-  background-image: url("../public/bg-leaves.webp");
+  background-image: url("/bg-leaves.webp");
   background-attachment: fixed;
   background-position: center;
   /* background-size: cover; */
