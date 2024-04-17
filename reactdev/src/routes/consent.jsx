@@ -46,7 +46,9 @@ export default function ConsentForm() {
         handleSubmit,
         formState: { errors },
         trigger,
-        getValues } = useForm()
+        getValues,
+        setValue
+    } = useForm()
 
     const navigate = useNavigate()
 
@@ -114,7 +116,9 @@ export default function ConsentForm() {
         userInfo,
         signatureTime,
         setSignatureTime,
-        getValues
+        getValues,
+        trigger,
+        setValue
     }
 
     return (

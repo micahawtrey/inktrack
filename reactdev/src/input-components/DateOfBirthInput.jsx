@@ -9,7 +9,7 @@ export default function DateOfBirthInput({ props, inputId }) {
             <input {...props.register(inputId, { required: true })}
                 className={`form-control w-50 ${props.errors[inputId] ? "border-danger": ""}`}
                 onBlur={(e) => props.handleInputChange(e)}
-                type="date" id="inputId" placeholder=""/>
+                type="date" id={inputId} placeholder=""/>
                 {props.errors[inputId] && <span className="text-danger">Please provide your date of birth.</span>}
         </div>
     )
