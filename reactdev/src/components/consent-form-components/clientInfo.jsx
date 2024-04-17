@@ -5,6 +5,7 @@ import EmailInput from "../../input-components/EmailInput";
 import AgeInput from "../../input-components/AgeInput";
 import PhoneNumberInput from "../../input-components/PhoneNumberInput";
 import PronounsInput from '../../input-components/PronounsInput';
+import DateOfBirthInput from '../../input-components/DateOfBirthInput';
 
 export default function ClientInfo({ props }) {
     return (
@@ -15,29 +16,7 @@ export default function ClientInfo({ props }) {
             <AgeInput props={props} inputId={"age"} />
             <PhoneNumberInput props={props} inputId={"phone_number"} />
             <PronounsInput props={props} inputId={"preferred_pronouns"} />
-            {/* <div className="mb-3">
-                <label htmlFor="preferred_pronouns" className="form-label mb-1">Preferred pronouns:<span className='text-danger'>*</span></label>
-                <select {...props.register("preferred_pronouns", {required: true})}
-                    className={`form-select w-50 ${props.errors.preferred_pronouns ? "border-danger": ""}`}
-                    onBlur={(e) => props.handleInputChange(e)}
-                    id="preferred_pronouns">
-                    <option value="">--Select your pronouns--</option>
-                    <option value="he/him">he/him</option>
-                    <option value="she/her">she/her</option>
-                    <option value="they/them">they/them</option>
-                    <option value="other">other</option>
-                </select>
-                {props.errors.preferred_pronouns && <span className="text-danger">Please select your preferred pronouns.</span>}
-            </div> */}
-            <div className="mb-3 me-4">
-                <label htmlFor='birth_date' className="mb-1">Date of birth:<span className='text-danger'>*</span></label>
-                <input {...props.register("birth_date", { required: true })}
-                    className={`form-control w-50 ${props.errors.birth_date ? "border-danger": ""}`}
-                    onBlur={(e) => props.handleInputChange(e)}
-                    type="date" id="birth_date" placeholder=""/>
-                    {props.errors.birth_date && <span className="text-danger">Please provide your date of birth.</span>}
-            </div>
-
+            <DateOfBirthInput props={props} inputId={"birth_date"} />
             <div className="mb-1">Address:<span className='text-danger'>*</span></div>
             <div className="row mb-3">
                 <div className="col">
