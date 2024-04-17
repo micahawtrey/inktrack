@@ -11,9 +11,9 @@ export default function PronounsInput({ props, inputId }) {
             <select {...props.register(inputId, {required: true})}
                 className={`form-select w-50 ${props.errors[inputId] ? "border-danger": ""}`}
                 onChange={(e) => {
-                    props.handleInputChange(e)
                     setOther(e.target.value === "other")
                 }}
+                onBlur={(e) => props.handleInputChange(e)}
                 id={inputId}>
                 <option value="">--Select your pronouns--</option>
                 <option value="he/him">he/him</option>

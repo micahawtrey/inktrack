@@ -11,14 +11,14 @@ export default function PhoneNumberInput({ props, inputId }) {
                 control={props.control}
                 name={inputId}
                 rules={{ required: true }}
-                render={( {field: { onChange, onBlur, value } }) => (
+                render={( {field: { onChange, value } }) => (
                     <PhoneInput
                         country={"us"}
                         value={value}
                         countryCodeEditable={false}
                         preferredCountries={["us"]}
                         onChange={onChange}
-                        onBlur={onBlur}
+                        onBlur={(e) => props.handleInputChange(e)}
                         inputProps={{id: inputId }} />
                 )}
             />
