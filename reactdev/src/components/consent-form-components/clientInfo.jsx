@@ -7,6 +7,7 @@ import DateOfBirthInput from "../../input-components/DateOfBirthInput"
 import AddressInput from "../../input-components/AddressInput"
 import TattooDescriptionInput from "../../input-components/TattooDescriptionInput"
 import TattooPlacementInput from "../../input-components/TattooPlacementInput"
+import ConnectionInput from "../../input-components/ConnectionInput"
 
 export default function ClientInfo({ props }) {
     return (
@@ -21,16 +22,7 @@ export default function ClientInfo({ props }) {
             <AddressInput props={props} inputId={"address"} />
             <TattooDescriptionInput props={props} inputId={"tattoo_description"} />
             <TattooPlacementInput props={props} inputId={"tattoo_placement"} />
-            <div className="mb-3">
-                <div className="form-floating">
-                    <input {...props.register("connection", { required: true })}
-                        className={`form-control ${props.errors.connection ? "border-danger": ""}`}
-                        onBlur={(e) => props.handleInputChange(e)}
-                        type="text" id="connection" placeholder="How did you hear about us?" />
-                    <label htmlFor="connection">How did you hear about us?<span className="text-danger">*</span></label>
-                    {props.errors.connection && <span className="text-danger">Please explain how you heard about us.</span>}
-                </div>
-            </div>
+            <ConnectionInput props={props} inputId={"connection"} />
             <div className="d-flex justify-content-end mt-3">
                 <button onClick={(e) => {
                     e.preventDefault()
