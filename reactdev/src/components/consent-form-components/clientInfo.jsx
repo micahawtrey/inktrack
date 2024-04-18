@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import FullNameInput from "../../input-components/FullNameInput"
 import EmailInput from "../../input-components/EmailInput"
 import AgeInput from "../../input-components/AgeInput"
@@ -8,6 +9,7 @@ import AddressInput from "../../input-components/AddressInput"
 import TattooDescriptionInput from "../../input-components/TattooDescriptionInput"
 import TattooPlacementInput from "../../input-components/TattooPlacementInput"
 import ConnectionInput from "../../input-components/ConnectionInput"
+import NavigationButtons from "../../input-components/NavigationButtons"
 
 export default function ClientInfo({ props }) {
     return (
@@ -23,15 +25,16 @@ export default function ClientInfo({ props }) {
             <TattooDescriptionInput props={props} inputId={"tattoo_description"} />
             <TattooPlacementInput props={props} inputId={"tattoo_placement"} />
             <ConnectionInput props={props} inputId={"connection"} />
-            <div className="d-flex justify-content-end mt-3">
-                <button onClick={(e) => {
-                    e.preventDefault()
-                    props.handleBackButton("clientInfo", "idPhotos")}} className="btn btn-danger me-3">Back</button>
-                <button onClick={(event) => {
-                    event.preventDefault();
-                    props.handleNextButton("clientInfo", "preProcedureQuestionnaire");
-                    }} className="btn btn-primary">Next</button>
-            </div>
+            <NavigationButtons
+                props={props}
+                next={"preProcedureQuestionnaire"}
+                back={"idPhotos"}
+                current={"clientInfo"}
+            />
         </div>
     )
+}
+
+ClientInfo.propTypes = {
+    props: PropTypes.object
 }

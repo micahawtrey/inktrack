@@ -12,6 +12,7 @@ export default function PronounsInput({ props, inputId }) {
                 className={`form-select w-50 ${props.errors[inputId] ? "border-danger": ""}`}
                 onChange={(e) => {
                     setOther(e.target.value === "other")
+                    props.setValue(inputId, e.target.value)
                 }}
                 onBlur={(e) => props.handleInputChange(e)}
                 id={inputId}>
