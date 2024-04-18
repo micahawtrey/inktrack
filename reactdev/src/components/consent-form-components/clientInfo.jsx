@@ -2,10 +2,11 @@ import FullNameInput from "../../input-components/FullNameInput"
 import EmailInput from "../../input-components/EmailInput"
 import AgeInput from "../../input-components/AgeInput"
 import PhoneNumberInput from "../../input-components/PhoneNumberInput"
-import PronounsInput from '../../input-components/PronounsInput'
-import DateOfBirthInput from '../../input-components/DateOfBirthInput'
+import PronounsInput from "../../input-components/PronounsInput"
+import DateOfBirthInput from "../../input-components/DateOfBirthInput"
 import AddressInput from "../../input-components/AddressInput"
 import TattooDescriptionInput from "../../input-components/TattooDescriptionInput"
+import TattooPlacementInput from "../../input-components/TattooPlacementInput"
 
 export default function ClientInfo({ props }) {
     return (
@@ -19,16 +20,7 @@ export default function ClientInfo({ props }) {
             <DateOfBirthInput props={props} inputId={"birth_date"} />
             <AddressInput props={props} inputId={"address"} />
             <TattooDescriptionInput props={props} inputId={"tattoo_description"} />
-            <div className="mb-3">
-                <div className="form-floating">
-                    <input {...props.register("tattoo_placement", { required: true })}
-                        className={`form-control ${props.errors.tattoo_placement ? "border-danger": ""}`}
-                        onBlur={(e) => props.handleInputChange(e)}
-                        type="text" id="tattoo_placement" placeholder="Tattoo placement" />
-                    <label htmlFor="tattoo_placement">Tattoo placement<span className="text-danger">*</span></label>
-                    {props.errors.tattoo_placement && <span className="text-danger">Please describe your tattoo placement.</span>}
-                </div>
-            </div>
+            <TattooPlacementInput props={props} inputId={"tattoo_placement"} />
             <div className="mb-3">
                 <div className="form-floating">
                     <input {...props.register("connection", { required: true })}
