@@ -23,11 +23,11 @@ export default function AddressInput({ props, inputId }) {
     }, [setValue, trigger, address, inputId])
 
     return (
-        <div>
+        <div className="mb-4">
             <div className="mb-1">Address:<span className='text-danger'>*</span></div>
             {props.errors[inputId] && <span className="text-danger">Please provide your address.</span>}
             <div className="mb-3">
-                <div className="row mb-2">
+                <div className="row mb-3">
                     <div className="col">
                         <div className="form-floating">
                             <input required
@@ -62,7 +62,7 @@ export default function AddressInput({ props, inputId }) {
                         </div>
                     </div>
                 </div>
-                <div className="row mb-2">
+                <div className="row mb-3">
                     <div className="col">
                         <div className="form-floating">
                             <input required
