@@ -1,10 +1,11 @@
-import FullNameInput from "../../input-components/FullNameInput";
-import EmailInput from "../../input-components/EmailInput";
-import AgeInput from "../../input-components/AgeInput";
-import PhoneNumberInput from "../../input-components/PhoneNumberInput";
-import PronounsInput from '../../input-components/PronounsInput';
-import DateOfBirthInput from '../../input-components/DateOfBirthInput';
-import AddressInput from "../../input-components/AddressInput";
+import FullNameInput from "../../input-components/FullNameInput"
+import EmailInput from "../../input-components/EmailInput"
+import AgeInput from "../../input-components/AgeInput"
+import PhoneNumberInput from "../../input-components/PhoneNumberInput"
+import PronounsInput from '../../input-components/PronounsInput'
+import DateOfBirthInput from '../../input-components/DateOfBirthInput'
+import AddressInput from "../../input-components/AddressInput"
+import TattooDescriptionInput from "../../input-components/TattooDescriptionInput"
 
 export default function ClientInfo({ props }) {
     return (
@@ -17,16 +18,7 @@ export default function ClientInfo({ props }) {
             <PronounsInput props={props} inputId={"preferred_pronouns"} />
             <DateOfBirthInput props={props} inputId={"birth_date"} />
             <AddressInput props={props} inputId={"address"} />
-            <div className="mb-3">
-                <div className="form-floating">
-                    <input {...props.register("tattoo_description", { required: true })}
-                        className={`form-control ${props.errors.tattoo_description ? "border-danger": ""}`}
-                        onBlur={(e) => props.handleInputChange(e)}
-                        type="text" id="tattoo_description" placeholder="Tattoo description"/>
-                    <label htmlFor="tattoo_description">Brief Tattoo Description<span className="text-danger">*</span></label>
-                    {props.errors.tattoo_description && <span className="text-danger">Please describe your tattoo.</span>}
-                </div>
-            </div>
+            <TattooDescriptionInput props={props} inputId={"tattoo_description"} />
             <div className="mb-3">
                 <div className="form-floating">
                     <input {...props.register("tattoo_placement", { required: true })}
